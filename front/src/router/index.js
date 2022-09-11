@@ -1,9 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import profileView from '../views/coordinators/ProfileView.vue'
-import TeacherView from '../views/coordinators/TeachersListView.vue'
-import StudentView from '../views/coordinators/StudentsListView.vue'
-import createUserView from '../views/coordinators/CreateUserView.vue'
-import studentsFollowUpView from '../views/coordinators/ListOfStudentFollowUpView.vue'
+// import TeacherView from '../views/coordinators/TeachersListView.vue'
+// import StudentView from '../views/coordinators/StudentsListView.vue'
+// import createUserView from '../views/coordinators/CreateUserView.vue'
+// import studentsFollowUpView from '../views/coordinators/ListOfStudentFollowUpView.vue'
 
 const routes = [
   {
@@ -12,25 +12,15 @@ const routes = [
     component: profileView
   },
   {
-    path: '/teacher',
-    name: 'teacher',
-    component: TeacherView
+    path: '/about',
+    name: 'about',
+    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
   },
   {
-    path: '/students',
-    name: 'students',
-    component: StudentView
-  },
-  {
-    path: '/studentsFollowUp',
-    name: 'studentsFollowUp',
-    component: studentsFollowUpView
-  },
-  {
-    path: '/createUser',
-    name: 'createUser',
-    component: createUserView
-  },
+    path: '/logout',
+    name: 'logout',
+    component: () => import(/* webpackChunkName: "about" */ '../views/HomeView.vue')
+  }
 ]
 
 const router = createRouter({
