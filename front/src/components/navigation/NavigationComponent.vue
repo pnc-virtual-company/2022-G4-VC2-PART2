@@ -1,14 +1,13 @@
 <template >
-<nav class="px-2 sm:px-4 py-2.5 bg-teal-700 fixed w-10/12 h-28 z-0 top-0 right-0 flex items-center justify-end">
-
+<nav class="px-2 sm:px-4 py-2.5 bg-teal-600 fixed h-28 z-0 top-0 right-0 flex items-center" :class="width && isShowed?width:'w-10/12'">
   <div class="w-1/4 m-4 p-2 flex">
-    <div>
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-12 h-12 hover:hover:bg-emerald-600 p-2 rounded-full">
+    <div class="m-1 w-1/4">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-[60px] h-[60px] hover:hover:bg-white p-2 rounded-full" @click="hiddeRightbar">
          <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
       </svg>
-  </div>
+    </div>
 
-    <div class="flex justify-center items-center" >
+    <div class="flex justify-center items-center text-white w-3/4" >
       <h1>STUDENT FOLLOW UP</h1>
     </div>
   </div>
@@ -38,6 +37,18 @@
 </template>
 <script>
 export default {
-    
+  emits: ['hiddenRightBar'],
+  data(){
+      return {
+        isShowed: false,
+        width: "w-full",
+      }
+  },
+  methods: { 
+    hiddeRightbar(){
+      this.isShowed = !this.isShowed;
+      this.$emit('hiddenRightBar', this.isShowed);
+    }
+  }
 }
 </script>
