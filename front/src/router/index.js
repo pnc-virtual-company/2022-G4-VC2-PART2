@@ -7,6 +7,16 @@ const routes = [
     // component: HomeView
   },
 
+  {
+    path: '/about',
+    name: 'about',
+    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
+  },
+  {
+    path: '/logout',
+    name: 'logout',
+    component: () => import(/* webpackChunkName: "about" */ '../views/HomeView.vue')
+  }
 ]
 
 const router = createRouter({
