@@ -15,7 +15,6 @@
                             class="block border border-grey-light w-full p-3 rounded mb-4"                   
                             placeholder="Last Name" />
                     </div>
-
                     <div class="flex gap-2">
                         <input 
                             type="text"
