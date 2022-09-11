@@ -64,7 +64,6 @@
                             <label for="inline-checked-radio" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Inline checked</label>
                         </div>
                     </div>
-
                     <div class="mt-5 w-full flex justify-center item-center">
                             <button class="bg-blue-500  hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-1/4">Sign Up</button>
                         </div>
