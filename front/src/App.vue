@@ -1,11 +1,27 @@
 <template>
-  <NavbarView />
+    <RightBar v-show ="!isClosed"/>
+    <NavBar @emits-nav="isHidden"/>
+
+    <!-- <UsersView :entandWidth ="isClosed"/> -->
   <router-view />
 </template>
 <script>
-  import  NavbarView from "@/views/NavbarView.vue"
+// import UsersView  from '@/views/UsersView.vue';
+import RightBar from '@/components/navigation/RightBarComponent.vue'
+import NavBar from '@/components/navigation/NavigationComponent.vue'
 export default {
-  components:{ NavbarView }
+  components: { RightBar, NavBar },
+  data(){
+    return {
+        isClosed:false
+    }
+  },
+  methods:{
+    isHidden(value){
+        this.isClosed = value
+      }
+  },
+
 }
 </script>
 <style>
