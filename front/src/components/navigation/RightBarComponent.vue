@@ -10,7 +10,7 @@
 
       <div class="mt-3">
         <!-- Teacher Page-->
-        <div class="bg-gray-400 p-2.5 mt-0.5 flex items-center px-4 duration-300 cursor-pointer hover:bg-white">
+        <div class="bg-gray-400 p-2.5 mt-0.5 flex items-center px-4 duration-300 cursor-pointer hover:bg-white" :class="{'bg-white':isTeacher}" @click="showTeacher">
           <i class="bi bi-house-door-fill">
             <!-- <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
@@ -20,7 +20,7 @@
           <span class="text-[18px] ml-4 text-black self-center text-xl font-semibold whitespace-nowrap dark:text-white">TEACHERS</span>
         </div>
         <!-- STUDENTs Page -->
-        <div class=" bg-gray-400 p-2.5 mt-0.5 flex items-center px-4 duration-300 cursor-pointer  hover:hover:bg-white">
+        <div class=" bg-gray-400 p-2.5 mt-0.5 flex items-center px-4 duration-300 cursor-pointer  hover:hover:bg-white" :class="{'bg-white':isStudent}" @click="showStudent">
           <i >
             <!-- <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
@@ -45,8 +45,23 @@
   </div>
 </template>
 <script>
+import router from '@/router';
+
 export default {
-    
+  inject:['isStudent','isTeacher'],
+  data(){
+    return{
+      
+    }
+  },
+  methods:{
+    showTeacher(){
+      router.push("/teacherList")
+    },
+    showStudent(){
+      router.push("/studentList")
+    }
+  }
 }
 </script>
 <style>

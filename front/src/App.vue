@@ -1,18 +1,14 @@
 <template>
-    <navbar-view/>
-    <CardUserForm/>
+    <!-- <home-view/> -->
+    <router-view></router-view>
 </template>
 
 <script>
-// import signUp from './components/signUp/signUpForm.vue'
-import NavbarView from './views/NavbarView.vue'
-import CardUserForm from '@/views/CardUser/CardUserForm.vue';
+// import HomeView from './views/HomeView.vue'
 export default {
     components: {
-    // signUp
-    NavbarView,
-    CardUserForm
-}
+        // HomeView
+    }
 }
 </script>
 

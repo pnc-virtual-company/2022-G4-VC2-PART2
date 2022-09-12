@@ -1,16 +1,24 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import TeacherList from '../views/TeacherList.vue'
+import StudentList from '../views/StudentList.vue'
+import HomeView from '../views/HomeView.vue'
 
 const routes = [
   {
-    // path: '/',
-    // name: 'home',
-    // component: HomeView
+    path: '/teacherList',
+    name: 'teacherList',
+    component: TeacherList
+  },
+  {
+    path: '/',
+    name: 'HomeView',
+    component: HomeView
   },
 
   {
-    path: '/about',
-    name: 'about',
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
+    path: '/studentList',
+    name: 'studentList',
+    component: StudentList
   },
   {
     path: '/logout',
