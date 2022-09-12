@@ -1,12 +1,13 @@
 <template>
-    <signUp/>
+    <!-- <home-view/> -->
+    <router-view></router-view>
 </template>
 
 <script>
-import signUp from './components/signUp/signUpForm.vue'
+// import HomeView from './views/HomeView.vue'
 export default {
     components: {
-        signUp
+        // HomeView
     }
 }
 </script>
