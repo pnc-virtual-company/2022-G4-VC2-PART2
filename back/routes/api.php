@@ -12,3 +12,5 @@ Route::apiresource('/student', StudentController::class);
 
 Route::get('/getUserBy/{role}',[App\Http\Controllers\UserController::class,'getUserBy']);
 Route::apiResource('batch',BatchController::class);
+
+Route::get('/getTeacherBy/{id}',[App\Http\Controllers\UserController::class,'getTeacherBy']);

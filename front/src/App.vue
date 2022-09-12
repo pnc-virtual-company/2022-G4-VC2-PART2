@@ -1,13 +1,20 @@
 <template>
-  <NavbarView />
-  <router-view />
+    <teachers-list-view/>
+    <StudentsListViewVue/>
 </template>
+
 <script>
-  import  NavbarView from "@/views/NavbarView.vue"
+import StudentsListViewVue from './views/coordinators/StudentsListView.vue';
+import TeachersListView from './views/coordinators/TeachersListView.vue'
 export default {
-  components:{ NavbarView }
+    components: {
+        TeachersListView,
+        StudentsListViewVue
+    }
 }
 </script>
+
+
 <style>
   
 </style>

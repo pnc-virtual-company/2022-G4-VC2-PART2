@@ -15,7 +15,7 @@ return new class extends Migration
             $table->string('if_follow_up');
             $table->string('province');
             $table->string('NGO');
-            $table->string('class');
+            $table->string('student_class');
             $table->integer('year');
             $table->timestamps();
         });

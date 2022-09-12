@@ -37,7 +37,7 @@ class UserController extends Controller
             $student->if_follow_up = 'No';
             $student->province = $request->province;
             $student->NGO = $request->NGO;
-            $student->class = $request->class;
+            $student->student_class = $request->student_class;
             $student->year = $request->year;
             $batchs->batch = $request->year;
             $batchs->save();
@@ -74,7 +74,7 @@ class UserController extends Controller
                 $student->if_follow_up = $request->if_follow_up;
                 $student->province = $request->province;
                 $student->NGO = $request->NGO;
-                $student->class = $request->class;
+                $student->student_class = $request->student_class;
                 $student->year = $request->year;
                 $batchs->batch = $student->year;
                 $batchs->save();
@@ -99,5 +99,10 @@ class UserController extends Controller
     public function getUserBy($role)
     {
         return User::where('role','=', $role)->get();
+    }
+
+    public function getTeacherBy($id)
+    {
+        return User::where([['id',$id],['role','teacher']])->get();
     }
 }

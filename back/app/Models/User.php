@@ -15,6 +15,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(Student::class);
     }
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+    ];
 
 }
 
