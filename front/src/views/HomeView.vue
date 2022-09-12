@@ -1,14 +1,12 @@
 <template>
- <h1>I love Cambodia</h1>
+  <navbar-view/>
 </template>
 
 <script>
-// @ is an alias to /src
-
+import NavbarView from './NavbarView.vue'
 export default {
-
   components: {
-   
+    NavbarView
   }
 }
 </script>
