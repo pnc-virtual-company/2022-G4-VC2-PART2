@@ -2,15 +2,12 @@
       <!-- component -->
       <div class="overflow-x-auto relative shadow-sm bg-gray-100 sm:rounded-lg mt-2 p-2">
 
-        <div class=" pb-4">
-            <div class=" w-fullmt-4 p-2 flex justify-center">
-                <input type="text" id="table-search-users" class="p-3 text-md border-rose-900 dark:border-black w-full shadow-sm" placeholder="Search for users">
-            </div>
-              <button id="dropdownDefault" data-dropdown-toggle="dropdown" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">Dropdown button <svg class="ml-2 w-4 h-4" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
-              <!-- Dropdown menu -->
-            </div>
-
+        <div class="pb-4">
+           <button class="px-4 py-4 bg-green-500 text-white font-extrabold" @click="addUser">
+               Create Student+
+           </button>
         </div>
+
         
         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -64,15 +61,16 @@
     
             </tbody>
         </table>
-    <!-- </div>
-</div> -->
-
-
+     </div>
 
 </template>
 <script>
 export default {
- 
+   methods: {
+    addUser(){
+        return this.$router('')
+    }
+   }
 }
 </script>
 <style>
