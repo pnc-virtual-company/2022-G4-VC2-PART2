@@ -26,55 +26,50 @@
                             placeholder="Email" />
     
                             <input  
-                            v-if="!showStudentForm"
+                           
                             v-model="NGO"
                             type="text"
                             class="block border border-grey-light w-full p-3 rounded mb-4"
                             placeholder="From NGO" />
                     </div>
                     <div class="flex gap-2">
-                        <input 
-                            type="text"
-                            class="block border border-grey-light w-full p-3 rounded mb-4"
-                            placeholder="Password" />
+
     
-                        <input v-if="!showStudentForm"
+                        <input
                             v-model="province"
                             type="text"
                             class="block border border-grey-light w-full p-3 rounded mb-4"
                             name="email"
                             placeholder="Province" />
                     </div>
-                    <div class="flex gap-2" v-if="!showStudentForm">
-                        <select name="batch" class="outline-1 block border border-grey-light w-full p-3 rounded mb-4 text-gray-400" v-model="batch">
-                            <option value="">Batch</option>
+                    <div class="flex gap-2" >
+                        <select v-model="batch" name="batch" class="outline-1 block border border-grey-light w-full p-3 rounded mb-4 text-gray-400"  >
+                            <!-- <option value="">Batch</option> -->
                             <option value="2022">2022</option>
                             <option value="2023">2023</option>
                         </select>
-                        <select v-model="student_class" name="gender"  class="outline-1 block border border-grey-light w-full p-3 rounded mb-4 text-gray-400" >
-                            <option value="">Class</option>
+                        <select v-model="student_class" name=""  class="outline-1 block border border-grey-light w-full p-3 rounded mb-4 text-gray-400" >
                             <option value="A">A</option>
                             <option value="B">B</option>
+                            <option value="2022">2022</option>
                         </select>
                     </div>
-                   <div class="flex w-8/12 justify-between" v-if="!showStudentForm">
+                   <div class="flex w-8/12 justify-between" >
                         <h1>Gender : </h1>
-                        <div class="flex items-center ">
-                            <input id="inline-radio" type="radio" value="" name="inline-radio-group" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                        <div class="flex items-center">
+                            <input id="inline-radio" type="radio" value="M" name="inline-radio-group" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" v-model="gender">
                             <label for="inline-radio" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Male</label>
-                        </div>
-                        <div class="flex items-center ">
-                            <input id="inline-2-radio" type="radio" value="" name="inline-radio-group" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                            <input id="inline-2-radio" type="radio" value="F" name="inline-radio-group" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" v-model="gender">
                             <label for="inline-2-radio" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Female</label>
-                        </div>
-                        <div class="flex items-center mr-4">
-                            <input checked id="inline-checked-radio" type="radio" value="" name="inline-radio-group" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                            <input checked id="inline-checked-radio" type="radio" value="Other" name="inline-radio-group" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" v-model="gender">
                             <label for="inline-checked-radio" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Others</label>
                         </div>
+                        <!-- <div class="flex items-center " >
+                        </div> -->
                     </div>
                     <div class="mt-5 w-full flex justify-evenly item-center">
                             <button  class="bg-gray-500   text-white font-bold py-2 px-4 rounded w-1/4">Cancel</button>
-                            <button style="background-color: rgba(23, 171, 181, 1);" class="  hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-1/4" >Edit</button>
+                            <button @click="studentUpdata" style="background-color: rgba(23, 171, 181, 1);" class="  hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-1/4" >Edit</button>
                         </div>
                 </div>
             </div>
@@ -84,14 +79,14 @@
 <script>
 import axios from "axios"
 
+
 export default ({
-    props:{
-    studens: Array
-  },
+//     props:{
+//     studens: Array
+//   },
     data()
     {
         return {
-            showStudentForm: false,
             email: '',
             first_name: '',
             last_name: '',
@@ -100,26 +95,51 @@ export default ({
             batch: '',
             province: '',
             student_class: '',
-            gender:''            
+            gender: '',
+            img:'',
+            students:[]         
         }
     },
     methods: {
         getStudent(){
             axios.get('http://127.0.0.1:8000/api/student/1').then((res)=>{
-                const studentData = res.data[0].student
-                console.log(studentData);
-                this.NGO = studentData[0].NGO;
-                this.province= studentData[0].province;
-                this.student_class = studentData[0].student_class;
+                this.first_name = (res.data[0].first_name)
+                this.last_name = (res.data[0].last_name)
+                this.gender = (res.data[0].gender)
+                this.email = (res.data[0].email)
+                this.province = (res.data[0].student[0].province)
+                this.NGO = (res.data[0].student[0].NGO)
+                this.batch = (res.data[0].student[0].year)
+                this.student_class = (res.data[0].student[0].student_class)
                
+                console.log(res.data)
+                console.log(res.data[0].student[0].student_class)
             })
         },
         pageUpdata(){
 
-        }
+        },
+        studentUpdata(){
+            const stdList = {
+                email: this.email,
+                first_name: this.first_name,
+                last_name: this.last_name,
+                NGO: this.NGO,
+                student_class: this.student_class,
+                gender: this.gender,
+                year: this.batch,
+                province: this.province,
+                role:'student'
+                // img: this.img.name,
+            };
+            axios.put('http://127.0.0.1:8000/api/user/1', stdList).then((res) => {
+                console.log(res.data);
+            })
+        },
+     
     },
     mounted(){
-        this.getStudent()
+        this.getStudent();
     }
 })
 </script>

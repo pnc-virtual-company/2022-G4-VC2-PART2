@@ -22,7 +22,7 @@ class UserController extends Controller
         $user->first_name = $request->first_name;
         $user->last_name = $request->last_name;
         $user->gender = $request->gender;
-        $user->img = $request->file('img')->store('public/images');
+        $user->img = $request->file('img');
         $user->role = $request->role;
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
@@ -56,37 +56,46 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $user = User::find($id);
-        if($user){
+        if(User::find($id)){
             $user->first_name = $request->first_name;
             $user->last_name = $request->last_name;
             $user->gender = $request->gender;
-            $user->img = $request->file('img')->store('public/images');
+            // if ($request->img != null) {
+            //     // $user->img = $request->file('img')->store('public/storage');
+            //     $path = public_path('images');
+            //     if (!file_exists($path)) {
+            //         mkdir($path, 0777, true);
+            //     }
+            //     $file = $request->file('img');
+            //     $fileName = uniqid() . '_' . trim($file->getClientOriginalName());
+            //     $file->move($path, $fileName);
+            //     $user->img = asset('images/' . $fileName);
+            // }
             $user->role = $request->role;
             $user->email = $request->email;
-            $user->password = bcrypt($request->password);
-            $token = $user->createToken('myTOken')->plainTextToken;
+            // $user->password = bcrypt($request->password);
+            // $token = $user->createToken('myTOken')->plainTextToken;
             if ($request->role == 'student') {
-                $student = new Student();
-                $batchs = new Batch();
+                $student = Student::find($id);
+                $batchs = Batch::find($id);
                 $id = User::latest()->first();
-                $student->batch_id = $id;
-                $student->user_id =$id;
-                $student->if_follow_up = $request->if_follow_up;
+                // $student->batch_id = $id;
+                // $student->user_id =$id;
+                // $student->if_follow_up = $request->if_follow_up;
                 $student->province = $request->province;
                 $student->NGO = $request->NGO;
                 $student->student_class = $request->student_class;
                 $student->year = $request->year;
                 $batchs->batch = $student->year;
-                $batchs->save();
+                $batchs->update();
                 $student->update();
             }
             $user->update();
             return response()->json(['message' => "Updated successfully"]);
         }
-        return response()->json(['message' => "Update failed"]);
+        return response()->json(User::findOrfail($id));
 
     }
-
 
     public function destroy($id)
     {

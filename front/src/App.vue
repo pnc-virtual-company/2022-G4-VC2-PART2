@@ -1,15 +1,16 @@
 <template>
-    <teachers-list-view/>
-    <StudentsListViewVue/>
+    <!-- <home-view/> -->
+    <router-view></router-view>
+
 </template>
 
 <script>
-import StudentsListViewVue from './views/coordinators/StudentsListView.vue';
-import TeachersListView from './views/coordinators/TeachersListView.vue'
+// import HomeView from './views/HomeView.vue'
+
 export default {
     components: {
-        TeachersListView,
-        StudentsListViewVue
+        // HomeView
+      
     }
 }
 </script>
