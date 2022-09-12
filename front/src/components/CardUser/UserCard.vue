@@ -1,16 +1,5 @@
 <template>
-  <div
-    class="
-      w-full
-      px-8
-      m-auto
-      h-screen
-      top-28
-      flex
-      justify-end
-      items-center
-    "
-  >
+  <div class="w-full px-8 m-auto h-screen top-28 flex justify-end items-center">
     <ul class="w-3/4 px-4 divide-y bg-white">
       <div class="overflow-x-auto relative shadow-md sm:rounded-lg">
         <table class="w-full text-sm text-left">
@@ -210,6 +199,7 @@
                 >
                   Delete
                 </button>
+                
               </td>
             </tr>
           </tbody>

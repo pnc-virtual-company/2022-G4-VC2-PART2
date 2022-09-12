@@ -1,19 +1,18 @@
 <template>
-    <navbar-view/>
-    <CardUserForm/>
-
+  <navbar-view />
+  <TestCuser/>
 </template>
 
 <script>
-    import NavbarView from "./NavbarView.vue"
-import CardUserForm from "./CardUser/CardUserForm.vue";
-    export default{
-        provide(){
-            return {isTeacher:true}
-        },
-        components:{
+import NavbarView from "./NavbarView.vue";
+import TestCuser from "@/components/CardUser/TestCuser.vue";
+export default {
+  provide() {
+    return { isTeacher: true };
+  },
+  components: {
     NavbarView,
-    CardUserForm
-}
-    }
+    TestCuser
+},
+};
 </script>
