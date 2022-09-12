@@ -13,7 +13,7 @@
             <img src="../../assets/logo.png" alt="" width="70" height="70">
         </div>
         <div class=" flex items-center m-2">
-          <h1 class="font-extrabold text-white">
+          <h1 class="font-extrabold text-black">
             STUDENT FOLLOW UP
           </h1>
         </div>

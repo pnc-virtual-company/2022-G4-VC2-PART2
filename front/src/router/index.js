@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import HomeView from '../views/HomeView.vue'
 
 const routes = [
   {
@@ -8,9 +9,20 @@ const routes = [
   },
 
   {
-    path: '/users',
-    name: 'users',
-    component: () => import(/* webpackChunkName: "about" */ '../views/UsersView.vue')
+    path: '/teacherList',
+    name: 'teacherList',
+    component:() => import(/* webpackChunkName: "about" */ '../views/UsersView.vue')
+  },
+  {
+    path: '/',
+    name: 'HomeView',
+    component: HomeView
+  },
+
+  {
+    path: '/studentList',
+    name: 'studentList',
+    component: () =>  import(/* webpackChunkName: "about" */ '../views/UsersView.vue')
   },
   {
     path: '/logout',

@@ -4,7 +4,7 @@
 
       <div class="mt-3">
         <!-- Teacher Page-->
-        <div class="bg-gray-400 p-2.5 mt-0.5 flex items-center px-4 duration-300 cursor-pointer hover:bg-white">
+        <div class="bg-gray-400 p-2.5 mt-0.5 flex items-center px-4 duration-300 cursor-pointer hover:bg-white" :class="{'bg-white':isTeacher}" @click="showTeacher">
           <i class="bi bi-house-door-fill">
         
             <img src="../../assets/teacher.png" alt="" width="40" height="40">
@@ -13,7 +13,7 @@
         </div>
         <!-- STUDENTs Page -->
         <div class=" bg-gray-400 p-2.5 mt-0.5 flex items-center px-4 duration-300 cursor-pointer  hover:hover:bg-white">
-          <router-link to="/users" class="flex items-center ">
+          <router-link to="/studentList" class="flex items-center ">
               <i >
                 <img src="../../assets/student.png" alt="" width="40" height="40">
               </i>
@@ -34,6 +34,7 @@
   </div>
 </template>
 <script>
+
 export default {
   data(){
     return {

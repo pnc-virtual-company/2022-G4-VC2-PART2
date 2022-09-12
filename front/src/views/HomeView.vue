@@ -1,14 +1,11 @@
 <template>
- <h1>I love Cambodia</h1>
+   <h2>Love is singular</h2>
 </template>
 
 <script>
-// @ is an alias to /src
-
 export default {
-
   components: {
-   
+ 
   }
 }
 </script>
