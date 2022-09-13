@@ -138,9 +138,9 @@
 // import axios from "axios"
 
 export default {
-      props:{
-        student: Object
-    },
+  props:{
+    users: Object
+},
   data() {
     // return {
     //     email: '',
@@ -176,8 +176,8 @@ export default {
     //         console.log(res.data[0].student[0].student_class)
     //     })
     // },
-    // pageUpdata(){
-    // },
+    pageUpdata(){
+    },
     // studentUpdata(){
     //     const stdList = {
     //         email: this.email,
@@ -188,13 +188,11 @@ export default {
     //         gender: this.gender,
     //         year: this.batch,
     //         province: this.province,
-    //         role:'student'
-    //         // img: this.img.name,
+    //         role:'student' // img: this.img.name,
     //     };
-    //     axios.put('http://127.0.0.1:8000/api/user/1', stdList).then((res) => {
-    //         console.log(res.data);
-    //     })
+        
     // },
+    
     toggleModal() {
       this.shosModal = !this.shosModal;
     },
