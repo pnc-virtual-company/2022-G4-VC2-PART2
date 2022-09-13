@@ -1,7 +1,7 @@
 <template>
     <section>
       <RightBar v-show ="!isClosed"/>
-    <NavBar @emits-nav="isHidden"/> 
+      <NavBar @emits-nav="isHidden"/> 
     </section>
   <router-view />
 </template>
@@ -27,8 +27,8 @@ export default {
   @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
   
   :root {
-    --main-color: #750579;
-    --main-color-light: #e21ee9;
+    --main-color: #004581;
+    --main-color-light: #018ABD;
   }
   
   * {
@@ -42,9 +42,5 @@ export default {
   body {
     margin: 0;
   }
-  
-  .right-main-button {
-    float: right;
-    margin-right: 2rem;
-  }
+
   </style>
