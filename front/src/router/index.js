@@ -32,7 +32,7 @@ const routes = [
   {
     path: '/profiles',
     name: 'profiels',
-    component: () => import('@/components/profiles/ProfileComponent.vue')
+    component: () => import('@/components/signUp/signUpForm.vue')
   },
   {
     path: '/signup',

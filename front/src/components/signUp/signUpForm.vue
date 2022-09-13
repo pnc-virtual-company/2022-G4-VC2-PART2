@@ -1,115 +1,123 @@
 <template>
-    <!-- component -->
-    <teleport to='body'>
-        <div class="bg-grey-lighter flex justify-center items-center w-8/12 m-auto mt-48 z-50 rounded-md">
-               <div class="container w-9/12 flex items-center justify-center px-2 rounded-md drop-shadow-md ">
-                <div class="bg-white px-6 py-8 text-black w-full -mt-10" >
-                <h1 class="mb-10 underline underline-offset-8 text-3xl text-center" style="color: rgba(23, 171, 181, 1);">Register Student</h1>
-                <div class="flex gap-2">
+    <div class=" flex justify-end item-center w-9/12 m-auto z-500">
+        <div class="container w-8/12 flex items-center justify-center">
+            <div class="bg-white py-4 px-4 text-black w-full rounded-md shadow-md">
+                <h1 class="mb-10 underline underline-offset-8 text-3xl text-center" style="color: rgba(23, 171, 181, 1); font-weight: bold;;">Create Student</h1>
+                  <div class="flex gap-2">
                     <div class=" w-full mb-2">
+                        <span class="text-gray-500">Last Name</span>
                         <input 
                             v-model="first_name"
-                            type="email"
-                            class="block border border-grey-light w-full p-3 rounded"
-                            placeholder="Frist Name" />
+                            type="text"
+                            class="block border border-grey-light w-full p-2 rounded"
+                        />
                             <alertForm v-if='first_name =="" '  :psw="checkOutSidePSWField(first_name)" />
                     </div>
                     <div class="w-full">
+                        <span class="text-gray-500">First Name</span>
                         <input  
-                        v-model="last_name"
-                        type="email"
-                        class="block border border-grey-light w-full p-3 rounded "
-                        placeholder="Last Name" />
+                            v-model="last_name"
+                            type="text"
+                            class="block border border-grey-light w-full p-2 rounded "
+                        />
                         <alertForm  v-if="last_name =='' " :psw="checkOutSidePSWField(last_name)" />
                     </div>
                 </div>
+
                 <div class="flex mb-2 gap-2">
                     <div class=" w-full ">
+                        <span class="text-gray-500">Email</span>
                         <input 
                             v-model="email"
                             type="email"
-                            class="block border border-grey-light w-full p-3 rounded"
-                            placeholder="Example@gmail.com" />
+                            class="block border border-grey-light w-full p-2 rounded"
+                        />
                             <alertForm  v-if="email =='' " :psw="validateEmail(email)"  />
                     </div>
                     <div class="w-full">
+                        <span class="text-gray-500">From NGO</span>
                         <input  
-                        v-if="!showStudentForm"
-                        v-model="NGO"
-                        type="email"
-                        class="block border border-grey-light w-full p-3 rounded"
-                        placeholder="From NGO"  />
+                            v-if="!showStudentForm"
+                            v-model="NGO"
+                            type="text"
+                            class="block border border-grey-light w-full p-2 rounded"
+                        />
                         <alertForm v-if="NGO =='' " :psw="checkOutSidePSWField(NGO)" required />
                     </div>
                 </div>
-                <div class="flex mb-2">
-                    <div class="w-full flex gap-2">
-                        <div class=" w-full ">
-                        <input 
-                            v-model="password"
-                            type="email"
-                            class="block border border-grey-light w-full p-3 rounded"
-                            placeholder="Password" />
-                            <alertForm v-if="password.length<8 " :psw="checkPassword(password)" />
-                    </div>
-                    <div class="w-full">
-                        <input  
+
+            <div class="flex mb-2">
+                <div class="w-full flex gap-2">
+                    <div class=" w-full ">
+                        <span class="text-gray-500">Passsword</span>
+                    <input 
+                        v-model="password"
+                        type="email"
+                        class="block border border-grey-light w-full p-2 rounded"
+                    />
+                        <alertForm v-if="password.length<8 " :psw="checkPassword(password)" />
+                </div>
+                <div class="w-full">
+                    <span class="text-gray-500">From Province</span>
+                    <input  
                         v-if="!showStudentForm"
                         v-model="province"
                         type="email"
-                        class="block border border-grey-light w-full p-3 rounded "
-                        placeholder="From Province" />
-                        <alertForm v-if="province =='' " :psw="checkPassword(province)" />
-                    </div>
-                    </div>
+                        class="block border border-grey-light w-full p-2 rounded "
+                    />
+                    <alertForm v-if="province =='' " :psw="checkPassword(province)" />
                 </div>
-                <div class="flex gap-2 mb-5" v-if="!showStudentForm">
-                    <div class="w-full" >
-                        <select   class="outline-1 block border border-grey-light w-full p-3 rounded text-gray-400" v-model="batch" >
-                            <option value="">Batch*</option>
-                            <option value="2022">2022</option>
-                            <option value="2023">2023</option>
-                        </select>
-                        <alertForm v-if="batch =='' " :psw="checkPassword(batch)" />
-                    </div>
-                    <div class="w-full">
-                        <select v-model="student_class"  class="outline-1 block border border-grey-light w-full p-3 rounded text-gray-400">
-                            <option value="">Class*</option>
-                            <option value="A">A</option>
-                            <option value="B">B</option>
-                        </select>
-                        <alertForm v-if="student_class =='' " :psw="checkPassword(student_class)"/>
-                    </div>
-                </div>
-            <div class="flex w-8/12 justify-between mt-3" v-if="!showStudentForm">
-                    <h1>Gender : </h1>
-                    <div class="flex items-center ">
-                        <input  id="inline-radio" type="radio" value="male" name="inline-radio-group" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" v-model="sex">
-                        <label for="inline-radio" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Male</label>
-                    </div>
-                    <div class="flex items-center ">
-                        <input  id="inline-2-radio" type="radio" value="female" name="inline-radio-group" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" v-model="sex">
-                        <label for="inline-2-radio" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Female</label>
-                    </div>
-                    <div class="flex items-center mr-4">
-                        <input  checked id="inline-checked-radio" type="radio" value="others" name="inline-radio-group" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" v-model="sex">
-                        <label for="inline-checked-radio" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Others</label>
-                    </div>     
-                </div>
-                <div class="mt-5 w-full flex justify-evenly item-center">
-                        <button  class="bg-gray-500   text-white font-bold py-2 px-4 rounded w-1/4">Cancel</button>
-                        <button @click="signUP()" style="background-color: rgba(23, 171, 181, 1);" class="  hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-1/4" >Sign Up</button>
-                    </div>
-                </div>
-                </div>  
             </div>
-    </teleport>
-</template>
+            </div>
 
+            <div class="flex gap-2 mb-5" v-if="!showStudentForm">
+                <div class="w-full" >
+                    <span class="text-gray-500">Batch*</span>
+                    <select   class="outline-1 block border border-grey-light w-full p-2 rounded text-gray-400" v-model="batch" >
+                        <option value="2022">2022</option>
+                        <option value="2023">2023</option>
+                    </select>
+                    <alertForm v-if="batch =='' " :psw="checkPassword(batch)" />
+                </div>
+                <div class="w-full">
+                    <span class="text-gray-500">Class*</span>
+                    <select v-model="student_class"  class="outline-1 block border border-grey-light w-full p-2 rounded text-gray-400">
+                        <option value="A">A</option>
+                        <option value="B">B</option>
+                    </select>
+                    <alertForm v-if="student_class =='' " :psw="checkPassword(student_class)"/>
+                </div>
+            </div>
+
+        <div class="flex w-8/12 justify-between mt-3" v-if="!showStudentForm">
+                <h1>Gender : </h1>
+                <div class="flex items-center ">
+                    <input  id="inline-radio" type="radio" value="male" name="inline-radio-group" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" v-model="sex">
+                    <label for="inline-radio" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Male</label>
+                </div>
+                <div class="flex items-center ">
+                    <input  id="inline-2-radio" type="radio" value="female" name="inline-radio-group" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" v-model="sex">
+                    <label for="inline-2-radio" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Female</label>
+                </div>
+                <div class="flex items-center mr-4">
+                    <input  checked id="inline-checked-radio" type="radio" value="others" name="inline-radio-group" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" v-model="sex">
+                    <label for="inline-checked-radio" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Others</label>
+                </div>     
+            </div>
+            <div class="mt-5 w-full flex justify-evenly item-center">
+                    <button  class="bg-gray-500   text-white font-bold py-2 px-4 rounded w-1/4" @click="($emit('close', false))">Cancel</button>
+                    <button @click="($emit('close', false))" style="background-color: rgba(23, 171, 181, 1);" class="  hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-1/4" >Sign Up</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
 <script>
 import alertForm from "../alertForm/alert_form";
-import axios from 'axios'
+import axios from 'axios';
+const Swal = require('sweetalert2')
 export default ({
+emits:['close'],
     components: {
         alertForm,
     },
@@ -161,12 +169,23 @@ export default ({
                 this.province,
             ]
             this.ifAllfiedInput = std.every(this.checkForm);
-            if (this.ifAllfiedInput) {
-                axios.post('http://localhost:8000/api/user/', stdList).catch((error) => {
+            if (this.ifAllfiedInput && this.email.search('@') > 0) {
+                axios.post('http://localhost:8000/api/user/', stdList).then(() => {
+                    Swal.fire({
+                        icon: 'success',
+                        text: 'User Created',
+                    })
+                }).catch((error) => {
                         console.log(error.response.data);
                 })
             } else {
-                alert("Please input field first !")
+                this.email = ''
+                this.first_name= ''
+                this.last_name = ''
+                this.NGO = ''
+                this.batch = ''
+                this.province = ''
+                this.student_class = ''
             }
             
         },
@@ -190,24 +209,11 @@ export default ({
             }
         },
          validateEmail(email) {
-             if (email.search('@') <= 0) {
+             if (email.search('@') == -1) {
                 return "Email is required !"
             }
         }
        
-        // UPLOAD IMAGES
-        // onUpload(image) {
-        //         const fd = new FormData();
-        //         fd.append('image', image)
-        //         fd.append('_method', 'PUT')
-
-        //         axios.post('/upload/' + localStorage.getItem("id"), fd).then(() => {
-        //             console.log(' Successfully uploaded')
-        //     })
-            // setTimeout(function(){
-            //     window.location.reload();
-            // }, 1000);
          }
-    //  },
 })
 </script>

@@ -1,11 +1,13 @@
-<template>
+<!-- <template>
   <navbar-view />
   <TestCuser/>
+  <updateTeacher/>
 </template>
 
 <script>
-import NavbarView from "./NavbarView.vue";
+// import NavbarView from "./NavbarView.vue";
 import TestCuser from "@/components/CardUser/TestCuser.vue";
+// import updateTeacher from "@/components/teachers/UpdateTeacher.vue"
 export default {
   provide() {
     return { isTeacher: true };
@@ -15,4 +17,4 @@ export default {
     TestCuser
 },
 };
-</script>
+</script> -->

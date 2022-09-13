@@ -17,20 +17,20 @@ class StudentController extends Controller
 
     public function store(Request $request)
     {
-        //
+        
     }
 
 
     public function show( $id)
     {
-        return User::where(['student.id',$id])->get();
+        return User::with(['student'])->where('id',$id)->get();
 
     }
 
 
     public function update(Request $request, Student $student)
     {
-        //
+        
     }
 
 

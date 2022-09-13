@@ -18,4 +18,8 @@ class Student extends Model
     {
         return $this->belongsTo(Batch::class);
     }
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+    ];
 }
