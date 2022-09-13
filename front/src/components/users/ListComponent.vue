@@ -32,7 +32,7 @@
     <div v-if="showModal || openDialog" class="opacity-30 fixed inset-0 z-40 bg-black"></div>
     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
       <thead
-        class="text-xs text-gray-700 uppercase bg-blue-300 dark:bg-gray-700 dark:text-gray-400"
+        class="text-xs text-gray-700 uppercase bg-[#018ABD] dark:bg-gray-700 dark:text-gray-400"
       >
         <tr>
           <th scope="col" class="py-3 px-6 text-center">Name</th>

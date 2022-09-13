@@ -1,5 +1,5 @@
 <template >
-<div class="flex px-2 sm:px-4 py-2.5 bg-teal-600 fixed h-18 z-0 top-0 right-0 items-center justify-between w-full drop-shadow-xl">
+<div class="flex px-4 py-3 sm:px-4 fixed h-18 z-0 top-0 right-0 items-center justify-between w-full drop-shadow-xl" style="background:var(--main-color)">
   <!-- LEFT NAV LOGO MENU TEXT -->
   <div class="w-3/12 flex justify-center">
     <div class="w-1/3 flex justify-center items-center ...">
@@ -9,14 +9,14 @@
     </div>
 
     <div class="flex-1 w-3/4 flex justify-start ...">
-        <div class=" flex items-center m-2">
+        <div class=" flex items-center m-2 text-white">
             STUDENT FOLLOW UP
         </div>
     </div>
   </div>
  <!-- RIGHT NAV PROFILE AND LOGOUT -->
   <div class="flex w-8/12 justify-end items-center ...  ">
-     <div class="flex justify-center m-2">
+     <div class="flex justify-center m-2 text-white">
            Veang Kroh
      </div>
   </div>
