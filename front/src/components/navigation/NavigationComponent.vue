@@ -17,9 +17,10 @@
     <div class="flex items-center justify-end md:order-2">
       <a href="#" class="flex items-center">
         <i class="p-0.5">
-          <img src="https://data.whicdn.com/images/336359929/original.jpg" alt="" width="70" height="70" class="rounded-full mx-2 border-red-600">
+          <img src="@/assets/savert.jpg" alt="" width="70" height="70" class="rounded-full mx-2 border-red-600">
         </i>
-        <span class="self-center text-xl font-semibold whitespace-nowrap text-white">Veang Kroh</span>
+        <span class="self-center text-xl font-semibold whitespace-nowrap text-white">Samoul-Vann
+        </span>
       </a>
     </div>
 

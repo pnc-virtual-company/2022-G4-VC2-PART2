@@ -45,8 +45,6 @@ class UserController extends Controller
         }
         return response()->json(['message' => "Created successfully"]);
     }
-
-
     public function show($id)
     {
         return User::with(['student'])->where('id', $id)->get();
