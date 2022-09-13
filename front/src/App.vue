@@ -1,16 +1,15 @@
 <template>
-    <RightBar v-show ="!isClosed"/>
-    <NavBar @emits-nav="isHidden"/>
-
-    <!-- <UsersView :entandWidth ="isClosed"/> -->
+    <section>
+      <RightBar v-show ="!isClosed"/>
+    <NavBar @emits-nav="isHidden"/> 
+    </section>
   <router-view />
 </template>
 <script>
-// import UsersView  from '@/views/UsersView.vue';
 import RightBar from '@/components/navigation/RightBarComponent.vue'
 import NavBar from '@/components/navigation/NavigationComponent.vue'
 export default {
-  components: { RightBar, NavBar },
+  components: {RightBar, NavBar },
   data(){
     return {
         isClosed:false
@@ -25,8 +24,27 @@ export default {
 }
 </script>
 <style>
-  *{
-    margin: 0;
-    padding: 0;
+  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+  
+  :root {
+    --main-color: #750579;
+    --main-color-light: #e21ee9;
   }
-</style>
+  
+  * {
+    box-sizing: border-box;
+  }
+  
+  html {
+    font-family: 'Roboto', sans-serif;
+  }
+  
+  body {
+    margin: 0;
+  }
+  
+  .right-main-button {
+    float: right;
+    margin-right: 2rem;
+  }
+  </style>

@@ -34,6 +34,11 @@ const routes = [
     name: 'profiels',
     component: () => import('@/components/profiles/ProfileComponent.vue')
   },
+  {
+    path: '/signup',
+    name: 'signup',
+    component: () => import('@/components/users/CardUser/UserCard.vue')
+  },
 ]
 
 const router = createRouter({
