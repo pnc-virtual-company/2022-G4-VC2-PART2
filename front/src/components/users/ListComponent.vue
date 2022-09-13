@@ -105,8 +105,9 @@ export default {
   methods: {
     getAllStudent()
     {
-      axios.get("http://localhost:8000/api/student").then((res) => {
+      axios.get("http://127.0.0.1:8000/api/getUserBy/student").then((res) => {
           this.users = res.data
+          console.log(this.users);
       })
     },
 

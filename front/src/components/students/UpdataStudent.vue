@@ -160,7 +160,6 @@
 </template>
 
 <script>
-import axios from "axios"
 import alertForm from '../alertForm/alert_form.vue'
 
 export default {
@@ -187,12 +186,6 @@ export default {
 
   },
   methods: {
-    getStudent() {
-      axios.get('http://127.0.0.1:8000/api/student/1').then(() => {
-
-      })
-    },
-
     studentUpdate() {
       const student = {
           email: this.email,

@@ -115,7 +115,11 @@ class UserController extends Controller
 
     public function getUserBy($role)
     {
-        return User::where('role','=', $role)->get();
+        if(strtoupper($role) == 'STUDENT'){
+            return User::with(['student'])->where('role','=', $role)->get();
+        }else{
+            return User::where('role','=', $role)->get();
+        }
     }
 
     public function updateImage(Request $request, $id)
