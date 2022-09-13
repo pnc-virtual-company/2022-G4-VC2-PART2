@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Student;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class StudentController extends Controller
@@ -11,13 +12,13 @@ class StudentController extends Controller
 
     public function index()
     {
-        //
+        return User::with(['student'])->get();
     }
 
 
     public function store(Request $request)
     {
-        
+        //
     }
 
 
@@ -30,7 +31,7 @@ class StudentController extends Controller
 
     public function update(Request $request, Student $student)
     {
-        
+        //
     }
 
 
@@ -38,4 +39,21 @@ class StudentController extends Controller
     {
         //
     }
+
+    public function filterStudentByBatch($batch)
+    {
+        return Student::with(['User'])->where('year',$batch)->get();
+    }
+
+    public function filterStudentByClass($class)
+    {
+        return Student::with(['User'])->where('class', strtoupper($class))->get();
+    }
+
+    public function filterStudentByMajor($major)
+    {
+        return Student::with(['User'])->where('class', 'LIKE', '%' . $major . '%')->get();
+    }
+
+
 }

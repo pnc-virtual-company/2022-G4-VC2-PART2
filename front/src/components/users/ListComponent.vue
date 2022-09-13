@@ -5,7 +5,7 @@
   >
     <div class="pb-4">
       <button
-        class="px-4 py-4 bg-green-500 text-white font-extrabold"
+        class="px-4 py-4 bg-green-500 text-white font-bold"
         @click="addUser"
       >
         Create Student+
@@ -18,7 +18,11 @@
       class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex"
     >
       <div class="form-container shadow-md rounded w-4/5">
-        <updateStudent @cancel="onCancel" @onCancel="editStudent" :users="users"></updateStudent>
+        <updateStudent 
+            @update_student="editStudent($event)" 
+            @cancel="onCancel" 
+            :users="dataToUpdate">
+        </updateStudent>
       </div>
     </div>
 
@@ -45,41 +49,30 @@
       <tbody>
         <tr 
           v-for="item of users" :key="item"
-          class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+          class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 cursor-pointer"
         >
-          <th
-            scope="row"
-            class="flex items-center py-4 px-6 text-gray-900 whitespace-nowrap dark:text-white"
-          >
-            <img
-              class="w-10 h-10 rounded-full "
-              :src="item.img"
-              alt="Jese image"
-            />
-            <div class="pl-3">
-              <div class="text-base font-semibold">{{ item.name }}</div>
-            </div>
-          </th>
-          
-          <td class="py-4 px-6 text-center">{{ item.batch }}</td>
-          
+          <td class="text-center">
+            {{ item.first_name }} {{item.last_name}} 
+          </td>          
           <td class="py-4 px-6 text-center">
-
-              {{ item.class }}
-   
+            {{  item.student[0].year }}
+          </td>
+          <td class="py-4 px-6 text-center">
+              {{ item.student[0].class }}
           </td>
 
           <td class="flex items-center  py-4 px-6 justify-center">
               <button
                 class="font-medium text-blue-600 dark:text-blue-500 hover:underline mx-4"
-                v-on:click="toggleModal()"
+                :id="item.id"
+                @click="toggleModal(item.id)"
               >
                 Edit
               </button>
 
               <button
                 class="font-medium text-blue-600 dark:text-blue-500 hover:underline mx-4"
-                  v-on:click="deleteUser(item.id)"
+                  @click="deleteUser(item.id)"
                 >
                   Delete
               </button>
@@ -93,8 +86,10 @@
 <script>
 
 import updateStudent from "../students/UpdataStudent.vue";
+import axios from "axios"
 import RegisterForm from '@/components/signUp/signUpForm.vue'
 export default {
+  // emits:['update_student'],
     components: {
         updateStudent, RegisterForm
     },
@@ -102,49 +97,59 @@ export default {
         return {
             openDialog: false,
             showModal: false,
-            users: [
-              {id:1,name: "Veang Kroh", batch:2022, class:'2022-A',img:'https://media.istockphoto.com/photos/tawny-owl-facing-forward-in-colourful-woodland-flowers-including-and-picture-id1380506564?b=1&k=20&m=1380506564&s=170667a&w=0&h=y7pGWLJPRjSdNlGLffuFjk5DzrA7lU1CXbJeWyHyn1c='},
-              {id:2,name: "Kim Hak", batch:2022, class:'2022-A',img:'https://media.istockphoto.com/photos/we-herd-you-were-looking-for-some-magnificent-cattle-picture-id1303666715?b=1&k=20&m=1303666715&s=170667a&w=0&h=mOQcfUp6wdVwwVtoigfMQZHLGv4RWUzm_5PKvZc58go='},
-              {id:3,name: "Thun Dyna", batch:2023, class:'2022-A',img:'https://media.istockphoto.com/photos/tawny-owl-facing-forward-in-colourful-woodland-flowers-including-and-picture-id1380506564?b=1&k=20&m=1380506564&s=170667a&w=0&h=y7pGWLJPRjSdNlGLffuFjk5DzrA7lU1CXbJeWyHyn1c='},
-              {id:4,name: "Bo SreyPich", batch:2023, class:'2022-SNA',img:'https://media.istockphoto.com/photos/we-herd-you-were-looking-for-some-magnificent-cattle-picture-id1303666715?b=1&k=20&m=1303666715&s=170667a&w=0&h=mOQcfUp6wdVwwVtoigfMQZHLGv4RWUzm_5PKvZc58go='},
-            ],
+            users: [],
+            dataToUpdate: [],
+            userID:null,
         }
     },
   methods: {
+    getAllStudent()
+    {
+      axios.get("http://localhost:8000/api/student").then((res) => {
+          this.users = res.data
+      })
+    },
 
     addUser() {
         this.openDialog = !this.openDialog;
         console.log("running")
     },
 
-    toggleModal: function () {
-      this.showModal = !this.showModal;
-      console.log("hello");
+    toggleModal: function (id) {
+      this.userID = id;
+      axios.get("http://localhost:8000/api/user/"+id).then((res) => {
+          this.dataToUpdate = res.data
+          this.showModal = !this.showModal;
+      })
     },
     onCancel(isShow){
         this.showModal = isShow
     },
-    editStudent(isShow,student,id){
-        this.showModal = isShow;
-        console.log(student)
-        console.log(id)
+    editStudent(data) {
+        axios.put('http://localhost:8000/api/user/' +this.userID,data).then(() => {
+          this.getAllStudent();
+          this.showModal = !this.showModal;
+      })
     },
     onCancelCreated(isShow){
         this.openDialog = isShow
     },
-    createStudent(isShow){
+    createStudent(isShow){                        
         this.openDialog = isShow;
     },
     deleteUser(id){
-      for(var i = 0; i < this.users.length; i++){
-        if(this.users[i].id == id){
-          this.users.splice(i,1)
-          console.log(console.log('Succesfull'))
-        }
-      }
+      axios.delete('http://localhost:8000/api/user/' + id).then(() => {
+          this.getAllStudent();
+      })
     }
 
   },
+  mounted() {
+    this.getAllStudent()
+  }
 };
 </script>
-<style></style>
+
+<style>
+
+</style>
