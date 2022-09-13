@@ -1,11 +1,13 @@
 <template>
-   <h2>Love is singular</h2>
+  <h1>profile</h1>
 </template>
 
 <script>
 export default {
-  components: {
- 
-  }
+
 }
 </script>
+
+<style>
+
+</style>

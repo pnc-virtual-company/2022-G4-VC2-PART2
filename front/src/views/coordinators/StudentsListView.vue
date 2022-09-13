@@ -1,11 +1,14 @@
 <template>
-   <h2>Love is singular</h2>
+  <h1>helo</h1>
 </template>
 
 <script>
+
 export default {
-  components: {
- 
-  }
+
 }
 </script>
+
+<style>
+
+</style>

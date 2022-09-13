@@ -1,5 +1,9 @@
 @tailwind base;
+<<<<<<< HEAD
 
 @tailwind components;
 
+=======
+@tailwind components;
+>>>>>>> UserManagement
 @tailwind utilities;

@@ -1,30 +1,46 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view/>
+    <section>
+      <RightBar v-show ="!isClosed"/>
+      <NavBar @emits-nav="isHidden"/> 
+    </section>
+  <router-view />
 </template>
+<script>
+import RightBar from '@/components/navigation/RightBarComponent.vue'
+import NavBar from '@/components/navigation/NavigationComponent.vue'
+export default {
+  components: {RightBar, NavBar },
+  data(){
+    return {
+        isClosed:false
+    }
+  },
+  methods:{
+    isHidden(value){
+        this.isClosed = value
+      }
+  },
 
+}
+</script>
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+  
+  :root {
+    --main-color: #004581;
+    --main-color-light: #018ABD;
+  }
+  
+  * {
+    box-sizing: border-box;
+  }
+  
+  html {
+    font-family: 'Roboto', sans-serif;
+  }
+  
+  body {
+    margin: 0;
+  }
 
-nav {
-  padding: 30px;
-}
-
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-nav a.router-link-exact-active {
-  color: #42b983;
-}
-</style>
+  </style>
