@@ -1,6 +1,6 @@
 <template>
       <!-- component -->
-      <div class="overflow-x-auto relative shadow-sm bg-gray-100 sm:rounded-lg mt-2 p-2">
+      <div class="overflow-x-auto relative shadow-sm bg-gray-100 sm:rounded-lg mt-2 p-2 z-0" >
 
         <div class="pb-4">
            <button class="px-4 py-4 bg-green-500 text-white font-extrabold" @click="addUser">
@@ -66,9 +66,17 @@
 </template>
 <script>
 export default {
+    emits: ['close'],
+    data(){
+        return {
+            isOpen: false,
+        }
+    },
    methods: {
     addUser(){
-        return this.$router('')
+        this.isOpen = !this.isOpen;
+        this.$emit('close', true);
+        // return this.$router.replace({name: "signup"})
     }
    }
 }

@@ -1,5 +1,5 @@
 <template>
-  <div class="sidebar fixed top-24 bottom-0 lg:left-0 left-[-300px] duration-1000 w-[300px] overflow-auto text-center bg-teal-600 h-screen z-30 mt-0.5" >
+  <div class="sidebar fixed top-24 bottom-0 lg:left-0 left-[-300px] duration-1000 w-[300px] overflow-auto text-center bg-teal-600 h-screen z-10 mt-0.5" >
     <div class="text-gray-100 text-xl">
 
       <div class="mt-3">

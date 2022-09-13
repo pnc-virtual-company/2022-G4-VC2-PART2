@@ -1,5 +1,5 @@
 <template >
-<div class="flex px-2 sm:px-4 py-2.5 bg-white fixed h-24 z-0 top-0 right-0 items-center justify-end w-full drop-shadow-xl">
+<div class="flex px-2 sm:px-4 py-2.5 bg-teal-600 fixed h-24 z-0 top-0 right-0 items-center justify-end w-full drop-shadow-xl">
   <!-- LEFT NAV LOGO MENU TEXT -->
   <div class="w-4/12 flex justify-between">
     <div class="w-1/3 flex justify-center items-center ...">
