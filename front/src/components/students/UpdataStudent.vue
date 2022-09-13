@@ -1,146 +1,4 @@
 <template>
-  <form class="px-5 pt-6 mb-4" @submit.prevent="onSubmit">
-    <div class="input-group grid grid-cols-2 text-left">
-      <div class="mb-3 px-2 w-full">
-        <label class="block mb-1 text-sm" for="input1">First Name</label>
-        <input
-          id="input1"
-          class="w-full border px-4 py-1 focus:border-blue-500 focus:shadow-outline outline-none rounded"
-          type="text"
-          autofocus
-          placeholder="First Name"
-          v-model="first_name"
-          @keyup="first_name_validated()"
-        />
-        <error-message v-if="is_first_name == false"
-          >*First Name is required</error-message
-        >
-      </div>
-      <div class="mb-3 px-2 w-full">
-        <label class="block mb-1 text-sm" for="input1">Last Name</label>
-        <input
-          id="input1"
-          class="w-full border px-4 py-1 focus:border-blue-500 focus:shadow-outline outline-none rounded"
-          type="text"
-          autofocus
-          placeholder="Last Name"
-          v-model="last_name"
-          @keyup="last_name_validated()"
-        />
-        <error-message v-if="is_last_name == false"
-          >*Last Name is required</error-message
-        >
-      </div>
-      <div class="mb-3 px-2 w-full">
-        <label class="block mb-1 text-sm" for="input1">Gender</label>
-        <div class="relative">
-          <select
-            class="w-full border px-4 pr-8 py-1 focus:border-blue-500 focus:shadow-outline outline-none appearance-none text-slate-500 rounded"
-            id="select-item"
-            v-model="gender"
-            @click="gender_validated()"
-          >
-            <option selected disabled>Gender</option>
-            <option value="M" class="text-black">Male</option>
-            <option value="F" class="text-black">Female</option>
-          </select>
-          <div
-            class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
-          >
-            <svg
-              class="fill-current h-4 w-4"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 20 20"
-            >
-              <path
-                d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
-              />
-            </svg>
-          </div>
-        </div>
-        <error-message v-if="is_gender == false"
-          >*Gender is required</error-message
-        >
-      </div>
-      <div class="mb-3 px-2 w-full">
-        <label class="block mb-1 text-sm" for="input1">Batch</label>
-        <div class="relative">
-          <select
-            class="w-full border px-4 pr-8 py-1 focus:border-blue-500 focus:shadow-outline outline-none appearance-none text-slate-500 rounded"
-            id="select-item"
-            v-model="batch"
-            @click="batch_validated()"
-          >
-            <option selected disabled>Batch</option>
-            <option value="2023-WEB-A" class="text-black">2023-WEB-A</option>
-            <option value="2023-WEB-B" class="text-black">2023-WEB-B</option>
-            <option value="2023-SNA" class="text-black">2023-SNA</option>
-          </select>
-          <div
-            class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
-          >
-            <svg
-              class="fill-current h-4 w-4"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 20 20"
-            >
-              <path
-                d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
-              />
-            </svg>
-          </div>
-        </div>
-        <error-message v-if="is_batch == false"
-          >*Batch is required</error-message
-        >
-      </div>
-      <div class="mb-3 px-2 w-full">
-        <label class="block mb-1 text-sm" for="input1">Email</label>
-        <input
-          id="input1"
-          class="w-full border px-4 py-1 focus:border-blue-500 focus:shadow-outline outline-none rounded"
-          type="text"
-          autofocus
-          placeholder="Email"
-          v-model="email"
-          @keyup="email_validated()"
-        />
-        <error-message v-if="!is_mail">*PNC Email is required</error-message>
-      </div>
-      <div class="mb-3 px-2 w-full">
-        <label class="block mb-1 text-sm" for="input1">Phone Number</label>
-        <input
-          id="input1"
-          class="w-full border px-4 py-1 focus:border-blue-500 focus:shadow-outline outline-none rounded"
-          type="text"
-          autofocus
-          
-          placeholder="Phone Number"
-          v-model="phone"
-        />
-        <error-message v-if="is_phone == false"
-          >*Phone is required</error-message
-        >
-      </div>
-      <div class="div"></div>
-      <div class="flex items-center justify-end p-2 border-slate-200 rounded-b">
-        <button
-          class="btn-cancel text-white active:bg-orange-600 text-sm rounded px-2 mr-3 shadow hover:bg-orange-400 hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-          type="button"
-          @click="onCancel"
-        >
-          Cancel
-        </button>
-        <button
-          class="btn-submit text-white active:bg-sky-600 text-sm text-sm px-2 rounded shadow hover:shadow-lg hover:bg-sky-500 outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-          type="submit"
-        >
-          Create
-        </button>
-      </div>
-    </div>
-  </form>
-  <!-- 
 <div
     class="bg-grey-lighter flex justify-center item-center w-8/12 m-auto mt-10"
   >
@@ -152,7 +10,7 @@
           class="mb-10 underline underline-offset-8 text-3xl text-center"
           style="color: rgba(23, 171, 181, 1)"
         >
-          Register Student
+          Edit Student
         </h1>
         <div class="flex gap-2">
           <input
@@ -259,7 +117,7 @@
         </div>
         <div class="mt-5 w-full flex justify-evenly item-center">
           <button
-            class="bg-gray-500 text-white font-bold py-2 px-4 rounded w-1/4"
+            class="bg-gray-500 text-white font-bold py-2 px-4 rounded w-1/4" @click="onCancel"
           >
             Cancel
           </button>
@@ -273,7 +131,7 @@
         </div>
       </div>
     </div>
-  </div> -->
+  </div>
 </template>
 
 <script>
@@ -296,12 +154,12 @@ export default {
     //     gender: '',
     //     img:'',
     // }
-    return {
-      shosModal: false,
-      first_name: this.student.first_name,
-      last_name: this.student.last_name,
-      student_id: this.student.id,
-    };
+    // return {
+    //   shosModal: false,
+    //   first_name: this.student.first_name,
+    //   last_name: this.student.last_name,
+    //   student_id: this.student.id,
+    // };
   },
   methods: {
     // getStudent(){
@@ -344,8 +202,8 @@ export default {
       this.$emit('cancel',false)
     },
     onSubmit(){
-      let data = {first_name: this.first_name}
-      this.$emit('isShow',false,data,this.student_id)
+      let data = {first_name: "hello"}
+      this.$emit('isShow',false,data,1)
     }
   },
  

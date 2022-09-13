@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
     <UserCard/>
 </template>
 
@@ -11,4 +11,4 @@ export default {
 
 <style>
 
-</style>
+</style> -->

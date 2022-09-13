@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <div class="w-full px-8 m-auto h-screen top-28 flex justify-end items-center">
     <div
       v-if="showModal"
@@ -170,4 +170,4 @@ export default {
   .form-container {
       background: #BBD7E0;
   }
-</style>
+</style> -->
