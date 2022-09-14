@@ -26,8 +26,6 @@ class UserController extends Controller
             'last_name' => 'required',
             'gender' => 'required',
             'password' => 'required',
-            'class' => 'required',
-            'year' => 'required',
         ]);
         if(!$validate){
             return response()->json(['message' => 'Invalid email']);

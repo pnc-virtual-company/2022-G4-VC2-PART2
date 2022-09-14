@@ -117,9 +117,10 @@
 import alertForm from "../alertForm/alert_form";
 import axios from 'axios';
 const Swal = require('sweetalert2')
-export default ({
-props:['object','data'],
-emits:['close'],
+export default {
+    props: ['object', 'dataToUpdate','userID'],
+
+    emits:['close'],
     components: {
         alertForm,
     },
@@ -224,16 +225,16 @@ emits:['close'],
 
         updateStudent() {
             const stdList = {
-                email: this.data[0].email,
-                first_name:this.data[0].first_name,
-                last_name: this.data[0].last_name,
-                password: this.data[0].password,
-                NGO:  this.data[0].student[0].NGO,
-                batch: this.data[0].student[0].year,
-                province: this.data[0].student[0].province,
-                class: this.data[0].student[0].class,
-                gender: this.data[0].gender,
-                role: this.data[0].role
+                email: this.dataToUpdate[0].email,
+                first_name:this.dataToUpdate[0].first_name,
+                last_name: this.dataToUpdate[0].last_name,
+                password: this.dataToUpdate[0].password,
+                NGO:  this.dataToUpdate[0].student[0].NGO,
+                batch: this.dataToUpdate[0].student[0].year,
+                province: this.dataToUpdate[0].student[0].province,
+                class: this.dataToUpdate[0].student[0].class,
+                gender: this.dataToUpdate[0].gender,
+                role: this.dataToUpdate[0].role
             };
             const std = [
                 this.email,
@@ -310,8 +311,25 @@ emits:['close'],
              }
              return this.userEmail;
              
-        }
+        },
+
+        showOldData() {
+            this.email = this.dataToUpdate[0].email
+            this.first_name=this.dataToUpdate[0].first_name
+            this.last_name= this.dataToUpdate[0].last_name
+            this.password= this.dataToUpdate[0].password
+            this.NGO=  this.dataToUpdate[0].student[0].NGO
+            this.batch= this.dataToUpdate[0].student[0].year
+            this.province= this.dataToUpdate[0].student[0].province
+            this.class= this.dataToUpdate[0].student[0].class
+            this.gender= this.dataToUpdate[0].gender,
+            this.role= this.dataToUpdate[0].role
+        },
        
-         }
-})
+    },
+    mounted() {
+        this.showOldData()
+        console.log(this.dataToUpdate);
+    }
+}
 </script>
