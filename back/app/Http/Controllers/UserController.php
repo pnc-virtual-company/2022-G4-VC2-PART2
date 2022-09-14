@@ -125,9 +125,7 @@ class UserController extends Controller
             $user->update();
             return response()->json(['message'=>'update successfully']);
         }
-
     }
-
 
     public function destroy($id)
     {
