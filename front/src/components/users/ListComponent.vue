@@ -18,7 +18,7 @@
 
     <div class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex" v-if="openDialog">
         <div class="form-container rounded w-11/12">
-            <RegisterForm @create_student="createUser"  @cancel="onCancelCreated" @close="openDialogs" :object="object" :dataToUpdate="dataUpdate" :userID="userID"></RegisterForm>
+            <RegisterForm @create_student="createUser"  @cancel="onCancelCreated" @close="openDialogs" :object="object" :dataUpdate="dataUpdate" :userId="userID" ></RegisterForm>
         </div>
     </div>
 
@@ -102,7 +102,7 @@ export default {
             userID: null,
             dataUpdate:null
         }
-    },
+  },
   methods: {
      getAllStudent(){
           axios.get("http://localhost:8000/api/getUserBy/student").then((res) => {
@@ -124,11 +124,14 @@ export default {
         })
     },
     editUser(id) {
-      this.openDialog = !this.openDialog;
+      this.userID = id
+      this.object = this.usersInfoUpdate;
+      this.object.id = this.userID;
+      console.log(this.userID);
       axios.get('http://localhost:8000/api/user/' +id).then((res) => {
-          this.dataUpdate = res.data
-          this.userID = id
-          console.log(this.dataUpdate[0]);
+        this.dataUpdate = res.data
+        console.log(this.dataUpdate[0]);
+        this.openDialog = !this.openDialog;
       })
     },
     onCancelCreated(isShow){
@@ -146,7 +149,7 @@ export default {
   },
   mounted() {
     this.getAllStudent()
-    console.log(this.users);
+    console.log('hello');
   }
 };
 </script>
