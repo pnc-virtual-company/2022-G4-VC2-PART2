@@ -18,7 +18,7 @@
 
     <div class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex" v-if="openDialog">
         <div class="form-container rounded w-11/12">
-            <RegisterForm @update_student="createUser"  @cancel="onCancelCreated" @close="openDialogs" :object="object"></RegisterForm>
+            <RegisterForm @create_student="createUser"  @cancel="onCancelCreated" @close="openDialogs" :object="object" :dataToUpdate="data"></RegisterForm>
         </div>
     </div>
 
@@ -99,7 +99,8 @@ export default {
             usersInfoUpdate: { title: 'Edit User',button: "Update", to_do: "update",id:null},
             object:{},
             users: [],
-            userID:null,
+            userID: null,
+            data:null
         }
     },
   methods: {
@@ -123,7 +124,9 @@ export default {
         })
     },
     editUser(id) {
-      axios.put('http://localhost:8000/api/user/' +id).then(() => {
+      this.openDialog = !this.openDialog;
+      axios.get('http://localhost:8000/api/user/' +id).then((res) => {
+          this.data  = res.data
           this.getAllStudent();
       })
     },

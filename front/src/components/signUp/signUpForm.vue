@@ -118,7 +118,7 @@ import alertForm from "../alertForm/alert_form";
 import axios from 'axios';
 const Swal = require('sweetalert2')
 export default ({
-props:['object'],
+props:['object','data'],
 emits:['close'],
     components: {
         alertForm,
@@ -138,7 +138,8 @@ emits:['close'],
             sex: 'others',
             validatePSW: 'Password must be at least 8 characters !',
             ifAllfiedInput: false,
-            userEmail:''
+            userEmail: '',
+            
         }
     },
     methods: {
@@ -149,7 +150,7 @@ emits:['close'],
                 this.signUP();
             }else if(this.object.to_do == 'update'){ 
                 // YOUR UPDATE HERE
-                alert('I am on update')
+                this.updateStudent()
             }
         },
 
@@ -187,6 +188,67 @@ emits:['close'],
             this.ifAllfiedInput = std.every(this.checkForm);
             if (this.ifAllfiedInput) {
                 axios.post('http://localhost:8000/api/user/', stdList).then(() => {
+                    this.$emit("create_student",stdList)
+                    Swal.fire({
+                        icon: 'success',
+                        text: 'User Created',
+                    })
+                }).catch(() => {
+                        this.validateEmail()
+                })
+            } else {
+                if (this.email.trim() == '') {  
+                    this.validateEmail()
+                }
+                if (this.first_name.trim() == '') {  
+                    this.first_name = ''
+                }
+                if (this.last_name.trim() == '') {  
+                    this.last_name = ''
+                }
+                if (this.NGO.trim() == '') {  
+                    this.NGO = ''
+                }
+                if (this.batch.trim() == '') {  
+                    this.batch = ''
+                }
+                if (this.province.trim() == '') {  
+                    this.province = ''
+                }
+                if (this.student_class.trim() == '') {  
+                    this.student_class = ''
+                }
+            }
+            
+        },
+
+        updateStudent() {
+            const stdList = {
+                email: this.data[0].email,
+                first_name:this.data[0].first_name,
+                last_name: this.data[0].last_name,
+                password: this.data[0].password,
+                NGO:  this.data[0].student[0].NGO,
+                batch: this.data[0].student[0].year,
+                province: this.data[0].student[0].province,
+                class: this.data[0].student[0].class,
+                gender: this.data[0].gender,
+                role: this.data[0].role
+            };
+            const std = [
+                this.email,
+                this.first_name,
+                this.last_name,
+                this.password,
+                this.NGO,
+                this.student_class,
+                this.sex,
+                this.batch,
+                this.province,
+            ]
+            this.ifAllfiedInput = std.every(this.checkForm);
+            if (this.ifAllfiedInput) {
+                axios.put('http://localhost:8000/api/user/', stdList).then(() => {
                     this.$emit("update_student",stdList)
                     Swal.fire({
                         icon: 'success',
