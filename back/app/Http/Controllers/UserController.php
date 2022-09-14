@@ -6,6 +6,8 @@ use App\Models\User;
 use App\Models\Batch;
 use App\Models\Student;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth; 
+use Illuminate\Support\Facades\Cookie; 
 use Validator;
 
 class UserController extends Controller
@@ -17,7 +19,7 @@ class UserController extends Controller
     }
 
 
-    public function store(Request $request)
+    public function createUser(Request $request)
     {
         $user = new User();
         $validate = $request->validate([
@@ -26,8 +28,6 @@ class UserController extends Controller
             'last_name' => 'required',
             'gender' => 'required',
             'password' => 'required',
-            'class' => 'required',
-            'year' => 'required',
         ]);
         if(!$validate){
             return response()->json(['message' => 'Invalid email']);
@@ -155,5 +155,22 @@ class UserController extends Controller
     public function orderByFname()
     {
         return User::orderBy('first_name')->get();
+    }
+
+    /********************************** User Log In ************************************* */
+    public function login(Request $request) { 
+        if(Auth::attempt($request->only('email', 'password'))){ 
+            $user = Auth::user(); 
+            $token = $user->createToken('mytoken')->plainTextToken; 
+            $cookie = cookie('jwt', $token, 60*24); 
+            return response()->json(['mas'=> 'success','token'=>$token], 200)->withCookie($cookie); 
+        } 
+        return response()->json(['mas'=>"Invalid"]); 
+    } 
+    
+/************************************ Log out ****************************************/
+    public function logout() { 
+         $cookie = Cookie::forget('jwt'); 
+         return response()->json(['mes'=>'Logged out Successfully'])->withCookie($cookie); 
     }
 }
