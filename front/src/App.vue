@@ -1,6 +1,6 @@
 <template>
     <section>
-      <RightBar v-show ="!isClosed"/>
+      <RightBar v-show ="!isClosed" />
       <NavBar @emits-nav="isHidden"/> 
     </section>
   <router-view />
@@ -12,23 +12,29 @@ export default {
   components: {RightBar, NavBar },
   data(){
     return {
-        isClosed:false
+      isClosed:false,
     }
   },
   methods:{
     isHidden(value){
-        this.isClosed = value
-      }
+      this.isClosed = value
+    },
   },
-
+  provide(){
+    return {
+      openRightBar: this.isClosed
+    }
+  }
 }
 </script>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
   
   :root {
-    --main-color: #004581;
-    --main-color-light: #018ABD;
+    --main-color: #004581;   /* Maain Color */
+    --main-color-light: #018ABD;  /* Second Color */
+    --main-color-active: #abdff2;  /* Third Color */
+  
   }
   
   * {
@@ -42,5 +48,12 @@ export default {
   body {
     margin: 0;
   }
-
+a.router-link-exact-active {
+  color: white;
+  background: var(--main-color-active);
+}
+a.router-link-exact-active:hover {
+  color: white;
+  background: var(--main-color-active);
+}
   </style>

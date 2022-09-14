@@ -10,12 +10,12 @@ const routes = [
   {
     path: '/teacherList',
     name: 'teacherList',
-    component:() => import(/* webpackChunkName: "about" */ '../views/TeacherView.vue')
+    component:() => import('../views/TeacherView.vue')
   },
   {
     path: '/listFollowUp',
     name: 'listFollowUp',
-    component: () => import('@/components/users/CardUser/UserCard.vue')
+    component: () => import('../views/ListOfStudentFollowUpView.vue')
   },
 
   {
@@ -31,12 +31,7 @@ const routes = [
   {
     path: '/profiles',
     name: 'profiels',
-    component: () => import('@/components/signUp/signUpForm.vue')
-  },
-  {
-    path: '/signup',
-    name: 'signup',
-    component: () => import('@/components/users/CardUser/UserCard.vue')
+    component: () => import('../views/ProfileView.vue')
   },
 ]
 

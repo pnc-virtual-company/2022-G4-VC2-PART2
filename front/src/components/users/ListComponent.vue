@@ -1,50 +1,45 @@
 <template>
-  <!-- component -->
   <div
-    class="overflow-x-auto relative shadow-sm bg-gray-100 sm:rounded-lg mt-2 p-2"
+    class="overflow-x-auto relative shadow-sm bg-gray-50 sm:rounded-lg p-2"
   >
-    <div class="pb-4">
-      <button
-        class="px-4 py-4 bg-green-500 text-white font-extrabold"
-        @click="addUser"
-      >
-        Create Student+
-      </button>
+    <div class="py-1pb-3">
+      <h2 class="text-gray-800 text-2xl font-bold text-center mb-2 uppercase">{{ title }}</h2>
     </div>
-
-    <div
-      v-if="showModal"
-      
-      class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex"
-    >
-      <div class="form-container shadow-md rounded w-4/5">
-        <updateStudent @cancel="onCancel" @onCancel="editStudent" :users="users"></updateStudent>
-      </div>
-    </div>
-
+      <Base_Button class="" @click="addUser">
+        <i class="mx-1">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+               <path stroke-linecap="round" stroke-linejoin="round" d="M19 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zM4 19.235v-.11a6.375 6.375 0 0112.75 0v.109A12.318 12.318 0 0110.374 21c-2.331 0-4.512-.645-6.374-1.766z" />
+            </svg>
+           
+        </i>
+        <i>
+           Create
+        </i>
+      </Base_Button>
 
     <div class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex" v-if="openDialog">
         <div class="form-container rounded w-11/12">
-            <RegisterForm  @cancel="onCancelCreated" @close="createStudent"></RegisterForm>
+            <RegisterForm  @cancel="onCancelCreated" @close="openDialogs" :object="object" :id="userID"></RegisterForm>
         </div>
     </div>
 
     <div v-if="showModal || openDialog" class="opacity-30 fixed inset-0 z-40 bg-black"></div>
     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
       <thead
-        class="text-xs text-gray-700 uppercase bg-[#018ABD] dark:bg-gray-700 dark:text-gray-400"
+        class="text-xs text-gray-700 uppercase bg-slate-300 dark:bg-gray-50 dark:text-gray-400"
+      
       >
         <tr>
-          <th scope="col" class="py-3 px-6 text-center">Name</th>
-          <th scope="col" class="py-3 px-6 text-center">batch</th>
-          <th scope="col" class="py-3 px-6 text-center">class</th>
-          <th scope="col" class="py-3 px-6  text-center">Action</th>
+          <th scope="col" class="py-3 px-6 text-left">Name</th>
+          <th scope="col" class="py-3 px-6 text-center" >batch</th>
+          <th scope="col" class="py-3 px-6 text-center" >class</th>
+          <th scope="col" class="py-3 px-6  text-center w-3 ">Action</th>
         </tr>
       </thead>
 
-      <tbody>
+      <tbody class="overflow-right-aut0">
         <tr 
-          v-for="item of users" :key="item"
+          v-for="item of listUsers" :key="item"
           class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
         >
           <th
@@ -61,7 +56,7 @@
             </div>
           </th>
           
-          <td class="py-4 px-6 text-center">{{ item.batch }}</td>
+          <td class="py-4 px-6 text-center">{{item.batch }}</td>
           
           <td class="py-4 px-6 text-center">
 
@@ -69,82 +64,66 @@
    
           </td>
 
-          <td class="flex items-center  py-4 px-6 justify-center">
+          <td class="w-11/12 flex items-center  py-2 px2 justify-center">
               <button
-                class="font-medium text-blue-600 dark:text-blue-500 hover:underline mx-4"
-                v-on:click="toggleModal()"
+                class="font-medium text-blue-600 dark:text-blue-500 hover:underline mx-2 text-right"
+                v-on:click="editUser(item.id)"
               >
                 Edit
               </button>
 
               <button
-                class="font-medium text-blue-600 dark:text-blue-500 hover:underline mx-4"
-                  v-on:click="deleteUser(item.id)"
+                class="font-medium dark:text-blue-500 hover:underline  text-red-700 mx-2 text-left"
+                  v-on:click="($emit('delete_id', item.id))"
                 >
                   Delete
               </button>
           </td>
          
         </tr>
+        <!-- IF NON LIST HERE -->
+        <div 
+          v-if="listUsers.length == 0"
+          class="w-full border-b dark:bg-gray-800  dark:hover:bg-gray-600 flex justify-center items-center py-4"
+        >
+          <h1 class="text-red-600 text-[20px]">None List here!</h1>
+        </div>
       </tbody>
     </table>
   </div>
 </template>
 <script>
-
-import updateStudent from "../students/UpdataStudent.vue";
+import Base_Button from '@/components/Button/BaseButton.vue'
 import RegisterForm from '@/components/signUp/signUpForm.vue'
 export default {
+    props:['listUsers', 'createUsers', 'updateUser', 'title'], 
     components: {
-        updateStudent, RegisterForm
+       RegisterForm, Base_Button
     },
     data(){
         return {
             openDialog: false,
-            showModal: false,
-            users: [
-              {id:1,name: "Veang Kroh", batch:2022, class:'2022-A',img:'https://media.istockphoto.com/photos/tawny-owl-facing-forward-in-colourful-woodland-flowers-including-and-picture-id1380506564?b=1&k=20&m=1380506564&s=170667a&w=0&h=y7pGWLJPRjSdNlGLffuFjk5DzrA7lU1CXbJeWyHyn1c='},
-              {id:2,name: "Kim Hak", batch:2022, class:'2022-A',img:'https://media.istockphoto.com/photos/we-herd-you-were-looking-for-some-magnificent-cattle-picture-id1303666715?b=1&k=20&m=1303666715&s=170667a&w=0&h=mOQcfUp6wdVwwVtoigfMQZHLGv4RWUzm_5PKvZc58go='},
-              {id:3,name: "Thun Dyna", batch:2023, class:'2022-A',img:'https://media.istockphoto.com/photos/tawny-owl-facing-forward-in-colourful-woodland-flowers-including-and-picture-id1380506564?b=1&k=20&m=1380506564&s=170667a&w=0&h=y7pGWLJPRjSdNlGLffuFjk5DzrA7lU1CXbJeWyHyn1c='},
-              {id:4,name: "Bo SreyPich", batch:2023, class:'2022-SNA',img:'https://media.istockphoto.com/photos/we-herd-you-were-looking-for-some-magnificent-cattle-picture-id1303666715?b=1&k=20&m=1303666715&s=170667a&w=0&h=mOQcfUp6wdVwwVtoigfMQZHLGv4RWUzm_5PKvZc58go='},
-            ],
+            object:{},
+            userID:null,
         }
     },
   methods: {
-
     addUser() {
-        this.openDialog = !this.openDialog;
-        console.log("running")
+      this.openDialog = !this.openDialog;
+      this.object = this.createUsers
     },
-
-    toggleModal: function () {
-      this.showModal = !this.showModal;
-      console.log("hello");
-    },
-    onCancel(isShow){
-        this.showModal = isShow
-    },
-    editStudent(isShow,student,id){
-        this.showModal = isShow;
-        console.log(student)
-        console.log(id)
+    editUser(userId) {
+      this.openDialog = !this.openDialog;
+      this.object = this.updateUser
+      this.userID = userId;
     },
     onCancelCreated(isShow){
         this.openDialog = isShow
     },
-    createStudent(isShow){
+    openDialogs(isShow){
         this.openDialog = isShow;
     },
-    deleteUser(id){
-      for(var i = 0; i < this.users.length; i++){
-        if(this.users[i].id == id){
-          this.users.splice(i,1)
-          console.log(console.log('Succesfull'))
-        }
-      }
-    }
-
   },
 };
 </script>
-<style></style>
+

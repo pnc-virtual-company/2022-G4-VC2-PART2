@@ -1,11 +1,11 @@
 <template>
 <div
-    class="bg-grey-lighter flex justify-center item-center w-8/12 m-auto mt-10"
+    class="flex justify-end item-center w-8/12 m-auto mt-10"
   >
     <div
-      class="container w-9/12 flex items-center justify-center px-2 rounded shadow-md"
+      class="container w-11/12 flex items-center  px-2 rounded"
     >
-      <div class="bg-white px-6 py-8 text-black w-full">
+      <div class="bg-gray-300 px-6 py-8 text-black w-full  shadow-md rounded-md opacity-100">
         <h1
           class="mb-10 underline underline-offset-8 text-3xl text-center"
           style="color: rgba(23, 171, 181, 1)"
