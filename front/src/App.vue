@@ -1,6 +1,6 @@
 <template>
     <section>
-      <RightBar v-show ="!isClosed"/>
+      <RightBar v-show ="!isClosed" @dataStanding="groupOfBoolean" />
       <NavBar @emits-nav="isHidden"/> 
     </section>
   <router-view />
@@ -12,13 +12,20 @@ export default {
   components: {RightBar, NavBar },
   data(){
     return {
-        isClosed:false
+      isClosed:false,
+      groupBoolean:{},
     }
   },
   methods:{
     isHidden(value){
         this.isClosed = value
-      }
+    },
+    groupOfBoolean(group){
+        this.groupBoolean = group
+        localStorage.setItem('group', this.groupBoolean)
+        // console.log(localStorage.getItem("group"))
+        console.log(this.groupBoolean)
+    }
   },
 
 }
@@ -29,6 +36,7 @@ export default {
   :root {
     --main-color: #004581;
     --main-color-light: #018ABD;
+    --main-color-active: #abdff2;
   }
   
   * {
@@ -42,5 +50,12 @@ export default {
   body {
     margin: 0;
   }
-
+a.router-link-exact-active {
+  color: white;
+  background: var(--main-color-active);
+}
+a.router-link-exact-active:hover {
+  color: white;
+  background: var(--main-color-active);
+}
   </style>

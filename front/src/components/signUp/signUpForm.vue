@@ -1,8 +1,8 @@
 <template>
     <div class=" flex justify-end item-center w-9/12 m-auto z-500">
         <div class="container w-8/12 flex items-center justify-center">
-            <div class="bg-white py-4 px-4 text-black w-full rounded-md shadow-md">
-                <h1 class="mb-10 underline underline-offset-8 text-3xl text-center" style="color: rgba(23, 171, 181, 1); font-weight: bold;;">Create Student</h1>
+            <div class="bg-gray-300 py-4 px-4 text-black w-full rounded-md shadow-md opacity-100">
+                <h1 class="mb-10 underline underline-offset-8 text-3xl text-center" style="color: rgba(23, 171, 181, 1); font-weight: bold;;">{{ object.title }}</h1>
                   <div class="flex gap-2">
                     <div class=" w-full mb-2">
                         <span class="text-gray-500">Last Name</span>
@@ -32,7 +32,7 @@
                             type="email"
                             class="block border border-grey-light w-full p-2 rounded"
                         />
-                            <alertForm  v-if="email =='' " :psw="validateEmail(email)"  />
+                            <alertForm  v-if="userEmail !='' " :psw="userEmail"  />
                     </div>
                     <div class="w-full">
                         <span class="text-gray-500">From NGO</span>
@@ -47,8 +47,8 @@
                 </div>
 
             <div class="flex mb-2">
-                <div class="w-full flex gap-2">
-                    <div class=" w-full ">
+                <div class="w-full flex gap-2" >
+                    <div class=" w-full " v-if="object.to_do=='create'">
                         <span class="text-gray-500">Passsword</span>
                     <input 
                         v-model="password"
@@ -57,6 +57,7 @@
                     />
                         <alertForm v-if="password.length<8 " :psw="checkPassword(password)" />
                 </div>
+
                 <div class="w-full">
                     <span class="text-gray-500">From Province</span>
                     <input  
@@ -105,10 +106,10 @@
                 </div>     
             </div>
             <div class="mt-5 w-full flex justify-evenly item-center">
-                    <button  class="bg-gray-500   text-white font-bold py-2 px-4 rounded w-1/4" @click="($emit('close', false))">Cancel</button>
-                    <button @click="($emit('close', false))" style="background-color: rgba(23, 171, 181, 1);" class="  hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-1/4" >Sign Up</button>
-                </div>
+                <button  class="bg-gray-500   text-white font-bold py-2 px-4 rounded w-1/4" @click="($emit('close', false))">Cancel</button>
+                <button @click="UpdateOrCreateUser" style="background-color: rgba(23, 171, 181, 1);" class="  hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-1/4" >{{ object.button }}</button>
             </div>
+        </div>
         </div>
     </div>
 </template>
@@ -117,6 +118,7 @@ import alertForm from "../alertForm/alert_form";
 import axios from 'axios';
 const Swal = require('sweetalert2')
 export default ({
+props:['object'],
 emits:['close'],
     components: {
         alertForm,
@@ -135,10 +137,24 @@ emits:['close'],
             student_class: ' ',
             sex: 'others',
             validatePSW: 'Password must be at least 8 characters !',
-            ifAllfiedInput:false,
+            ifAllfiedInput: false,
+            userEmail:''
         }
     },
     methods: {
+        // CREATE OR UPDATE
+        UpdateOrCreateUser(){
+            if(this.object.to_do == 'create'){ 
+            //    YOUR CREATE HERE
+                this.signUP();
+            }else if(this.object.to_do == 'update'){ 
+                // YOUR UPDATE HERE
+                alert('I am on update')
+            }
+        },
+
+
+        
         async getImg(event) {
             this.img = event.target.files[0];
             console.log(this.img.name)
@@ -169,23 +185,39 @@ emits:['close'],
                 this.province,
             ]
             this.ifAllfiedInput = std.every(this.checkForm);
-            if (this.ifAllfiedInput && this.email.search('@') > 0) {
+            if (this.ifAllfiedInput) {
                 axios.post('http://localhost:8000/api/user/', stdList).then(() => {
+                    this.$emit("update_student",stdList)
                     Swal.fire({
                         icon: 'success',
                         text: 'User Created',
                     })
-                }).catch((error) => {
-                        console.log(error.response.data);
+                }).catch((err) => {
+                    console.log(err);
+                        this.validateEmail()
                 })
             } else {
-                this.email = ''
-                this.first_name= ''
-                this.last_name = ''
-                this.NGO = ''
-                this.batch = ''
-                this.province = ''
-                this.student_class = ''
+                if (this.email.trim() == '') {  
+                    this.validateEmail()
+                }
+                if (this.first_name.trim() == '') {  
+                    this.first_name = ''
+                }
+                if (this.last_name.trim() == '') {  
+                    this.last_name = ''
+                }
+                if (this.NGO.trim() == '') {  
+                    this.NGO = ''
+                }
+                if (this.batch.trim() == '') {  
+                    this.batch = ''
+                }
+                if (this.province.trim() == '') {  
+                    this.province = ''
+                }
+                if (this.student_class.trim() == '') {  
+                    this.student_class = ''
+                }
             }
             
         },
@@ -208,10 +240,14 @@ emits:['close'],
                  return null;
             }
         },
-         validateEmail(email) {
-             if (email.search('@') == -1) {
-                return "Email is required !"
-            }
+         validateEmail() {
+             if (this.email.trim() == '') {
+                 this.userEmail = 'Email is required !';
+            } else {
+                 this.userEmail = 'Your email is wrong format !';
+             }
+             return this.userEmail;
+             
         }
        
          }
