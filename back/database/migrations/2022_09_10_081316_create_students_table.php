@@ -13,10 +13,10 @@ return new class extends Migration
             $table->id();
             $table->foreignId("user_id")->constrained()->onDelete("CASCADE")->nullable();
             $table->foreignId("batch_id")->constrained()->onDelete("CASCADE")->nullable();
-            $table->string('if_follow_up');
+            $table->string('if_follow_up')->default("No");
             $table->string('province');
-            $table->string('NGO');
-            $table->string('student_class');
+            $table->string('NGO')->default("No");
+            $table->string('class');
             $table->integer('year');
             $table->timestamps();
         });

@@ -33,27 +33,28 @@ export default {
   :root {
     --main-color: #004581;   /* Maain Color */
     --main-color-light: #018ABD;  /* Second Color */
-    --main-color-active: #abdff2;  /* Third Color */
+    --main-color-active: #b0c9d2;  /* Third Color */
+    --main-color-hover: #a4bac1;  /* Third Color */
   
   }
   
   * {
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
   }
   
   html {
     font-family: 'Roboto', sans-serif;
   }
   
-  body {
-    margin: 0;
-  }
 a.router-link-exact-active {
   color: white;
   background: var(--main-color-active);
 }
-a.router-link-exact-active:hover {
+a:hover {
   color: white;
-  background: var(--main-color-active);
+  background: var(--main-color-hover);
 }
   </style>
+  

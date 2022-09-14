@@ -36,7 +36,7 @@
                             placeholder="you@example.com"
                             
                         />
-                            <alertForm  v-if="email =='' " :psw="validateEmail(email)"  />
+                            <alertForm  v-if="userEmail !='' " :psw="userEmail"  />
                     </div>
                     
 
@@ -120,6 +120,7 @@
            </section>
         </div>
         </div>
+        <!-- </div> -->
     </div>
 </template>
 <script>
@@ -136,6 +137,7 @@ emits:['close'],
     data()
     {
         return {
+            dataToUpdate:[],
             showStudentForm: false,
             email: ' ',
             first_name: ' ',
@@ -147,7 +149,9 @@ emits:['close'],
             student_class: ' ',
             sex: 'others',
             validatePSW: 'Password must be at least 8 characters !',
-            ifAllfiedInput:false,
+            ifAllfiedInput: false,
+            userEmail: '',
+            
         }
     },
     methods: {
@@ -156,13 +160,11 @@ emits:['close'],
             if(this.object.to_do == 'create'){ 
             //    YOUR CREATE HERE
             this.$emit('close', false)
-            alert('I am on create')
+    
             }else if(this.object.to_do == 'update'){ 
                 // YOUR UPDATE HERE
-                alert('I am on update')
             }
         },
-
 
 
         async getImg(event) {
@@ -195,23 +197,101 @@ emits:['close'],
                 this.province,
             ]
             this.ifAllfiedInput = std.every(this.checkForm);
-            if (this.ifAllfiedInput && this.email.search('@') > 0) {
+            if (this.ifAllfiedInput) {
                 axios.post('http://localhost:8000/api/user/', stdList).then(() => {
+                    this.$emit("create_student",stdList)
                     Swal.fire({
                         icon: 'success',
                         text: 'User Created',
                     })
-                }).catch((error) => {
-                        console.log(error.response.data);
+                }).catch(() => {
+                        this.validateEmail()
                 })
             } else {
-                this.email = ''
-                this.first_name= ''
-                this.last_name = ''
-                this.NGO = ''
-                this.batch = ''
-                this.province = ''
-                this.student_class = ''
+                if (this.email.trim() == '') {  
+                    this.validateEmail()
+                }
+                if (this.first_name.trim() == '') {  
+                    this.first_name = ''
+                }
+                if (this.last_name.trim() == '') {  
+                    this.last_name = ''
+                }
+                if (this.NGO.trim() == '') {  
+                    this.NGO = ''
+                }
+                if (this.batch.trim() == '') {  
+                    this.batch = ''
+                }
+                if (this.province.trim() == '') {  
+                    this.province = ''
+                }
+                if (this.student_class.trim() == '') {  
+                    this.student_class = ''
+                }
+            }
+            
+        },
+
+        updateStudent() {
+            const stdList = {
+                email: this.dataToUpdate[0].email,
+                first_name:this.dataToUpdate[0].first_name,
+                last_name: this.dataToUpdate[0].last_name,
+                password: this.dataToUpdate[0].password,
+                NGO:  this.dataToUpdate[0].student[0].NGO,
+                batch: this.dataToUpdate[0].student[0].year,
+                province: this.dataToUpdate[0].student[0].province,
+                class: this.dataToUpdate[0].student[0].class,
+                gender: this.dataToUpdate[0].gender,
+                role: this.dataToUpdate[0].role
+            };
+            console.log(stdList);
+            const std = [
+                this.email,
+                this.first_name,
+                this.last_name,
+                this.password,
+                this.NGO,
+                this.student_class,
+                this.sex,
+                this.batch,
+                this.province,
+            ]
+            this.ifAllfiedInput = std.every(this.checkForm);
+            if (this.ifAllfiedInput) {
+                axios.put('http://localhost:8000/api/user/', stdList).then(() => {
+                    this.$emit("update_student",stdList)
+                    Swal.fire({
+                        icon: 'success',
+                        text: 'User Created',
+                    })
+                }).catch((err) => {
+                    console.log(err);
+                        this.validateEmail()
+                })
+            } else {
+                if (this.email.trim() == '') {  
+                    this.validateEmail()
+                }
+                if (this.first_name.trim() == '') {  
+                    this.first_name = ''
+                }
+                if (this.last_name.trim() == '') {  
+                    this.last_name = ''
+                }
+                if (this.NGO.trim() == '') {  
+                    this.NGO = ''
+                }
+                if (this.batch.trim() == '') {  
+                    this.batch = ''
+                }
+                if (this.province.trim() == '') {  
+                    this.province = ''
+                }
+                if (this.student_class.trim() == '') {  
+                    this.student_class = ''
+                }
             }
             
         },
@@ -234,12 +314,34 @@ emits:['close'],
                  return null;
             }
         },
-         validateEmail(email) {
-             if (email.search('@') == -1) {
-                return "Email is required !"
-            }
-        }
+         validateEmail() {
+             if (this.email.trim() == '') {
+                 this.userEmail = 'Email is required !';
+            } else {
+                 this.userEmail = 'Your email is wrong format !';
+             }
+             return this.userEmail;
+             
+        },
+        showOldData() {
+            this.email = this.dataToUpdate[0].email
+            this.first_name=this.dataToUpdate[0].first_name
+            this.last_name= this.dataToUpdate[0].last_name
+            this.password= this.dataToUpdate[0].password
+            this.NGO=  this.dataToUpdate[0].student[0].NGO
+            this.batch= this.dataToUpdate[0].student[0].year
+            this.province= this.dataToUpdate[0].student[0].province
+            this.class= this.dataToUpdate[0].student[0].class
+            this.gender= this.dataToUpdate[0].gender,
+            this.role= this.dataToUpdate[0].role
+        },
        
-         }
+    },
+    mounted() {
+        axios.get('http://localhost:8000/api/user/' + this.object.id).then((res) => {
+            this.dataToUpdate = res.data
+            this.showOldData()
+        })
+    }
 })
 </script>

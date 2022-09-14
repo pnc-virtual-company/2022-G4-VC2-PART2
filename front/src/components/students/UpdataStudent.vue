@@ -142,24 +142,17 @@ export default {
     users: Object
 },
   data() {
-    // return {
-    //     email: '',
-        // first_name: '',
-    //     last_name: '',
-    //     password: '',
-    //     NGO: '',
-    //     batch: '',
-    //     province: '',
-    //     student_class: '',
-    //     gender: '',
-    //     img:'',
-    // }
-    // return {
-    //   shosModal: false,
-    //   first_name: this.student.first_name,
-    //   last_name: this.student.last_name,
-    //   student_id: this.student.id,
-    // };
+    return {
+        email: '',
+        first_name: '',
+        last_name: '',
+        password: '',
+        NGO: '',
+        batch: '',
+        province: '',
+        student_class: '',
+        gender: '',
+    }
   },
   methods: {
     // getStudent(){
@@ -178,20 +171,21 @@ export default {
     // },
     pageUpdata(){
     },
-    // studentUpdata(){
-    //     const stdList = {
-    //         email: this.email,
-    //         first_name: this.first_name,
-    //         last_name: this.last_name,
-    //         NGO: this.NGO,
-    //         student_class: this.student_class,
-    //         gender: this.gender,
-    //         year: this.batch,
-    //         province: this.province,
-    //         role:'student' // img: this.img.name,
-    //     };
+    studentUpdata(){
+        const stdList = {
+            email: this.email,
+            first_name: this.first_name,
+            last_name: this.last_name,
+            NGO: this.NGO,
+            student_class: this.student_class,
+            gender: this.gender,
+            year: this.batch,
+            province: this.province,
+            role:'student' 
+      };
+      this.$emit('student_update', stdList);
         
-    // },
+    },
     
     toggleModal() {
       this.shosModal = !this.shosModal;
