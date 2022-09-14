@@ -84,8 +84,8 @@
                 <div class="w-full">
                     <span class="text-gray-500">Class*</span>
                     <select v-model="student_class"  class="outline-1 block border border-grey-light w-full p-2 rounded text-gray-400">
-                        <option value="A">A</option>
-                        <option value="B">B</option>
+                        <option value="WEB-A">A</option>
+                        <option value="WEB-B">B</option>
                     </select>
                     <alertForm v-if="student_class =='' " :psw="checkPassword(student_class)"/>
                 </div>
@@ -119,8 +119,10 @@ import alertForm from "../alertForm/alert_form";
 import axios from 'axios';
 const Swal = require('sweetalert2')
 export default {
-    props: ['object', 'dataToUpdate','userID'],
-
+    props: {
+        object: Object,
+        userID:Number,
+    },
     emits:['close'],
     components: {
         alertForm,
@@ -128,6 +130,7 @@ export default {
     data()
     {
         return {
+            dataToUpdate:[],
             showStudentForm: false,
             email: ' ',
             first_name: ' ',
@@ -240,6 +243,7 @@ export default {
                 gender: this.dataToUpdate[0].gender,
                 role: this.dataToUpdate[0].role
             };
+            console.log(stdList);
             const std = [
                 this.email,
                 this.first_name,
@@ -316,7 +320,6 @@ export default {
              return this.userEmail;
              
         },
-
         showOldData() {
             this.email = this.dataToUpdate[0].email
             this.first_name=this.dataToUpdate[0].first_name
@@ -332,8 +335,10 @@ export default {
        
     },
     mounted() {
-        this.showOldData()
-        console.log(this.dataToUpdate);
+        axios.get('http://localhost:8000/api/user/' + this.object.id).then((res) => {
+            this.dataToUpdate = res.data
+            this.showOldData()
+        })
     }
 }
 </script>
