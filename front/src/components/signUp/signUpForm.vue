@@ -55,6 +55,7 @@
                         type="email"
                         class="block border border-grey-light w-full p-2 rounded"
                     />
+         
                         <alertForm v-if="password.length<8 " :psw="checkPassword(password)" />
                 </div>
 
@@ -145,6 +146,9 @@ export default {
     },
     methods: {
         // CREATE OR UPDATE
+        toggleShow() {
+        this.showPassword = !this.showPassword;
+        },
         UpdateOrCreateUser(){
             if(this.object.to_do == 'create'){ 
             //    YOUR CREATE HERE
