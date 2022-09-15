@@ -8,6 +8,7 @@
 </template>
 <script>
 import Teachercomponent from '@/components/users/ListComponent.vue'
+import axios  from 'axios'
 export default {
   components:{
     Teachercomponent
@@ -17,17 +18,8 @@ export default {
       teacherInfoCreate: { title: 'Create Teacher',button: "Sign up", to_do: "create", role: 'teacher'},// TEACHER CREATE INFOR
       teacherInfoUpdate: { title: 'Edit Teacher',button: "Update", to_do: "update", role: 'teacher'}, // TEACHER UPDATE INFOR
       title: 'Let See All List Of TeacheerS!', // TITLE OF HOME PAGE
-      teacherList: [
-          {id:1, name: "Nga", img:'https://media.istockphoto.com/photos/tawny-owl-facing-forward-in-colourful-woodland-flowers-including-and-picture-id1380506564?b=1&k=20&m=1380506564&s=170667a&w=0&h=y7pGWLJPRjSdNlGLffuFjk5DzrA7lU1CXbJeWyHyn1c='},
-          {id:2, name: "Kim Hak", img:'https://media.istockphoto.com/photos/we-herd-you-were-looking-for-some-magnificent-cattle-picture-id1303666715?b=1&k=20&m=1303666715&s=170667a&w=0&h=mOQcfUp6wdVwwVtoigfMQZHLGv4RWUzm_5PKvZc58go='},
-          {id:3, name: "Thun Dyna", img:'https://media.istockphoto.com/photos/tawny-owl-facing-forward-in-colourful-woodland-flowers-including-and-picture-id1380506564?b=1&k=20&m=1380506564&s=170667a&w=0&h=y7pGWLJPRjSdNlGLffuFjk5DzrA7lU1CXbJeWyHyn1c='},
-          {id:4, name: "Bo SreyPich", img:'https://media.istockphoto.com/photos/we-herd-you-were-looking-for-some-magnificent-cattle-picture-id1303666715?b=1&k=20&m=1303666715&s=170667a&w=0&h=mOQcfUp6wdVwwVtoigfMQZHLGv4RWUzm_5PKvZc58go='},
-          {id:5, name: "Kim Hak", img:'https://media.istockphoto.com/photos/we-herd-you-were-looking-for-some-magnificent-cattle-picture-id1303666715?b=1&k=20&m=1303666715&s=170667a&w=0&h=mOQcfUp6wdVwwVtoigfMQZHLGv4RWUzm_5PKvZc58go='},
-          {id:6, name: "Thun Dyna", img:'https://media.istockphoto.com/photos/tawny-owl-facing-forward-in-colourful-woodland-flowers-including-and-picture-id1380506564?b=1&k=20&m=1380506564&s=170667a&w=0&h=y7pGWLJPRjSdNlGLffuFjk5DzrA7lU1CXbJeWyHyn1c='},
-          {id:7, name: "Thun Dariya", img:'https://media.istockphoto.com/photos/tawny-owl-facing-forward-in-colourful-woodland-flowers-including-and-picture-id1380506564?b=1&k=20&m=1380506564&s=170667a&w=0&h=y7pGWLJPRjSdNlGLffuFjk5DzrA7lU1CXbJeWyHyn1c='},
-          {id:8, name: "Thun Nong", img:'https://media.istockphoto.com/photos/tawny-owl-facing-forward-in-colourful-woodland-flowers-including-and-picture-id1380506564?b=1&k=20&m=1380506564&s=170667a&w=0&h=y7pGWLJPRjSdNlGLffuFjk5DzrA7lU1CXbJeWyHyn1c='},
-          {id:9, name: "Thun Tim", img:'https://media.istockphoto.com/photos/tawny-owl-facing-forward-in-colourful-woodland-flowers-including-and-picture-id1380506564?b=1&k=20&m=1380506564&s=170667a&w=0&h=y7pGWLJPRjSdNlGLffuFjk5DzrA7lU1CXbJeWyHyn1c='},
-      ],
+      teacherList: [],
+         
     }
   },
   methods: {
@@ -43,8 +35,18 @@ export default {
             console.log('Succesfull')
         }
       }
+    },
+    getAllData(){
+        axios.get('http://127.0.0.1:8000/api/getUserBy/teacher').then((response)=>{
+            this.teacherList = response.data
+            console.log(response.data)
+        })
+    },
+  },
+  mounted() {
+      return this.getAllData();
     }
-  }
+  
 }
 </script>
 <style>

@@ -28,9 +28,9 @@
       <thead class="text-xs text-gray-700 uppercase bg-slate-300 dark:bg-gray-50 dark:text-gray-400">
         <tr>
           <th scope="col" class="py-2 px-4 text-left">Name</th>
-          <th scope="col" class="py-2 px-4 text-center" :class="{'text-slate-300':createUsers.role=='teacher'}">batch</th>
-          <!-- <th scope="col" class="py-2 px-4 text-center">class</th> -->
-          <th scope="col" class="py-2 px-4 text-center" :class="{'text-slate-300':createUsers.role=='teacher'}">class</th>
+          <th scope="col" class="py-2 px-4 text-center" v-if="createUsers.role=='student'" >batch</th>
+          <th scope="col" class="py-2 px-4 text-center" v-if="createUsers.role=='teacher'" >Email</th> <!-- Teacher email -->
+          <th scope="col" class="py-2 px-4 text-center" v-if="createUsers.role=='student'">class</th>
           <th scope="col" class="py-2 px-4  text-center w-3">Action</th>
         </tr>
       </thead>
@@ -45,12 +45,13 @@
             class="flex items-center py-4 px-3 text-gray-900 whitespace-nowrap dark:text-white"
           >
             <div class="pl-3">
-              <div class="text-base font-semibold text-center">{{ item.name }}</div>
+              <div class="text-base font-semibold text-center">{{ item.first_name }} {{ item.last_name }}</div>
             </div>
           </th>
           
-          <td class="py-2 px-4 text-center">{{ item.batch }}</td>
-          <td class="py-2 px-4 text-center">{{ item.class }}</td>
+          <td class="py-2 px-4 text-center" v-if="item.role=='student'">{{ item.student[0].year }}</td>
+          <td class="py-2 px-4 text-center" v-if="item.role=='teacher'">{{ item.email }}</td> <!-- Teacher email -->
+          <td class="py-2 px-4 text-center" v-if="item.role=='student'">{{ item.student[0].class }}</td>
 
          <!-- GROUP BUTTON -->
           <td  class="w-8/12 flex items-center mt-2 justify-end">
@@ -76,10 +77,12 @@
 
           </td>
         </tr>
+
         <!-- IF NON LIST HERE -->
-        <div v-if="listUsers.length == 0" class="w-full border-b dark:bg-gray-800  dark:hover:bg-gray-600 flex justify-center items-center py-4">
+        <div v-if="listUsers.length == 0 && ifDataIsNull" class="w-full border-b dark:bg-gray-800  dark:hover:bg-gray-600 flex justify-center items-center py-4">
           <h1 class="text-red-600 text-[20px]">None List here!</h1>
         </div>
+      
       </tbody>
     </table>
   </div>
@@ -121,6 +124,11 @@ export default {
         this.openDialog = isShow;
     },
   },
+  mounted() {
+    setTimeout(function(){
+      this.ifDataIsNull == true
+    }, 1000)
+  }
 };
 </script>
 
