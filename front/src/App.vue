@@ -3,14 +3,16 @@
       <RightBar v-show ="!isClosed" />
       <NavBar @emits-nav="isHidden"/> 
     </section>
-  
+   
+
   <router-view />
 </template>
 <script>
 import RightBar from '@/components/navigation/RightBarComponent.vue'
 import NavBar from '@/components/navigation/NavigationComponent.vue'
+
 export default {
-  components: {RightBar, NavBar },
+  components: {RightBar, NavBar},
   data(){
     return {
       isClosed:false,

@@ -23,11 +23,6 @@ const routes = [
     name: 'studentList',
     component: () =>  import(/* webpackChunkName: "about" */ '../views/coordinators/UsersView.vue')
   },
-  // {
-  //   path: '/logout',
-  //   name: 'logout',
-  //   component: () => import(/* webpackChunkName: "about" */ '../coordinators/views/HomeView.vue')
-  // },
   {
     path: '/profiles',
     name: 'profiels',
