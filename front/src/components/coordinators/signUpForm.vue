@@ -115,7 +115,7 @@
     </div>
 </template>
 <script>
-import alertForm from "../alertForm/alert_form";
+import alertForm from "../alertForm/alert_form.vue";
 import axios from 'axios';
 const Swal = require('sweetalert2')
 export default {

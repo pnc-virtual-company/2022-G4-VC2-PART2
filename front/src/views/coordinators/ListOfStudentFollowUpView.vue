@@ -1,16 +1,16 @@
 <template>
-  <div class="w-full px-2 m-auto h-screen fixed top-28 right-0 flex justify-end">
+  <div class="w-full px-2 m-auto h-screen fixed top-20 right-0 flex justify-end">
       <div class=" px-2"  :class="width && entandWidth?width:'w-9/12'">
-          <Users />
+          <Teachercomponent />
       </div>
   </div>
 
 </template>
 <script>
-import Users from '@/components/users/ListComponent.vue'
+import Teachercomponent from '@/components/coordinators/ListComponent.vue'
 export default {
   components:{
-      Users
+    Teachercomponent
   },
   props: ['entandWidth'],
   data(){

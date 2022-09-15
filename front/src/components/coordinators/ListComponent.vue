@@ -84,7 +84,7 @@
   </div>
 </template>
 <script>
-  import RegisterForm from '@/components/signUp/signUpForm.vue'
+  import RegisterForm from './signUpForm.vue'
   import axios from "axios";
 export default {
     props:['title'],

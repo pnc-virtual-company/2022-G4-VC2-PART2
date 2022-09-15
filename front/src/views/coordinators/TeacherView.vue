@@ -7,7 +7,7 @@
 
 </template>
 <script>
-import Teachercomponent from '@/components/users/ListComponent.vue'
+import Teachercomponent from '@/components/coordinators/ListComponent.vue'
 export default {
   components:{
     Teachercomponent

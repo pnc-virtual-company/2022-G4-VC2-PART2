@@ -6,7 +6,7 @@
     </div>
 </template>
 <script>
-import UserTemplates from '@/components/users/ListComponent.vue'
+import UserTemplates from '@/components/coordinators/ListComponent.vue'
 export default {
     components:{
         UserTemplates
