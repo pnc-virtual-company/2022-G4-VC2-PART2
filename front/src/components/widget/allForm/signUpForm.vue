@@ -54,7 +54,7 @@
                 </div>
 
             <div class="flex mb-2">
-                <div class="w-full flex gap-2" >
+                <div class="w-full flex gap-2" v-if="object.to_do == 'create'">
                     <div class=" w-full ">
                         <span class="text-gray-500">Passsword</span>
                     <input 
@@ -62,7 +62,6 @@
                         type="email"
                         class="block border border-grey-light w-full p-2 rounded border-cyan-500 bg-transparent"
                     />
-         
                         <alertForm v-if="password.length<8 " :psw="checkPassword(password)" />
                 </div>
 
@@ -136,7 +135,7 @@ import alertForm from '../alertValidation/alert_form.vue';
 import axios from 'axios';
 const Swal = require('sweetalert2')
 export default ({
-props:['object'],
+props:['object', 'updateValue'],
 emits:['close'],
     components: {
         alertForm,
@@ -202,7 +201,7 @@ emits:['close'],
             ]
             if(this.object.to_do == 'create'){ 
                      //    YOUR CREATE HERE
-                if(this.object.role=='teacher'){
+                if(this.object.role == 'teacher'){
                     this.role = 'teacher';
                     this.ifAllfiedInput = teacher.every(this.checkForm);
                      this.signUP()
@@ -211,7 +210,6 @@ emits:['close'],
                      this.ifAllfiedInput = std.every(this.checkForm);
                      this.signUP()
                 }
-       
                 this.$emit('close', false)
     
             }else if(this.object.to_do == 'update'){ 
@@ -246,20 +244,18 @@ emits:['close'],
                 role: this.role,
                 // gender:this.gender
             };
-         
+            console.log(stdList);
             if (this.ifAllfiedInput) {
-
                 axios.post('http://localhost:8000/api/user/', stdList).then(() => {
-
                     this.$emit("create_student",stdList)
                     Swal.fire({
                         icon: 'success',
                         text: 'User Created',
                       
                     })
-                    setTimeout(function(){
-                        window.location.reload()
-                    }, 1000);
+                    // setTimeout(function(){
+                    //     window.location.reload()
+                    // }, 1000);
                 }).catch(() => {
                         this.validateEmail()
                 })
@@ -391,7 +387,6 @@ emits:['close'],
             this.gender= this.dataToUpdate[0].gender,
             this.role= this.dataToUpdate[0].role
         },
-       
     },
     mounted() {
         axios.get('http://localhost:8000/api/user/' + this.object.id).then((res) => {
@@ -404,6 +399,21 @@ emits:['close'],
             this.dataToUpdate = res.data
             // this.showOldData()
         })
+    },
+    created(){
+        if(this.object.to_do == 'update'){
+            this.email= this.updateValue.email,
+            this.first_name= this.updateValue.first_name,
+            this.last_name= this.updateValue.last_name,
+            this.password= this.updateValue.password,
+            this. NGO= this.updateValue.NGO,
+            this.class= this.updateValue.student_class,
+            this.gender= this.updateValue.sex,
+            this.year= this.updateValue.batch,
+            this.province= this.updateValue.province,
+            this.role= this.updateValue.role
+       }
+    // console.log(this.updateValue)
     }
 })
 </script>
