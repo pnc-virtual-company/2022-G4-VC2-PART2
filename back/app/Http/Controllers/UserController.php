@@ -127,6 +127,7 @@ class UserController extends Controller
         }
     }
 
+    
     public function destroy($id)
     {
         if (User::destroy($id)) {
