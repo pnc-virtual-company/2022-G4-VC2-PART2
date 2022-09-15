@@ -3,6 +3,11 @@ module.exports = {
   content: ['./public/**/*.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
   presets: [],
   darkMode: 'media', // or 'class'
+  varianst: {
+    extend: {
+      display:['group-focus']
+    },
+  },
   theme: {
     screens: {
       sm: '640px',

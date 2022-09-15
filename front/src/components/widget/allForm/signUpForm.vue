@@ -82,16 +82,23 @@
             <div class="flex gap-2 mb-5" v-if="object.role != 'teacher'">
                 <div class="w-full" >
                     <span class="text-gray-500">Batch*</span>
-                    <select   class="outline-1 block border border-grey-light w-full p-2 rounded text-gray-400 border-cyan-500 bg-transparent" v-model="batch" >
-                        <option value="2022">2022</option>
-                        <option value="2023">2023</option>
+                    <select v-if="!showAddNewBatch"   class="outline-1 block border border-grey-light w-full p-2 rounded text-gray-400 border-cyan-500 bg-transparent" v-model="batch" >
+                        <option :value="batch" v-for="batch of allBatch" :key="batch">{{batch.batch}}</option>
                     </select>
+                     <input  
+                        v-if="showAddNewBatch"
+                        v-model="batch"
+                        type="number"
+                        class="block border border-grey-light w-full p-2 rounded border-cyan-500 bg-transparent"
+                    />
                     <alertForm v-if="batch =='' " :psw="checkPassword(batch)" />
+                    <span  @click="showAddNewBatch = true" class="text-blue-500 cursor-pointer underline underline-offset-2 hover:text-blue-700">Create new batch !</span>
                 </div>
                 <div class="w-full">
                     <span class="text-gray-500">Class*</span>
                     <select v-model="student_class"  class="outline-1 block border border-grey-light w-full p-2 rounded text-gray-400 border-cyan-500 bg-transparent">
                         <option value="A">A</option>
+                        <input type="text">
                         <option value="B">B</option>
                     </select>
                     <alertForm v-if="student_class =='' " :psw="checkPassword(student_class)"/>
@@ -112,7 +119,7 @@
                     <input  checked id="inline-checked-radio" type="radio" value="others" name="inline-radio-group" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" v-model="sex">
                     <label for="inline-checked-radio" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Others</label>
                 </div>     
-            </div>
+        </div>
             <!-- Base_Button -->
            <section class="flex justify-between w-full pt-2">
                 <Base_Button @click="($emit('close', false))" class="  bg-slate-300 border-teal-900 text-black ">Cancel</Base_Button>
@@ -132,7 +139,8 @@ export default ({
 props:['object'],
 emits:['close'],
     components: {
-        alertForm, Base_Button
+        alertForm,
+        Base_Button,
     },
     data()
     {
@@ -387,6 +395,12 @@ emits:['close'],
     },
     mounted() {
         axios.get('http://localhost:8000/api/user/' + this.object.id).then((res) => {
+            axios.get('http://localhost:8000/api/batch').then((res) => {
+                this.allBatch = res.data
+                if (this.allBatch == '') {
+                    this.showAddNewBatch = true
+                }
+            })
             this.dataToUpdate = res.data
             // this.showOldData()
         })

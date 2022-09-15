@@ -23,7 +23,6 @@
             </i>
             <span class="text-[18px] ml-4 text-black self-center whitespace-nowrap dark:text-white">List Follow Up</span>
           </router-link>
-         
       </div>
     </div>
   </div>

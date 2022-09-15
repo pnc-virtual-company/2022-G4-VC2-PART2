@@ -29,7 +29,7 @@ use App\Http\Controllers\StudentController;
     Route::get('/getStdFU/{value}', [StudentController::class , 'getStudentFollowUp']);
     //set student to follow up
     Route::post('/follow_up/{id}', [StudentController::class , 'setFollowUp']);
-
+    //
 
 // });
 // ----------------------userLogin-------------------------
