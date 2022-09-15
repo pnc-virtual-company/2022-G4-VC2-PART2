@@ -3,8 +3,6 @@
       <RightBar v-show ="!isClosed" />
       <NavBar @emits-nav="isHidden"/> 
     </section>
-   
-
   <router-view />
 </template>
 <script>
