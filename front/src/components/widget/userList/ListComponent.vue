@@ -18,7 +18,7 @@
       <!-- MY DIALOG -->
       <div class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex" v-if="openDialog">
           <div class="form-container rounded w-11/12">
-              <RegisterForm  @cancel="onCancelCreated" @close="openDialogs" :object="object" :id="userID"></RegisterForm>
+              <RegisterForm  @cancel="onCancelCreated" @close="openDialogs" :object="object" :id="userID" @create_student="emitPage"></RegisterForm>
           </div>
       </div>
       <!-- CLOSE THE DIALOG -->
@@ -37,7 +37,7 @@
 
       <tbody class="overflow-right-aut0">
         <tr 
-          v-for="item of listUsers" :key="item"
+          v-for="(item,index) in listUsers" :key="index"
           class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 "
         >
           <th
@@ -49,13 +49,13 @@
             </div>
           </th>
           
-          <td class="py-2 px-4 text-center" v-if="item.role=='student'">{{ item.student[0].year }}</td>
-          <td class="py-2 px-4 text-center" v-if="item.role=='teacher'">{{ item.email }}</td> <!-- Teacher email -->
-          <td class="py-2 px-4 text-center" v-if="item.role=='student'">{{ item.student[0].class }}</td>
+          <!-- <td class="py-2 px-4 text-center" v-if="item.role=='student'">{{ item.student[0].year }}</td> -->
+          <td class="py-2 px-4 text-center" v-if="item.role == 'teacher' ">{{ item.email }}</td> <!-- Teacher email -->
+          <td class="py-2 px-4 text-center" v-if="item.role == 'student' ">{{ listUsersDisplays[0] }}</td>
 
          <!-- GROUP BUTTON -->
           <td  class="w-8/12 flex items-center mt-2 justify-end">
-              <!-- <button
+              <button
                 class="font-medium text-blue-600 dark:text-blue-500 hover:underline mx-2 text-right"
                 v-on:click="editUser(item.id)"
               >
@@ -67,19 +67,19 @@
                   v-on:click="($emit('delete_id', item.id))"
                 >
                   Delete
-              </button> -->
+              </button>
               <!-- <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                  <path stroke-linecap="round" stroke-linejoin="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg> -->
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 rounded-full p-2 font-semibold hover:bg-gray-100">
+              <!-- <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 rounded-full p-2 font-semibold hover:bg-gray-100">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
-              </svg>
+              </svg> -->
 
           </td>
         </tr>
 
         <!-- IF NON LIST HERE -->
-        <div v-if="listUsers.length == 0 && ifDataIsNull" class="w-full border-b dark:bg-gray-800  dark:hover:bg-gray-600 flex justify-center items-center py-4">
+        <div v-if="listUsers.length == 0 || ifDataIsNull" class="w-full border-b dark:bg-gray-800  dark:hover:bg-gray-600 flex justify-center items-center py-4">
           <h1 class="text-red-600 text-[20px]">None List here!</h1>
         </div>
       
@@ -88,10 +88,11 @@
   </div>
 </template>
 <script>
-import Base_Button from '@/components/Button/BaseButton.vue'
-import RegisterForm from '@/components/signUp/signUpForm.vue'
+import Base_Button from '../button/BaseButton.vue'
+import RegisterForm from '../allForm/signUpForm.vue'
 export default {
     props:['listUsers', 'createUsers', 'updateUser', 'title'], 
+    emits:['emits-page'],
     components: {
        RegisterForm, Base_Button
     },
@@ -101,6 +102,7 @@ export default {
             openDialog: false,
             object:{},
             userID:null,
+            listUsersDisplays:[],
         }
   },
   methods: {
@@ -123,11 +125,14 @@ export default {
     openDialogs(isShow){
         this.openDialog = isShow;
     },
+    emitPage(value){
+      return this.$emit('emits-page',value);
+    }
   },
   mounted() {
     setTimeout(function(){
       this.ifDataIsNull == true
-    }, 1000)
+    }, 1500)
   }
 };
 </script>

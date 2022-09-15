@@ -4,11 +4,10 @@
         <Teachercomponent :listUsers="teacherList" :createUsers="teacherInfoCreate" :updateUser="teacherInfoUpdate" :title="title" @delete_id="deleteUser"/>
       </div>
   </div>
-
 </template>
 <script>
-import Teachercomponent from '@/components/users/ListComponent.vue'
 import axios  from 'axios'
+import Teachercomponent from '@/components/widget/userList/ListComponent.vue'
 export default {
   components:{
     Teachercomponent
@@ -27,21 +26,25 @@ export default {
       getDialog(value){
           this.openDialog = value 
       },
+
       // DELET DATA FROM STORAGE
       deleteUser(id){
-      for(var i = 0; i < this.teacherList.length; i++){
-        if(this.teacherList[i].id == id){
-          this.teacherList.splice(i,1)
-            console.log('Succesfull')
-        }
-      }
-    },
+        axios.delete('http://localhost:8000/api/user/'+id).then(() => {
+            return this.getAllData()
+        })
+      },
+    // GET ALL DATA
     getAllData(){
         axios.get('http://127.0.0.1:8000/api/getUserBy/teacher').then((response)=>{
             this.teacherList = response.data
             console.log(response.data)
         })
     },
+    relaodNow(value){
+      console.log(value)
+      return this.getAllData()
+    }
+
   },
   mounted() {
       return this.getAllData();

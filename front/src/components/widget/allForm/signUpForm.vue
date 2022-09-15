@@ -34,7 +34,6 @@
                             type="email"
                             class="block border border-grey-light w-full p-2 rounded border-cyan-500 bg-transparent"
                             placeholder="you@example.com"
-                            
                         />
                             <alertForm  v-if="userEmail !='' " :psw="userEmail"  />
                     </div>
@@ -63,6 +62,7 @@
                         type="email"
                         class="block border border-grey-light w-full p-2 rounded border-cyan-500 bg-transparent"
                     />
+         
                         <alertForm v-if="password.length<8 " :psw="checkPassword(password)" />
                 </div>
 
@@ -124,8 +124,8 @@
     </div>
 </template>
 <script>
-import Base_Button from '@/components/Button/BaseButton.vue'
-import alertForm from "../alertForm/alert_form";
+import Base_Button from '../button/BaseButton.vue';
+import alertForm from '../alertValidation/alert_form.vue';
 import axios from 'axios';
 const Swal = require('sweetalert2')
 export default ({
@@ -151,27 +151,16 @@ emits:['close'],
             validatePSW: 'Password must be at least 8 characters !',
             ifAllfiedInput: false,
             userEmail: '',
-            
+            role: 'student',
         }
     },
     methods: {
+        
+        toggleShow() {
+        this.showPassword = !this.showPassword;
+        },
         // CREATE OR UPDATE
         UpdateOrCreateUser(){
-            if(this.object.to_do == 'create'){ 
-            //    YOUR CREATE HERE
-            this.$emit('close', false)
-    
-            }else if(this.object.to_do == 'update'){ 
-                // YOUR UPDATE HERE
-            }
-        },
-
-
-        async getImg(event) {
-            this.img = event.target.files[0];
-            console.log(this.img.name)
-        },
-        signUP() {
             const stdList = {
                 email: this.email,
                 first_name: this.first_name,
@@ -182,7 +171,7 @@ emits:['close'],
                 gender: this.sex,
                 year: this.batch,
                 province: this.province,
-                role: 'student',
+                role: this.role,
                 // gender:this.gender
             };
             const std = [
@@ -195,15 +184,74 @@ emits:['close'],
                 this.sex,
                 this.batch,
                 this.province,
+            ];
+            const teacher = [
+                this.email,
+                this.first_name,
+                this.last_name,
+                this.password,
+                this.sex,
             ]
-            this.ifAllfiedInput = std.every(this.checkForm);
+            if(this.object.to_do == 'create'){ 
+                     //    YOUR CREATE HERE
+                if(this.object.role=='teacher'){
+                    this.role = 'teacher';
+                    this.ifAllfiedInput = teacher.every(this.checkForm);
+                     this.signUP()
+                }else if(this.object.role=='student'){
+                    this.role = 'student'
+                     this.ifAllfiedInput = std.every(this.checkForm);
+                     this.signUP()
+                }
+       
+                this.$emit('close', false)
+    
+            }else if(this.object.to_do == 'update'){ 
+                // YOUR UPDATE HERE
+                if(this.object.role=='teacher'){
+                    stdList.role = 'teacher';
+                    // return this.updateStudent()
+                }else if(this.object.role=='student'){
+                    return this.updateStudent() 
+                }
+                this.$emit('close', false)
+            }
+        },
+        async getImg(event) {
+            this.img = event.target.files[0];
+            console.log(this.img.name)
+        },
+        
+        // Create user Account
+        signUP() {
+            console.log(this.ifAllfiedInput);
+            const stdList = {
+                email: this.email,
+                first_name: this.first_name,
+                last_name: this.last_name,
+                password: this.password,
+                NGO: this.NGO,
+                class: this.student_class,
+                gender: this.sex,
+                year: this.batch,
+                province: this.province,
+                role: this.role,
+                // gender:this.gender
+            };
+         
             if (this.ifAllfiedInput) {
+
                 axios.post('http://localhost:8000/api/user/', stdList).then(() => {
+
                     this.$emit("create_student",stdList)
                     Swal.fire({
                         icon: 'success',
                         text: 'User Created',
+                      
                     })
+                    setTimeout(function(){
+                        window.location.reload()
+                    }, 1000);
                 }).catch(() => {
                         this.validateEmail()
                 })
@@ -340,7 +388,7 @@ emits:['close'],
     mounted() {
         axios.get('http://localhost:8000/api/user/' + this.object.id).then((res) => {
             this.dataToUpdate = res.data
-            this.showOldData()
+            // this.showOldData()
         })
     }
 })

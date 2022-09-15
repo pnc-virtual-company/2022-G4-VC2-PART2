@@ -7,7 +7,7 @@
 
 </template>
 <script>
-import Users from '@/components/users/ListComponent.vue'
+import Users from '@/components/widget/userList/ListComponent.vue'
 export default {
   components:{
       Users
