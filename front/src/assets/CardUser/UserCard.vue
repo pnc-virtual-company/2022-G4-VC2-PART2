@@ -221,7 +221,7 @@
 
 <script>
 // import axios from 'axios'
-import updateStudent from "../../students/UpdataStudent.vue";
+import updateStudent from "../../coordinators/UpdataStudent.vue";
 export default {
   components: {
     updateStudent,

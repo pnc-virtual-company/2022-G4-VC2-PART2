@@ -29,17 +29,19 @@ class BatchController extends Controller
     }
 
 
-    public function update(Request $request,  $batch)
+    public function update(Request $request,$id)
     {
-        $batch =  Batch::findOrfail($batch);
+        $batch =  Batch::findOrfail($id);
         $batch -> batch = $request -> batch;
         $batch -> save();
-        return response()->json($batch);
+        return response()->json(['message' =>'updated']);
     }
 
-   
+
     public function destroy( $batch)
     {
-        return Batch::destroy($batch);
+        if(Batch::destroy($batch)){
+            return response()->json(['message'=>'deleted']);
+        }
     }
 }

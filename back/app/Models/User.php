@@ -16,6 +16,13 @@ class User extends Authenticatable
         return $this->hasMany(Student::class);
     }
 
+    public function run()
+            {
+    User::factory()
+            ->count(50)
+            ->hasPosts(1)
+            ->create();
+        }
 }
 
 
