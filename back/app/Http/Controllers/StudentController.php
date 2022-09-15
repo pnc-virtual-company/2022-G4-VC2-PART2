@@ -55,5 +55,15 @@ class StudentController extends Controller
         return Student::with(['User'])->where('class', 'LIKE', '%' . $major . '%')->get();
     }
 
+    public function setFollowUp(Request $request,$id)
+    {
+        $student = Student::findOrfail($id);
+        $student->if_follow_up = $request->if_follow_up;
+        $student->update();
+        return response()->json(['message' => 'student set to follow up']);
+    }
+
+    
+
 
 }
