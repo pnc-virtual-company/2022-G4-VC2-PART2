@@ -63,7 +63,10 @@ class StudentController extends Controller
         return response()->json(['message' => 'student set to follow up']);
     }
 
-    
+    public function getStudentFollowUp($followUp)
+    {
+        return Student::with('user')->where('if_follow_up', ucfirst($followUp))->get();
+    }
 
 
 }
