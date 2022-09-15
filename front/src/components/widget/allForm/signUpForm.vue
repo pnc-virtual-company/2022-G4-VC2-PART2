@@ -1,7 +1,7 @@
 <template>
     <div class=" flex justify-end item-center w-9/12 m-auto z-500">
         <div class="container w-8/12 flex items-center justify-center">
-            <div class="bg-gray-300 py-4 px-4 text-black w-full rounded-md shadow-md opacity-100">
+            <div class="bg-white py-4 px-4 text-black w-full rounded-md shadow-md opacity-100">
                 <h1 class="mb-10 underline underline-offset-8 text-3xl text-center" style="color: rgba(23, 171, 181, 1); font-weight: bold;;">{{ object.title }}</h1>
                   <div class="flex gap-2">
                     <div class=" w-full mb-2">
@@ -9,7 +9,8 @@
                         <input 
                             v-model="first_name"
                             type="text"
-                            class="block border border-grey-light w-full p-2 rounded"
+                            class="block border w-full p-2 rounded border-cyan-500 bg-transparent "
+                            placeholder="Enter first name"
                         />
                             <alertForm v-if='first_name =="" '  :psw="checkOutSidePSWField(first_name)" />
                     </div>
@@ -18,7 +19,8 @@
                         <input  
                             v-model="last_name"
                             type="text"
-                            class="block border border-grey-light w-full p-2 rounded "
+                            class="block border border-grey-light w-full p-2 rounded border-cyan-500 bg-transparent"
+                            placeholder="Enter last name"
                         />
                         <alertForm  v-if="last_name =='' " :psw="checkOutSidePSWField(last_name)" />
                     </div>
@@ -26,56 +28,62 @@
 
                 <div class="flex mb-2 gap-2">
                     <div class=" w-full ">
-                        <span class="text-gray-500">Email</span>
+                        <span class=" after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-slate-700">Email</span>
                         <input 
                             v-model="email"
                             type="email"
-                            class="block border border-grey-light w-full p-2 rounded"
+                            class="block border border-grey-light w-full p-2 rounded border-cyan-500 bg-transparent"
+                            placeholder="you@example.com"
+                            
                         />
                             <alertForm  v-if="userEmail !='' " :psw="userEmail"  />
                     </div>
-                    <div class="w-full">
+                    
+
+                    <div class="w-full" v-if="object.role != 'teacher'">
                         <span class="text-gray-500">From NGO</span>
                         <input  
                             v-if="!showStudentForm"
                             v-model="NGO"
                             type="text"
-                            class="block border border-grey-light w-full p-2 rounded"
+                            class="block border border-grey-light w-full p-2 rounded border-cyan-500 bg-transparent"
+                            
                         />
                         <alertForm v-if="NGO =='' " :psw="checkOutSidePSWField(NGO)" required />
                     </div>
+
                 </div>
 
             <div class="flex mb-2">
                 <div class="w-full flex gap-2" >
-                    <div class=" w-full " v-if="object.to_do=='create'">
+                    <div class=" w-full ">
                         <span class="text-gray-500">Passsword</span>
                     <input 
                         v-model="password"
                         type="email"
-                        class="block border border-grey-light w-full p-2 rounded"
+                        class="block border border-grey-light w-full p-2 rounded border-cyan-500 bg-transparent"
                     />
          
                         <alertForm v-if="password.length<8 " :psw="checkPassword(password)" />
                 </div>
 
-                <div class="w-full">
+                <div class="w-full" v-if="object.role != 'teacher'">
                     <span class="text-gray-500">From Province</span>
                     <input  
                         v-if="!showStudentForm"
                         v-model="province"
                         type="email"
-                        class="block border border-grey-light w-full p-2 rounded "
+                        class="block border border-grey-light w-full p-2 rounded border-cyan-500 bg-transparent"
                     />
                     <alertForm v-if="province =='' " :psw="checkPassword(province)" />
                 </div>
             </div>
             </div>
 
-            <div class="flex gap-2 mb-5" v-if="!showStudentForm">
+            <div class="flex gap-2 mb-5" v-if="object.role != 'teacher'">
                 <div class="w-full" >
                     <span class="text-gray-500">Batch*</span>
-                    <select   class="outline-1 block border border-grey-light w-full p-2 rounded text-gray-400" v-model="batch" >
+                    <select   class="outline-1 block border border-grey-light w-full p-2 rounded text-gray-400 border-cyan-500 bg-transparent" v-model="batch" >
                         <option value="2022">2022</option>
                         <option value="2023">2023</option>
                     </select>
@@ -83,15 +91,15 @@
                 </div>
                 <div class="w-full">
                     <span class="text-gray-500">Class*</span>
-                    <select v-model="student_class"  class="outline-1 block border border-grey-light w-full p-2 rounded text-gray-400">
-                        <option value="WEB-A">A</option>
-                        <option value="WEB-B">B</option>
+                    <select v-model="student_class"  class="outline-1 block border border-grey-light w-full p-2 rounded text-gray-400 border-cyan-500 bg-transparent">
+                        <option value="A">A</option>
+                        <option value="B">B</option>
                     </select>
                     <alertForm v-if="student_class =='' " :psw="checkPassword(student_class)"/>
                 </div>
             </div>
 
-        <div class="flex w-8/12 justify-between mt-3" v-if="!showStudentForm">
+        <div class="flex w-8/12 justify-between mt-3">
                 <h1>Gender : </h1>
                 <div class="flex items-center ">
                     <input  id="inline-radio" type="radio" value="male" name="inline-radio-group" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" v-model="sex">
@@ -106,26 +114,26 @@
                     <label for="inline-checked-radio" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Others</label>
                 </div>     
             </div>
-            <div class="mt-5 w-full flex justify-evenly item-center">
-                <button  class="bg-gray-500   text-white font-bold py-2 px-4 rounded w-1/4" @click="($emit('close', false))">Cancel</button>
-                <button @click="UpdateOrCreateUser" style="background-color: rgba(23, 171, 181, 1);" class="  hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-1/4" >{{ object.button }}</button>
-            </div>
+            <!-- Base_Button -->
+           <section class="flex justify-between w-full pt-2">
+                <Base_Button @click="($emit('close', false))" class="  bg-slate-300 border-teal-900 text-black ">Cancel</Base_Button>
+                <Base_Button @click="UpdateOrCreateUser" class="bg-cyan-500 hover:bg-cyan-600">{{ object.button }}</Base_Button> 
+           </section>
         </div>
         </div>
+        <!-- </div> -->
     </div>
 </template>
 <script>
-import alertForm from "../alertForm/alert_form.vue";
+import Base_Button from '../button/BaseButton.vue';
+import alertForm from '../alertValidation/alert_form.vue';
 import axios from 'axios';
 const Swal = require('sweetalert2')
-export default {
-    props: {
-        object: Object,
-        userID:Number,
-    },
-    emits:['close'],
+export default ({
+props:['object'],
+emits:['close'],
     components: {
-        alertForm,
+        alertForm, Base_Button
     },
     data()
     {
@@ -155,15 +163,14 @@ export default {
         UpdateOrCreateUser(){
             if(this.object.to_do == 'create'){ 
             //    YOUR CREATE HERE
-                this.signUP();
+            this.$emit('close', false)
+    
             }else if(this.object.to_do == 'update'){ 
                 // YOUR UPDATE HERE
-                this.updateStudent()
             }
         },
 
 
-        
         async getImg(event) {
             this.img = event.target.files[0];
             console.log(this.img.name)
@@ -340,5 +347,5 @@ export default {
             this.showOldData()
         })
     }
-}
+})
 </script>

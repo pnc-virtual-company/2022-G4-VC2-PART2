@@ -10,7 +10,7 @@ const routes = [
   {
     path: '/teacherList',
     name: 'teacherList',
-    component:() => import(/* webpackChunkName: "about" */ '../views/coordinators/TeacherView.vue')
+    component:() => import('../views/coordinators/TeacherView.vue')
   },
   {
     path: '/listFollowUp',
@@ -26,17 +26,12 @@ const routes = [
   // {
   //   path: '/logout',
   //   name: 'logout',
-  //   component: () => import(/* webpackChunkName: "about" */ '../views/coordinators/HomeView.vue')
-  // },
-  // {
-  //   path: '/profiles',
-  //   name: 'profiels',
-  //   component: () => import('@/components/signUp/signUpForm.vue')
+  //   component: () => import(/* webpackChunkName: "about" */ '../coordinators/views/HomeView.vue')
   // },
   {
-    path: '/signup',
-    name: 'signup',
-    component: () => import('@/components/users/CardUser/UserCard.vue')
+    path: '/profiles',
+    name: 'profiels',
+    component: () => import('../views/coordinators/ProfileView.vue')
   },
 ]
 
