@@ -22,7 +22,7 @@ use App\Http\Controllers\StudentController;
     //get user by sepcific role
     Route::get('/getUserBy/{role}',[UserController::class,'getUserBy']);
     //CRUD for batchs
-    Route::apiResource('batch',BatchController::class);
+    Route::apiResource('/batch',BatchController::class);
     //get all students follow up
     Route::get('/getStdFU/{value}', [StudentController::class , 'getStudentFollowUp']);
     //set student to follow up
