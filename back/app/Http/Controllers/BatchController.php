@@ -10,7 +10,7 @@ class BatchController extends Controller
 
     public function index()
     {
-        return Batch::get();
+        return Batch::distinct()->get(['batch']);
     }
 
 
@@ -43,5 +43,10 @@ class BatchController extends Controller
         if(Batch::destroy($batch)){
             return response()->json(['message'=>'deleted']);
         }
+    }
+
+    public function getUniqueBatch()
+    {
+
     }
 }
