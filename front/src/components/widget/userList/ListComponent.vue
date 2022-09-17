@@ -18,7 +18,7 @@
       <!-- MY DIALOG -->
       <div class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex" v-if="openDialog">
           <div class="form-container rounded w-11/12">
-              <RegisterForm  @cancel="onCancelCreated" @close="openDialogs" :object="object" :id="userID" @create_student="emitPage" :updateValue="objectUpdating"></RegisterForm>
+              <RegisterForm  @cancel="onCancelCreated" @close="openDialogs" :object="object" :id="userID"  :updateValue="objectUpdating"></RegisterForm>
           </div>
       </div>
       <!-- CLOSE THE DIALOG -->
@@ -49,9 +49,9 @@
             </div>
           </th>
           
-          <td class="py-2 px-4 text-center" v-if="item.role=='student'">{{ item.student[0] }}</td>
+          <td class="py-2 px-4 text-center" v-if="item.role=='student'">{{ item.student[0].year }}</td>
           <td class="py-2 px-4 text-center" v-if="item.role == 'teacher' ">{{ item.email }}</td> <!-- Teacher email -->
-          <td class="py-2 px-4 text-center" v-if="item.role == 'student' ">{{ item.student[0]  }}</td>
+          <td class="py-2 px-4 text-center" v-if="item.role == 'student' ">{{ item.student[0].class  }}</td>
 
          <!-- GROUP BUTTON -->
           <td  class="w-8/12 flex items-center mt-2 justify-end">
@@ -79,7 +79,7 @@
         </tr>
 
         <!-- IF NON LIST HERE -->
-        <div v-if="listUsers.length == 0 || ifDataIsNull" class="w-full border-b dark:bg-gray-800  dark:hover:bg-gray-600 flex justify-center items-center py-4">
+        <div v-if="!ifDataIsNull" class="w-full border-b dark:bg-gray-800  dark:hover:bg-gray-600 flex justify-center items-center py-4">
           <h1 class="text-red-600 text-[20px]">None List here!</h1>
         </div>
       </tbody>
@@ -101,7 +101,7 @@ export default {
             openDialog: false,
             object:{},
             userID:null,
-            objectUpdating:{}
+             objectUpdating: {},
         }
   },
   methods: {
@@ -117,10 +117,11 @@ export default {
       this.userID = userId;
       for(var i = 0; i < this.listUsers.length; i++){
         if(this.listUsers[i].id == userId){
-          console.log('my object', this.listUsers[i].first_name)
           this.objectUpdating = this.listUsers[i]
         }
       }
+      this.object.id=userId
+
     },
     // SHOWING CANCEL
     onCancelCreated(isShow){
@@ -128,17 +129,16 @@ export default {
     },
   // OPEN THE DIALOG
     openDialogs(isShow){
-        this.openDialog = isShow;
+      this.openDialog = isShow;
+      this.$emit('refresh_data')
     },
-    emitPage(value){
-      return this.$emit('emits-page',value);
-    }
   },
   mounted() {
     this.objectUpdating
-    setTimeout(function(){
-      this.ifDataIsNull == true
-    }, 1500)
+    if (this.listUsers.length == 0) {
+      this.ifDataIsNull = true
+    }
+   
   }
 };
 </script>
