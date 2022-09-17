@@ -14,7 +14,6 @@ use App\Http\Controllers\StudentController;
     //get students order by first name
     Route::get('/orderByName', [UserController::class,'orderByFname']);
     Route::post('/add', [UserController::class,'store']);
-    Route::get('/studentBaccth/{filter}', [StudentController::class, 'filterStudentByBatch']);
     //get student by batch
     Route::get('/studentBacth/{filter}', [StudentController::class, 'filterStudentByBatch']);
     //get student by class
@@ -26,9 +25,9 @@ use App\Http\Controllers\StudentController;
     //CRUD for batchs
     Route::apiResource('/batch',BatchController::class);
     //get all students follow up
-    Route::get('/getStdFU/{value}', [StudentController::class , 'getStudentFollowUp']);
+    Route::get('/getStdFU', [StudentController::class , 'getStudentFollowUp']);
     //set student to follow up
-    Route::post('/follow_up/{id}', [StudentController::class , 'setFollowUp']);
+    Route::post('/setFollowUp/{id}', [StudentController::class , 'setFollowUp']);
     //
 
 // });

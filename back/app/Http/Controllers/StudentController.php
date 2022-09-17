@@ -60,12 +60,12 @@ class StudentController extends Controller
         $student = Student::findOrfail($id);
         $student->if_follow_up = $request->if_follow_up;
         $student->update();
-        return response()->json(['message' => 'student set to follow up']);
+        return response()->json(['message' => 'student set to follow up list']);
     }
 
-    public function getStudentFollowUp($followUp)
+    public function getStudentFollowUp()
     {
-        return Student::with('user')->where('if_follow_up', ucfirst($followUp))->get();
+        return Student::with('user')->where('if_follow_up', ucfirst('yes'))->get();
     }
 
 
