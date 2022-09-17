@@ -15,11 +15,11 @@ use App\Http\Controllers\StudentController;
     Route::get('/orderByName', [UserController::class,'orderByFname']);
     Route::post('/add', [UserController::class,'store']);
     //get student by batch
-    Route::get('/studentBacth/{batch}', [StudentController::class, 'filterStudentByBatch']);
+    Route::get('/getStudentByBatch/{batch}', [StudentController::class, 'getStudentByBatch']);
     //get student by class
-    Route::get('/studentClass/{class}', [StudentController::class , 'filterStudentByClass']);
+    Route::get('/getStudentByClass/{class}', [StudentController::class , 'getStudentByClass']);
     //get student major
-    Route::get('/studentMajor/{major}', [StudentController::class , 'filterStudentByMajor']);
+    Route::get('/getStudentByMajor/{major}', [StudentController::class , 'getStudentByMajor']);
     //get user by sepcific role
     Route::get('/getUserBy/{role}',[UserController::class,'getUserBy']);
     //CRUD for batchs
