@@ -24,6 +24,7 @@
                 class="w-1/3 text-center align-center px-2.5 py-1.5 rounded hover:bg-green-dark focus:outline-none my-1 bg-blue-400 uppercase font-bold"
                 >
                 Submit
+
               </button>
             </div>
           </form>
@@ -32,6 +33,7 @@
     </div>
   </template>
   <script>
+import router from '@/router'
 import axios from 'axios'
     export default{
       data(){
@@ -45,7 +47,13 @@ import axios from 'axios'
             console.log(response.data)
             if(response.data.sms !== "Invalid password"){
               localStorage.setItem('token',response.data.token)
+              localStorage.setItem('coorId',response.data.id)
               console.log('Login Success')
+              if(localStorage.getItem('role') == "coordinator"){
+                router.push('/coorNavigation');
+                //emit back
+                this.$emit('loginSuccess');
+              }
             }
           })
         }

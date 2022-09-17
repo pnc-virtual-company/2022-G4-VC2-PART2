@@ -55,7 +55,6 @@ import router from '@/router';
             if(user.email == this.email){
               localStorage.setItem('user',user.email)
               localStorage.setItem('role',user.role)
-              // this.isExistEmail = true
               router.push('/login/password')
             }
           });

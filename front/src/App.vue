@@ -1,30 +1,65 @@
 <template>
-   <router-view/>
+  <CoorNavbar v-if="isLogin" @loginSuccess="isLogin=true"/>
+  
+  <!-- <Loging/> -->
+  <!-- <router-link  to="coorNavigation"/> -->
+  <router-view></router-view>
 </template>
 <script>
 
+import CoorNavbar from './views/coordinators/CoorNavigationView.vue'
+// import Loging from './views/login&logout/LoginView.vue'
 export default {
-  
+  components:{
+    CoorNavbar
+    // Loging
+  },
+  data(){
+    return {
+      isClosed:false,
+      isLogin: false,
+    }
+  },
+  methods:{
+    isHidden(value){
+      this.isClosed = value
+    },
+  },
+  provide(){
+    return {
+      openRightBar: this.isClosed
+    }
   }
+}
 </script>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
   
   :root {
-    --main-color: #004581;
-    --main-color-light: #018ABD;
+    --main-color: #004581;   /* Maain Color */
+    --main-color-light: #018ABD;  /* Second Color */
+    --main-color-active: #b0c9d2;  /* Third Color */
+    --main-color-hover: #a4bac1;  /* Third Color */
+  
   }
   
   * {
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
   }
   
   html {
     font-family: 'Roboto', sans-serif;
   }
   
-  body {
-    margin: 0;
-  }
-
+a.router-link-exact-active {
+  color: white;
+  background: var(--main-color-active);
+}
+a:hover {
+  color: white;
+  background: var(--main-color-hover);
+}
   </style>
+  

@@ -3,8 +3,6 @@
 </template>
 <script>
 import FormUserLogin from '@/components/login/EmailForm.vue' 
-
-
 import axios from 'axios'
 
 export default{
