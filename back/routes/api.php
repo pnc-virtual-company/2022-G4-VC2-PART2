@@ -1,12 +1,10 @@
 
 <?php
-
 use App\Http\Controllers\BatchController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\StudentController;
-
 
 // Route::post('/createUser',[UserController::class ,'createUser']);
 Route::post('/user',[UserController::class,'store']);

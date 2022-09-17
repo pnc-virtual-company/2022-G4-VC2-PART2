@@ -1,34 +1,23 @@
 import { createRouter, createWebHistory } from "vue-router";
 
 const routes = [
-
-
   {
     path: "/",
     name: "login",
-    component: () =>
-      import(
-        /* webpackChunkName: "about" */ "../views/login&logout/LoginView.vue"
-      ),
+    component: () => import("../views/login&logout/LoginView.vue"),
   },
   {
     path: "/login/password",
     name: "loginPassword",
-    component: () =>
-      import(
-        /* webpackChunkName: "about" */ "@/components/login/PasswordForm.vue"
-      ),
+    component: () => import("@/components/login/PasswordForm.vue"),
+  
   },
-  // {
-  //   path: '/logout',
-  //   name: 'logout',
-  //   component: () => import(/* webpackChunkName: "about" */ '../coordinators/views/HomeView.vue')
-  // },
+
   {
     path: "/profiles",
     name: "profiels",
     meta: {
-      needLogin: true
+      requiresAuth: true,
     },
     component: () => import("../views/coordinators/ProfileView.vue"),
   },
@@ -36,7 +25,7 @@ const routes = [
     path: "/coorNavigation",
     name: "coorNavigation",
     meta: {
-      needLogin: true
+      requiresAuth: true,
     },
     component: () => import("../views/coordinators/CoorNavigationView.vue"),
     children: [
@@ -44,7 +33,7 @@ const routes = [
         path: "/teacherList",
         name: "teacherList",
         meta: {
-          needLogin: true
+          requiresAuth: true,
         },
         component: () => import("../views/coordinators/TeacherView.vue"),
       },
@@ -52,7 +41,8 @@ const routes = [
         path: "/listFollowUp",
         name: "listFollowUp",
         meta: {
-          needLogin: true
+          requiresAuth: true,
+      
         },
         component: () =>
           import("../views/coordinators/ListOfStudentFollowUpView.vue"),
@@ -61,12 +51,9 @@ const routes = [
         path: "/studentList",
         name: "studentList",
         meta: {
-          needLogin: true
+          requiresAuth: true,
         },
-        component: () =>
-          import(
-            /* webpackChunkName: "about" */ "../views/coordinators/UsersView.vue"
-          ),
+        component: () => import("../views/coordinators/UsersView.vue"),
       },
     ],
   },
@@ -75,25 +62,22 @@ const routes = [
     component: () => import("../views/NotFoundView.vue"),
   },
 ];
-function authenticationGuard (to, from, next) {
-  let needLogin = to.meta.needLogin;
-  if (needLogin) {
+function authenticationGuard(to, from, next) {
+  let requiresAuth = to.meta.requiresAuth;
+  if (requiresAuth) {
     if (!localStorage.coorId) {
-      next('/login');
-    }
-    else {
-      if (to.path === '/login') {
-        next('/');
-      }
-      else {
+      next("/");
+    } else {
+      if (to.path === "/") {
+        next("/");
+      } else {
         next();
       }
     }
-  }
-  else {
+  } else {
     if (localStorage.coorId) {
-      if (to.path === '/login') {
-        next('/');
+      if (to.path === "/") {
+        next("/");
       }
     }
   }
