@@ -63,9 +63,9 @@ class StudentController extends Controller
         return response()->json(['message' => 'student set to follow up list']);
     }
 
-    public function getStudentFollowUp()
+    public function getAllStudentFolowUp()
     {
-        return Student::with('user')->where('if_follow_up', ucfirst('yes'))->get();
+        return Student::with('user')->where('if_follow_up', 'Yes')->get();
     }
 
 
