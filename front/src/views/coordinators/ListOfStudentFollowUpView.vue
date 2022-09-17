@@ -1,51 +1,55 @@
 <template>
-  <div class="w-full px-2 m-auto h-screen fixed top-20 right-0 flex justify-end">
-      <div class=" px-2 w-9/12">
-          
-<button id="dropdownDefault" data-dropdown-toggle="dropdown" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">Dropdown button <svg class="ml-2 w-4 h-4" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
-<!-- Dropdown menu -->
-<div id="dropdown" class=" z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700" data-popper-reference-hidden="" data-popper-escaped="" data-popper-placement="bottom" style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate3d(0px, 1076.67px, 0px);">
-    <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefault">
-      <li>
-        <a href="#" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>
-      </li>
-      <li>
-        <a href="#" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
-      </li>
-      <li>
-        <a href="#" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Earnings</a>
-      </li>
-      <li>
-        <a href="#" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Sign out</a>
-      </li>
-    </ul>
-</div>
-
-    </div>
-</div>
-
-
+  <div class="w-10/12 m-auto h-screen fixed top-20 right-0 flex justify-center">
+      <div class=" w-11/12 ">
+          <UserTemplates :listUsers="listStudents" :title="title" @delete_id="deleteUser" :standingPage="standingPage"/>
+      </div>
+  </div>
 </template>
+
 <script>
+import axios  from 'axios'
+import UserTemplates from '@/components/widget/userList/ListComponent.vue'
 export default {
-  components:{
- 
-  },
-  props: ['entandWidth'],
+  components:{ UserTemplates },
   data(){
       return {
-      width: 'w-full',
-      openDialog:false,
+      standingPage: 'follow', // STUDENTS CREATE INFOR
+      title: 'All Lists Of Follow Up', // TITLE OF HOME PAG
+      listStudents: [
+        {id:1, first_name: 'Rony', last_name: 'himly', batch: 2022, class: 'WEB 2022-A',subject: 'HTML'},
+        {id:2, first_name: 'Rono', last_name: 'himhey', batch: 2022, class: 'WEB 2022-A',subject: 'PLL'},
+        {id:3, first_name: 'Ronnus', last_name: 'himhy', batch: 2022, class: 'WEB 2022-A',subject: 'HEL'},
+        {id:4, first_name: 'Ronuy', last_name: 'himhok', batch: 2022, class: 'WEB 2022-A',subject: 'HTML'},
+        {id:5, first_name: 'Ronon', last_name: 'himha', batch: 2022, class: 'WEB 2022-A',subject: 'HTML'},
+        {id:6, first_name: 'Ronana', last_name: 'himo', batch: 2022, class: 'WEB 2022-A',subject: 'HTML'},
+      ]
       }
   },
   methods: {
       getDialog(value){
           this.openDialog = value 
-      }
+      },
+
+      getAllData(){
+          axios.get('http://127.0.0.1:8000/api/getUserBy/student').then((response)=>{
+              // this.listStudents = response.data
+              console.log(response.data)
+          })
+      },
+      // DELET DATA FROM STORAGE
+    // deleteUser(id){
+    //   axios.delete('http://localhost:8000/api/user/'+id).then(() => {
+    //       // return this.getAllData()
+    //   })
+    // },
+   
+  },
+  mounted() {
+      return this.listStudents;
   }
 }
 </script>
-<style>
-  
-</style>
 
+<style>
+
+</style>

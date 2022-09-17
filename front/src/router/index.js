@@ -2,26 +2,25 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 const routes = [
   {
-    path: '/teacherList',
-    name: 'teacherList',
-    component:() => import('../views/coordinators/TeacherView.vue')
-  },
-  {
     path: '/listFollowUp',
     name: 'listFollowUp',
-    component: () => import('../views/coordinators/ListOfStudentFollowUpView.vue')
+    component:() => import('../views/coordinators/ListOfStudentFollowUpView.vue')
   },
-
   {
     path: '/studentList',
     name: 'studentList',
-    component: () =>  import(/* webpackChunkName: "about" */ '../views/coordinators/UsersView.vue')
+    component: () =>  import('../views/coordinators/UsersView.vue')
   },
-  // {
-  //   path: '/logout',
-  //   name: 'logout',
-  //   component: () => import(/* webpackChunkName: "about" */ '../coordinators/views/HomeView.vue')
-  // },
+  {
+    path: '/teacherList',
+    name: 'teacherList',
+    component: () =>  import('../views/coordinators/TeacherView.vue')
+  },
+  {
+    path: '/',
+    name: 'home',
+    component: () => import('../views/coordinators/HomeView.vue')
+  },
   {
     path: '/profiles',
     name: 'profiels',

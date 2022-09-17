@@ -34,7 +34,6 @@
                             type="email"
                             class="block border border-grey-light w-full p-2 rounded border-cyan-500 bg-transparent"
                             placeholder="you@example.com"
-                            
                         />
                             <alertForm  v-if="userEmail !='' " :psw="userEmail"  />
                     </div>
@@ -55,7 +54,7 @@
                 </div>
 
             <div class="flex mb-2">
-                <div class="w-full flex gap-2" >
+                <div class="w-full flex gap-2" v-if="object.to_do == 'create'">
                     <div class=" w-full ">
                         <span class="text-gray-500">Passsword</span>
                     <input 
@@ -63,7 +62,6 @@
                         type="email"
                         class="block border border-grey-light w-full p-2 rounded border-cyan-500 bg-transparent"
                     />
-         
                         <alertForm v-if="password.length<8 " :psw="checkPassword(password)" />
                 </div>
 
@@ -83,16 +81,23 @@
             <div class="flex gap-2 mb-5" v-if="object.role != 'teacher'">
                 <div class="w-full" >
                     <span class="text-gray-500">Batch*</span>
-                    <select   class="outline-1 block border border-grey-light w-full p-2 rounded text-gray-400 border-cyan-500 bg-transparent" v-model="batch" >
-                        <option value="2022">2022</option>
-                        <option value="2023">2023</option>
+                    <select v-if="!showAddNewBatch"   class="outline-1 block border border-grey-light w-full p-2 rounded text-gray-400 border-cyan-500 bg-transparent" v-model="batch" >
+                        <option :value="batch" v-for="batch of allBatch" :key="batch">{{batch.batch}}</option>
                     </select>
+                     <input  
+                        v-if="showAddNewBatch"
+                        v-model="batch"
+                        type="number"
+                        class="block border border-grey-light w-full p-2 rounded border-cyan-500 bg-transparent"
+                    />
                     <alertForm v-if="batch =='' " :psw="checkPassword(batch)" />
+                    <span  @click="showAddNewBatch = true" class="text-blue-500 cursor-pointer underline underline-offset-2 hover:text-blue-700">Create new batch !</span>
                 </div>
                 <div class="w-full">
                     <span class="text-gray-500">Class*</span>
                     <select v-model="student_class"  class="outline-1 block border border-grey-light w-full p-2 rounded text-gray-400 border-cyan-500 bg-transparent">
                         <option value="A">A</option>
+                        <input type="text">
                         <option value="B">B</option>
                     </select>
                     <alertForm v-if="student_class =='' " :psw="checkPassword(student_class)"/>
@@ -113,7 +118,7 @@
                     <input  checked id="inline-checked-radio" type="radio" value="others" name="inline-radio-group" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" v-model="sex">
                     <label for="inline-checked-radio" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Others</label>
                 </div>     
-            </div>
+        </div>
             <!-- Base_Button -->
            <section class="flex justify-between w-full pt-2">
                 <Base_Button @click="($emit('close', false))" class="  bg-slate-300 border-teal-900 text-black ">Cancel</Base_Button>
@@ -130,10 +135,11 @@ import alertForm from '../alertValidation/alert_form.vue';
 import axios from 'axios';
 const Swal = require('sweetalert2')
 export default ({
-props:['object'],
+props:['object', 'updateValue'],
 emits:['close'],
     components: {
-        alertForm, Base_Button
+        alertForm,
+        Base_Button,
     },
     data()
     {
@@ -152,30 +158,16 @@ emits:['close'],
             validatePSW: 'Password must be at least 8 characters !',
             ifAllfiedInput: false,
             userEmail: '',
-            
+            role: 'student',
         }
     },
     methods: {
-        // CREATE OR UPDATE
+        
         toggleShow() {
         this.showPassword = !this.showPassword;
         },
+        // CREATE OR UPDATE
         UpdateOrCreateUser(){
-            if(this.object.to_do == 'create'){ 
-            //    YOUR CREATE HERE
-            this.$emit('close', false)
-    
-            }else if(this.object.to_do == 'update'){ 
-                // YOUR UPDATE HERE
-            }
-        },
-
-
-        async getImg(event) {
-            this.img = event.target.files[0];
-            console.log(this.img.name)
-        },
-        signUP() {
             const stdList = {
                 email: this.email,
                 first_name: this.first_name,
@@ -186,7 +178,7 @@ emits:['close'],
                 gender: this.sex,
                 year: this.batch,
                 province: this.province,
-                role: 'student',
+                role: this.role,
                 // gender:this.gender
             };
             const std = [
@@ -199,15 +191,71 @@ emits:['close'],
                 this.sex,
                 this.batch,
                 this.province,
+            ];
+            const teacher = [
+                this.email,
+                this.first_name,
+                this.last_name,
+                this.password,
+                this.sex,
             ]
-            this.ifAllfiedInput = std.every(this.checkForm);
+            if(this.object.to_do == 'create'){ 
+                     //    YOUR CREATE HERE
+                if(this.object.role == 'teacher'){
+                    this.role = 'teacher';
+                    this.ifAllfiedInput = teacher.every(this.checkForm);
+                     this.signUP()
+                }else if(this.object.role=='student'){
+                    this.role = 'student'
+                     this.ifAllfiedInput = std.every(this.checkForm);
+                     this.signUP()
+                }
+                this.$emit('close', false)
+    
+            }else if(this.object.to_do == 'update'){ 
+                // YOUR UPDATE HERE
+                if(this.object.role=='teacher'){
+                    stdList.role = 'teacher';
+                    // return this.updateStudent()
+                }else if(this.object.role=='student'){
+                    return this.updateStudent() 
+                }
+                this.$emit('close', false)
+            }
+        },
+        async getImg(event) {
+            this.img = event.target.files[0];
+            console.log(this.img.name)
+        },
+        
+        // Create user Account
+        signUP() {
+            console.log(this.ifAllfiedInput);
+            const stdList = {
+                email: this.email,
+                first_name: this.first_name,
+                last_name: this.last_name,
+                password: this.password,
+                NGO: this.NGO,
+                class: this.student_class,
+                gender: this.sex,
+                year: this.batch,
+                province: this.province,
+                role: this.role,
+                // gender:this.gender
+            };
+            console.log(stdList);
             if (this.ifAllfiedInput) {
                 axios.post('http://localhost:8000/api/user/', stdList).then(() => {
                     this.$emit("create_student",stdList)
                     Swal.fire({
                         icon: 'success',
                         text: 'User Created',
+                      
                     })
+                    // setTimeout(function(){
+                    //     window.location.reload()
+                    // }, 1000);
                 }).catch(() => {
                         this.validateEmail()
                 })
@@ -339,13 +387,33 @@ emits:['close'],
             this.gender= this.dataToUpdate[0].gender,
             this.role= this.dataToUpdate[0].role
         },
-       
     },
     mounted() {
         axios.get('http://localhost:8000/api/user/' + this.object.id).then((res) => {
+            axios.get('http://localhost:8000/api/batch').then((res) => {
+                this.allBatch = res.data
+                if (this.allBatch == '') {
+                    this.showAddNewBatch = true
+                }
+            })
             this.dataToUpdate = res.data
-            this.showOldData()
+            // this.showOldData()
         })
+    },
+    created(){
+        if(this.object.to_do == 'update'){
+            this.email= this.updateValue.email,
+            this.first_name= this.updateValue.first_name,
+            this.last_name= this.updateValue.last_name,
+            this.password= this.updateValue.password,
+            this. NGO= this.updateValue.NGO,
+            this.class= this.updateValue.student_class,
+            this.gender= this.updateValue.sex,
+            this.year= this.updateValue.batch,
+            this.province= this.updateValue.province,
+            this.role= this.updateValue.role
+       }
+    // console.log(this.updateValue)
     }
 })
 </script>
