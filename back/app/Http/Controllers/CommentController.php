@@ -43,6 +43,8 @@ class CommentController extends Controller
         $comment = Comment::findOrfail($id);
         $validate = $request->validate([
             'topic' => 'required',
+            'content' => 'required',
+
         ]);
         $comment->status = $request->status;
         $comment->topic = $request->topic;
