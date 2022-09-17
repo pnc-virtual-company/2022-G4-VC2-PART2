@@ -153,6 +153,7 @@ export default {
         }
       }
       this.object.id = userId
+      console.log(this.object);
     },
 
     // SHOWING CANCEL

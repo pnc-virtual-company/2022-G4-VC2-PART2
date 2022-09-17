@@ -275,7 +275,7 @@ emits:['close'],
                 role: this.role,
             }
             if (this.ifAllfiedInput) { 
-                console.log(this.object.id);
+                console.log(this.object);
                 if (this.object.to_do == 'update') {
                     axios.put('http://localhost:8000/api/user/'+this.object.id, stdList).then(() => {
                     this.$emit('close', false)
