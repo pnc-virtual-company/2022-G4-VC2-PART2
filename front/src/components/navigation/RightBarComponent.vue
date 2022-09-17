@@ -1,5 +1,5 @@
 <template>
-  <div class="sidebar fixed top-16 bottom-0 lg:left-0 left-[-300px] duration-1000 w-[260px] overflow-auto text-center h-screen z-10" style="background:var(--main-color-light)">
+  <div class="sidebar fixed top-16 bottom-0 lg:left-0 left-[-300px] duration-1000 w-[180px] overflow-auto text-center h-screen z-10" style="background:var(--main-color-light)">
     <div class="text-gray-100 text-xl">
       <div class="">
           <router-link to="/teacherList" class=" py-1 flex items-center px-4 duration-300 cursor-pointer">

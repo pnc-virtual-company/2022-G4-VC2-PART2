@@ -45,8 +45,8 @@
         <tr v-for="(item,index) in listUsers" :key="index" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 ">
           <td class="text-black font-semibold py-3 px-4 text-cente">{{ item.first_name }} {{ item.last_name }}</td>
           <td class="py-3 px-4 text-center" v-if="standingPage=='teacher'">{{ item.email }}</td> <!-- Teacher email -->
-          <td class="py-3 px-4 text-center" v-if="standingPage=='student' || standingPage=='follow'">{{ item.batch }}</td>
-          <td class="py-3 px-4 text-center text-blue-300" v-if="standingPage=='student' || standingPage=='follow'">{{ item.class }}</td>
+          <td class="py-3 px-4 text-center" v-if="standingPage=='student' || standingPage=='follow'">{{ item.student[0].year}}</td>
+          <td class="py-3 px-4 text-center text-blue-300" v-if="standingPage=='student' || standingPage=='follow'">{{ item.student[0].class}}</td>
           <td class="py-3 px-4 text-center" v-if="standingPage=='follow'">{{ item.subject  }}</td><!-- Subject which will be follow up -->
          <!-- ________GROUP BUTTON ACTIONS____________-->
           <td  class="w-11/12 flex items-center justify-end mt-2">
@@ -152,6 +152,7 @@ export default {
           this.objectUpdating = this.listUsers[i]
         }
       }
+      this.object.id = userId
     },
 
     // SHOWING CANCEL
@@ -161,6 +162,7 @@ export default {
    // OPEN THE DIALOG
     openDialogs(isShow){
         this.openDialog = isShow;
+        this.$emit('refresh_data')
     },
 
     emitPage(value){
