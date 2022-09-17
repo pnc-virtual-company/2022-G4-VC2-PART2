@@ -1,5 +1,5 @@
 <template>
-  <div class="overflow-x-auto relative shadow-sm bg-gray-50 sm:rounded-lg p-2 z-0">
+  <div class="overflow-x-auto relative shadow-sm bg-gray-50 p-2 z-0">
     <!-- TITLE OF PAGES -->
     <div class="py-1pb-3">
       <h2 class="text-gray-800 text-2xl font-bold text-center mb-2 uppercase">{{ title }}</h2>
@@ -21,6 +21,7 @@
               <RegisterForm  @cancel="onCancelCreated" @close="openDialogs" :object="object" :id="userID" @create_student="emitPage"></RegisterForm>
           </div>
       </div>
+
       <!-- CLOSE THE DIALOG -->
      <div v-if="openDialog" class="opacity-30 fixed inset-0 z-40 bg-black"></div>
     <!-- TABLES COMTAINER ALL LIST OF STUDENTS-->
@@ -31,18 +32,18 @@
           <th scope="col" class="py-2 px-4 text-center" v-if="createUsers.role=='student'" >batch</th>
           <th scope="col" class="py-2 px-4 text-center" v-if="createUsers.role=='teacher'" >Email</th> <!-- Teacher email -->
           <th scope="col" class="py-2 px-4 text-center" v-if="createUsers.role=='student'">class</th>
-          <th scope="col" class="py-2 px-4  text-center w-3">Action</th>
+          <th scope="col" class="py-2 px-4 text-center w-3">Action</th>
         </tr>
       </thead>
 
-      <tbody class="overflow-right-aut0">
+      <tbody class=" overflow-right-aut0">
         <tr 
           v-for="(item,index) in listUsers" :key="index"
-          class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 "
+          class=" border-b  dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-200 "
         >
           <th
             scope="row"
-            class="flex items-center py-4 px-3 text-gray-900 whitespace-nowrap dark:text-white"
+            class="flex items-center py-4 px-3 text-gray-900 whitespace-nowrap "
           >
             <div class="pl-3">
               <div class="text-base font-semibold text-center">{{ item.first_name }} {{ item.last_name }}</div>
@@ -63,18 +64,11 @@
               </button>
 
               <button
-                class="font-medium dark:text-blue-500 hover:underline  text-red-700 mx-2 text-left"
+                class="font-medium dark:text-red-500 hover:underline  text-red-700 mx-2 text-left"
                   v-on:click="($emit('delete_id', item.id))"
                 >
-                  Delete
+                  Delete 
               </button>
-              <!-- <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                 <path stroke-linecap="round" stroke-linejoin="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg> -->
-              <!-- <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 rounded-full p-2 font-semibold hover:bg-gray-100">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
-              </svg> -->
-
           </td>
         </tr>
 
@@ -85,6 +79,7 @@
       
       </tbody>
     </table>
+
   </div>
 </template>
 <script>
