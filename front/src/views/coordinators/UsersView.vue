@@ -39,7 +39,9 @@ export default {
 
     },
     mounted() {
-        return this.getAllData();
+        this.getAllData()
+        console.log(this.listStudents)
+        // return this.getAllData();
     }
 }
 </script>

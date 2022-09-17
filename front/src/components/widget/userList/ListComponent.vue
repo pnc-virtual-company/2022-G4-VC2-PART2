@@ -45,8 +45,8 @@
         <tr v-for="(item,index) in listUsers" :key="index" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 ">
           <td class="text-black font-semibold py-3 px-4 text-cente">{{ item.first_name }} {{ item.last_name }}</td>
           <td class="py-3 px-4 text-center" v-if="standingPage=='teacher'">{{ item.email }}</td> <!-- Teacher email -->
-          <td class="py-3 px-4 text-center" v-if="standingPage=='student' || standingPage=='follow'">{{ item.student[0].year}}</td>
-          <td class="py-3 px-4 text-center text-blue-300" v-if="standingPage=='student' || standingPage=='follow'">{{ item.student[0].class}}</td>
+          <td class="py-3 px-4 text-center" v-if="standingPage=='student' || standingPage=='follow'">{{ item.student[0].year }}</td>
+          <td class="py-3 px-4 text-center text-blue-300" v-if="standingPage=='student' || standingPage=='follow'">{{ item.student[0].class }}</td>
           <td class="py-3 px-4 text-center" v-if="standingPage=='follow'">{{ item.subject  }}</td><!-- Subject which will be follow up -->
          <!-- ________GROUP BUTTON ACTIONS____________-->
           <td  class="w-11/12 flex items-center justify-end mt-2">
@@ -63,13 +63,13 @@
               </i>
               
               <!-- add to list follow up -->
-              <i class="group max-w-max relative mx-1 mt-2 flex flex-col items-center justify-center   hover:text-gray-600"  v-if="standingPage =='student'">
+              <i class="group max-w-max relative mx-1 mt-2 flex flex-col items-center justify-center   hover:text-gray-600"  v-if="standingPage =='student'" @click="($emit('set_to_sfu', item.id))">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 cursor-pointer text-yellow-500">
                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25zM6.75 12h.008v.008H6.75V12zm0 3h.008v.008H6.75V15zm0 3h.008v.008H6.75V18z" />
                 </svg>
                 <div class="group-hover:[transform:perspective(0px)_translateZ(0)_rotateX(0deg)] absolute bottom-0 mb-6 origin-bottom transform rounded text-white opacity-0 transition-all duration-300 group-hover:opacity-100">
                     <div class="flex max-w-xs flex-col items-center">
-                      <div class="rounded bg-gray-100  opacity-1 px-8 py-1 text-xs text-black text-center shadow-lg">Follow</div>
+                      <div class="rounded bg-gray-100  opacity-1 px-8 py-1 text-xs text-black text-center shadow-lg">Add+</div>
                     </div>
                 </div>
               </i>
@@ -125,7 +125,7 @@ import Base_Button from '../button/BaseButton.vue'
 import Bass_Dialog_Form from '../dialogFrom/BaseDialogForm.vue'
 export default {
     props:['listUsers', 'createUsers', 'updateUser', 'title','standingPage'], 
-    emits:['emits-page'],
+    emits:['emits-page', 'set_to_sfu'],
     components: {
        Bass_Dialog_Form, Base_Button
     },
@@ -150,6 +150,7 @@ export default {
       for(var i = 0; i < this.listUsers.length; i++){
         if(this.listUsers[i].id == userId){
           this.objectUpdating = this.listUsers[i]
+          console.log(this.objectUpdating.student[0].if_follow_up);
         }
       }
       this.object.id = userId
@@ -165,14 +166,15 @@ export default {
         this.openDialog = isShow;
         this.$emit('refresh_data')
     },
-
+    // EMIT PAGE OT DATABASE
     emitPage(value){
       return this.$emit('emits-page',value);
-    }
+    },
+      // ADD STUDENT TO FOLLO UP LIST
   },
 
   mounted() {
-    this.objectUpdating
+    console.log(this.listUsers)
   }
 };
 </script>
