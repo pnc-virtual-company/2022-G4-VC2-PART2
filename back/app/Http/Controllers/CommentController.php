@@ -32,9 +32,9 @@ class CommentController extends Controller
 
     }
 
-    public function show( $id)
+    public function show($user_id)
     {
-        return Comment::findOrfail($id);
+        return Comment::where('user_id',$user_id)->get();
     }
 
 
@@ -58,4 +58,10 @@ class CommentController extends Controller
     {
         return Comment::destroy($id);
     }
+
+    public function getCommentBy($topic)
+    {
+        return Comment::where('topic', $topic)->get();
+    }
+
 }
