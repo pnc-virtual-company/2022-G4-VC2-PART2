@@ -16,6 +16,11 @@ class User extends Authenticatable
         return $this->hasMany(Student::class);
     }
 
+    public function comment()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
     public function run()
             {
     User::factory()

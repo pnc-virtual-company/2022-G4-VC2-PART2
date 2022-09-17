@@ -19,6 +19,11 @@ class Student extends Model
         return $this->belongsTo(Batch::class);
     }
 
+    public function comment()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
     protected $hidden = [
         'user_id',
         'id',
