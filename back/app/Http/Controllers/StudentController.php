@@ -40,17 +40,17 @@ class StudentController extends Controller
         //
     }
 
-    public function filterStudentByBatch($batch)
+    public function getStudentByBatch($batch)
     {
         return Student::with(['User'])->where('year',$batch)->get();
     }
 
-    public function filterStudentByClass($class)
+    public function getStudentByClass($class)
     {
         return Student::with(['User'])->where('class', strtoupper($class))->get();
     }
 
-    public function filterStudentByMajor($major)
+    public function getStudentByMajor($major)
     {
         return Student::with(['User'])->where('class', 'LIKE', '%' . $major . '%')->get();
     }
