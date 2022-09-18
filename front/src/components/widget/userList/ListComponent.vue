@@ -1,21 +1,25 @@
 <template>
-  <div class="overflow-x-auto relative shadow-sm bg-gray-50 sm:rounded-lg p-2 z-50">
+  <div class="overflow-x-auto relative shadow-sm bg-gray-50 sm:rounded-lg p-4 z-50 border-4 border-t-[#018ABD]">
     <!-- TITLE OF PAGES -->
     <div class="py-1 pb-3">
       <h2 class="text-gray-800 text-2xl font-bold text-center mb-2 uppercase">{{ title }}</h2>
     </div>
 
       <!-- ___BUTTON CREATE USER__-->
-      <Base_Button class="py-[6px]" @click="addUser" v-if="standingPage !='follow'">
-        <i class="mx-1">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M19 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zM4 19.235v-.11a6.375 6.375 0 0112.75 0v.109A12.318 12.318 0 0110.374 21c-2.331 0-4.512-.645-6.374-1.766z" />
-          </svg>
-        </i>
-        <i>
-           Create
-        </i>
-      </Base_Button>
+      <section class="flex justify-start mb-2">
+          <Base_Button class="bg-[#018ABD] py-[6px] flex justify-start" @click="addUser">
+            <i class="mx-1">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-white">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M19 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zM4 19.235v-.11a6.375 6.375 0 0112.75 0v.109A12.318 12.318 0 0110.374 21c-2.331 0-4.512-.645-6.374-1.766z" />
+              </svg>
+            </i>
+            <i class="text-white">
+              Create
+            </i>
+        </Base_Button>
+        <!-- BUTON DROP DOWN MENU -->
+        <Base_DropDwon_Menu :title="'Batches'" :lists="lists"/>
+      </section>
       <!--_____FORM DIALOG_______-->
       <div class=" overflow-x-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex" v-if="openDialog">
           <div class="form-container rounded w-11/12">
@@ -32,10 +36,9 @@
         <tr>
           <th scope="col" class="py-2 px-4 text-left">Name</th>
           <th scope="col" class="py-2 px-4 text-center" v-if="standingPage=='teacher'" >Email</th> <!-- Teacher email title-->
-          <th scope="col" class="py-2 px-4 text-center" v-if="standingPage=='student' || standingPage=='follow'">Batch</th>
-          <th scope="col" class="py-2 px-4 text-center" v-if="standingPage=='student' || standingPage=='follow'">class</th>
-          <th scope="col" class="py-2 px-4 text-center" v-if="standingPage=='follow'">Subject</th><!-- Subject title which will be follow up -->
-          <th scope="col" class="py-2  text-center w-4 mx-4 ">Action</th>
+          <th scope="col" class="py-2 px-4 text-center" v-if="standingPage=='student'">Batch</th>
+          <th scope="col" class="py-2 px-4 text-center" v-if="standingPage=='student'">class</th>
+          <th scope="col" class="py-2  text-center w-4 mx-4">Action</th>
         </tr>
       </thead>
 
@@ -44,13 +47,12 @@
         <tr v-for="(item,index) in listUsers" :key="index" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
           <td class="text-black font-semibold py-3 px-4 text-cente">{{ item.first_name }} {{ item.last_name }}</td>
           <td class="py-3 px-4 text-center" v-if="standingPage=='teacher'">{{ item.email }}</td> <!-- Teacher email -->
-          <td class="py-3 px-4 text-center" v-if="(standingPage=='student' || standingPage =='follow') && item.student[0] == [] "> {{ item.student[0].year }}</td>
-          <td class="py-3 px-4 text-center text-blue-300" v-if="standingPage=='student' || standingPage=='follow'">{{ item.student[0].class }}</td>
-          <td class="py-3 px-4 text-center" v-if="standingPage=='follow'">{{ item.subject  }}</td><!-- Subject which will be follow up -->
+          <td class="py-3 px-4 text-center" v-if="(standingPage=='student')"> {{ item.student[0].year }}</td>
+          <td class="py-3 px-4 text-center text-blue-300" v-if="standingPage=='student'">{{ item.student[0].class }}</td>
          <!-- ________GROUP BUTTON ACTIONS____________-->
           <td  class="w-11/12 flex items-center justify-end mt-2">
               <!-- Edite -->
-              <i class="group max-w-max relative mx-1 mt-2 flex flex-col items-center justify-center   hover:text-gray-600" v-if="standingPage !='follow'" v-on:click="editUser(item.id)">
+              <i class="group max-w-max relative mx-1 mt-2 flex flex-col items-center justify-center   hover:text-gray-600" v-on:click="editUser(item.id)">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 mx-1 text-blue-500 cursor-pointe">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
                 </svg>
@@ -72,30 +74,6 @@
                     </div>
                 </div>
               </i>
-
-              <!-- message or comment or feedback -->
-              <i class="group max-w-max relative mx-1 mt-1 flex flex-col items-center justify-center   hover:text-gray-600" v-if="standingPage =='follow'">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mx-1 text-green-500 cursor-pointer">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 01.865-.501 48.172 48.172 0 003.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" />
-                </svg>
-                <div class="group-hover:[transform:perspective(0px)_translateZ(0)_rotateX(0deg)] absolute bottom-0 mb-6 origin-bottom transform rounded text-white opacity-0 transition-all duration-300 group-hover:opacity-100">
-                    <div class="flex max-w-xs flex-col items-center">
-                      <div class="rounded bg-gray-100  opacity-1 px-4 py-1 text-xs text-black text-center shadow-lg">Comments</div>
-                    </div>
-                </div>
-              </i>
-
-                <!-- follow up -->
-              <i class="group max-w-max relative mx-1 flex flex-col items-center justify-center   hover:text-gray-600" v-if="standingPage =='follow'">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 mx-1 text-orange-500 cursor-pointer">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5m-9-6h.008v.008H12v-.008zM12 15h.008v.008H12V15zm0 2.25h.008v.008H12v-.008zM9.75 15h.008v.008H9.75V15zm0 2.25h.008v.008H9.75v-.008zM7.5 15h.008v.008H7.5V15zm0 2.25h.008v.008H7.5v-.008zm6.75-4.5h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008V15zm0 2.25h.008v.008h-.008v-.008zm2.25-4.5h.008v.008H16.5v-.008zm0 2.25h.008v.008H16.5V15z" />
-                </svg>
-                <div class="group-hover:[transform:perspective(0px)_translateZ(0)_rotateX(0deg)] absolute bottom-0 mb-6 origin-bottom transform rounded text-white opacity-0 transition-all duration-300 group-hover:opacity-100">
-                    <div class="flex max-w-xs flex-col items-center">
-                      <div class="rounded bg-slate-100  opacity-1 px-4 py-1 mr-4 text-xs text-black  text-center shadow-lg">Followed</div>
-                    </div>
-                </div>
-              </i>
             </td>
           </tr>
         </tbody>
@@ -111,17 +89,19 @@
 import axios  from 'axios'
 import Base_Button from '../button/BaseButton.vue'
 import Bass_Dialog_Form from '../dialogFrom/BaseDialogForm.vue'
+import Base_DropDwon_Menu from '../dropdown_menu/BaseDropDown.vue'
 export default {
     props:['listUsers', 'createUsers', 'updateUser', 'title','standingPage'], 
     emits:['emits-page', 'set_to_sfu'],
     components: {
-       Bass_Dialog_Form, Base_Button
+       Bass_Dialog_Form, Base_Button, Base_DropDwon_Menu
     },
     data(){
       return {
           openDialog: false,
           object:{},
-          objectUpdating:{} // Store list which should we update
+          objectUpdating:{}, // Store list which should we update
+          lists: [2022, 2023, 2024],
         }
   },
   methods: {

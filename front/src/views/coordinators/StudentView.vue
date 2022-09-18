@@ -1,6 +1,6 @@
 <template>
-    <div class="w-10/12 m-auto h-screen fixed top-28 right-0 flex justify-center ">
-        <div class=" w-11/12 ">
+     <div class="w-full mt-28 m-aut flex justify-center px-4">
+        <div class="w-11/12">
             <UserTemplates :listUsers="listStudents" :createUsers="studentInfoCreate" :updateUser="studentInfoUpdate" :title="title" @delete_id="deleteUser" :standingPage="standingPage" @refresh_data="getAllData"/>
         </div>
     </div>
@@ -20,9 +20,6 @@ export default {
         }
     },
     methods: {
-        // getDialog(value){
-        //     this.openDialog = value 
-        // },
         // GET ALL DATABASE
         getAllData(){
             axios.get('http://127.0.0.1:8000/api/getUserBy/student').then((response)=>{
@@ -36,7 +33,6 @@ export default {
             return this.getAllData()
         })
       },
-
     },
     mounted() {
        return this.getAllData()

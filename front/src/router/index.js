@@ -4,7 +4,7 @@ const routes = [
   {
     path: '/listFollowUp',
     name: 'listFollowUp',
-    component:() => import('../views/coordinators/ListOfStudentFollowUpView.vue')
+    component:() => import('../views/coordinators/FollowUpView.vue')
   },
   {
     path: '/studentList',
