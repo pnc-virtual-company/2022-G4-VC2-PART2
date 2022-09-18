@@ -28,16 +28,12 @@
               </i>
             </a>
 
-            <a class="flex justify-cneter py-1 text-sm md:mt-0 focus:text-gray-900 hover:bg-cyan-100 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">
-             <i>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mx-2">
-                 <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9" />
-              </svg>
-              </i>
-              <i>
-                Logout
-              </i>
-            </a>
+            <div class="flex px-4 py-2 text-sm leading-5 text-gray-700 transition duration-150 ease-in-out focus:outline-none hover:bg-warning hover:text-white" @click="submitLogout">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                            </svg>
+                            logout
+              </div>
         </div>
   </div>
 
@@ -51,13 +47,23 @@
       return {
         isShowed: false,
         width: "w-full",
+        isLoggingOut:false
       }
   },
   methods: { 
     hiddeRightbar(){
       this.isShowed = !this.isShowed;
       this.$emit('emits-nav', this.isShowed)
-    }
+    },
+    submitLogout(){
+            this.isLoggingOut = true;
+            setTimeout(() => {
+                this.isLoggingOut = false;
+                this.$store.dispatch('logout')
+                this.$router.push('/')
+            }, 1000);
+        },
   },
+
 }
 </script> 

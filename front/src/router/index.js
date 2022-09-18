@@ -7,12 +7,12 @@ const routes = [
     component: () => import("../views/login&logout/LoginView.vue"),
   },
   {
-    path: "/login/password",
-    name: "loginPassword",
-    component: () => import("@/components/login/PasswordForm.vue"),
+    path: "/logout",
+    name: "logout",
+    component: () => import("../views/login&logout/LogoutView"),
   
   },
-
+ 
   {
     path: "/profiles",
     name: "profiels",

@@ -8,10 +8,11 @@
 <script>
 
 import CoorNavbar from './views/coordinators/CoorNavigationView.vue'
-// import Loging from './views/login&logout/LoginView.vue'
+
 export default {
   components:{
-    CoorNavbar
+    CoorNavbar,
+
     // Loging
   },
   data(){

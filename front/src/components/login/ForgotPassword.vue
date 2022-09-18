@@ -1,101 +1,65 @@
 <template>
-    <section class="z-[100] fixed left-0 top-0 w-full h-full bg-white">
-        <div class="flex h-full items-center bg-slate-400">
-            <img src="../../assets/forgot-password.png" alt="logo" class="w-[30%] m-auto ">
-            <div class="rounded mb-4 w-[40%] m-auto mt-[30px] ">
-                <form class="p-5 bg-[#dddddd98] shadow rounded" @submit.prevent="handleSubmit">
-                    <img src="../../assets/pnc_logo.png" alt="logo" class="w-[100px] m-auto">
-                    <h1 class="text-1xl font-semibold text-center p-1">Forgot Password</h1>
-                    <div class="mb-1 relative">
-                        <label class="block text-gray-700 text-lg  mb-1" for="password">
-                            Email *
-                        </label>
-                        <input
-                            :class="{ 'border-red-500 border bg-red-100': is_not_found }"
-                            class=" appearance-none rounded w-full py-2 px-3 text-gray-700 mb-1 focus:outline-primary focus:shadow-outline" 
-                            v-model="email"
-                            @change="is_not_found=false"
-                            id="email" type="email" placeholder="Email..." >
-                    </div>
-                    <div v-if="is_not_found" class="mb-6 text-red-500 text-sm">{{sms_alert}}</div>
-                    <button
-                        class="bg-blue-500 mt-6 hover:bg-blue-700 text-white py-2 w-full px-4 rounded focus:outline-primary focus:shadow-outline"
-                        type="submit" >
+    <div class="bg-grey-lighter min-h-screen flex flex-col">
+      <div
+        class="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2"
+      >
+      <div class="align-start">
+          <p class="font-semibold">Student <span class="text-blue-400">Follow Up</span></p>
+      </div>
+        <div class="bg-white px-6 py-8 rounded shadow-md text-black w-full">
+          <form >
+            <form class="p-5 bg-white rounded-b-md">
+                <p class="text-blue-400"><a href="">{{this.email}}</a></p>
+                <div class="mb-2 mt-2 relative">
+                    <label class="block text-gray-700 text-sm font-bold  mb-1">
+                        Type code
+                    </label>
+                    <input
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 focus:outline-primary focus:shadow-outline"  type="text" placeholder="Verify code..">
+                </div>
+                <div class= "text-red-500 mb-4"></div>
+                <div class="flex text-right justify-end">
+                    <button class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded focus:outline-primary focus:shadow-outline" type="submit">
                         Submit
                     </button>
-                </form>
-            </div>
+                </div>
+            </form>
+          </form>
         </div>
-        <reset-password v-if="is_confirmed_code" @submit-change="submitNewPassword" />
-        <form-verify v-if="is_found_email" @confirm-code="confirmCode"/>
-        <loading-show v-if="isFindingMail">
-                Finding email...
-        </loading-show>
-    </section>
-</template>
+      </div>
+    </div>
 
-<script>
+  </template>
+  <script>
 
-// import axios from "../../axios-http"
-// import resetPassword from './ResetForgotPassword.vue';
-// import formVerify from './FormVerifyEmail.vue';
-// import LoadingShow from './../animations/LoadingShow.vue';
-export default({
-    components: {
-        'reset-password': resetPassword,
-        'form-verify': formVerify,
-        'loading-show': LoadingShow,
-    },
-    data(){
-        return {
-            email: '',
-            is_not_found: false,
-            is_found_email: false,
-            verify_code: '',
-            is_confirmed_code: false,
-            isFindingMail: false,
-            sms_alert: ""
+// import router from '@/router';
+    export default{
+     
+      data(){
+        return{
+          email:localStorage.getItem('user')
         }
-    },
-    methods: {
-        handleSubmit(){
-            if (this.email.trim() != ""){
-                let chars = "01234567890123456789012345678901234567890123456789";
-                let string_length = 6;
-                let random_string = ""
-                for (let i = 0; i < string_length; i++) {
-                    let rnum = Math.floor(Math.random() * chars.length);
-                    random_string += chars.substring(rnum, rnum + 1);
-                }
-                this.verify_code = random_string;
-                this.isFindingMail = true;
-                this.is_not_found = false;
-                axios.post('forgot',{email: this.email, verify_code: this.verify_code}).then((res)=>{
-                    this.isFindingMail = false;
-                    console.log(res.data);
-                    if (!res.data.success){
-                        this.is_not_found = true;
-                        this.sms_alert = "Email not found"
-                        this.isFindingMail = false;
-                    }else{
-                        this.is_found_email = true;
-                    }
-                });
-            }else{
-                this.is_not_found = true;
-                this.sms_alert = "Email should be completed"
-            }
+      },
+      methods:{
+      
         },
-        submitNewPassword(newPwd){
-            let new_password = {email: this.email, new_password: newPwd}
-            axios.post('resetForgot',new_password).then((res)=>{
-                this.$router.push({name: 'login'})
-            });
-        },
-        confirmCode(){
-            this.is_found_email = false;
-            this.is_confirmed_code = true;
-        }
     }
-})
-</script>
+  </script>
+  <style>
+      .icon {
+          position:relative;
+          padding-left: 2.5rem;
+          padding-right: 2rem;
+          background: url("https://cdn4.iconfinder.com/data/icons/evil-icons-user-interface/64/mail-512.png") no-repeat left;
+          background-size: 35px;
+      }
+      .icon1 {
+          position:relative;
+          padding-left: 2.5rem;
+          padding-right: 2rem;
+          background: url("https://cdn4.iconfinder.com/data/icons/music-ui-solid-24px/24/lock_security_password_encryption-2-256.png") no-repeat left;
+          background-size: 35px;
+      }
+  
+  </style>
+  
