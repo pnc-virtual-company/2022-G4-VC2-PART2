@@ -3,11 +3,13 @@ use App\Http\Controllers\BatchController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\MailController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\CommentController;
 
 
-
+// send veify code to user for reset their password
+Route::post('/sendVeifyCode', [MailController::class , 'sendCodeResetPSW']);
 
 // Route::group(['middleware' => ['auth:sanctum']], function () {
 Route::apiresource('/user', UserController::class);
