@@ -40,17 +40,18 @@ export default {
     //       // return this.getAllData()
     //   })
     // },
-    addToFollupList(id){
-      for(var i = 0; i < this.listStudents.length; i++){
-        if(this.listStudents[i].id == id){
-          let data = this.listStudents[i].student[0].if_follow_up = 'Yes';
-          axios.get('http://127.0.0.1:8000/api/follow_u/'+id,{if_follow_up: data} ).then(()=>{
-            console.log("Set sucess successfully");
-            return this.getAllData()
-          })
-        }
-      }
-    },
+    // addToFollupList(id){
+    //   // for(var i = 0; i < this.listStudents.length; i++){
+    //   //   if(this.listStudents[i].id == id){
+    //   //     let data = this.listStudents[i].student[0].if_follow_up = 'Yes';
+    //   //     axios.get('http://127.0.0.1:8000/api/follow_u/'+id,{if_follow_up: data} ).then(()=>{
+    //   //       console.log("Set sucess successfully");
+    //   //       return this.getAllData()
+    //   //     })
+    //   //   }
+    //   // }
+    //   console.log('Good is Good1', id)
+    // },
 
   },
   mounted() {
@@ -58,7 +59,6 @@ export default {
     console.log(this.listStudents)
     // return this.listStudents
   }
-       
 }
 </script>
 

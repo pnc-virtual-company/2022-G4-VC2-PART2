@@ -52,10 +52,12 @@ export default {
 a.router-link-exact-active {
   color: white;
   background: var(--main-color-active);
+  border-bottom: 3px solid rgb(212, 206, 206);
 }
 a:hover {
   color: white;
   background: var(--main-color-hover);
+  
 }
   </style>
   

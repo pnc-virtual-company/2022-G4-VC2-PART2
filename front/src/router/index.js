@@ -9,7 +9,7 @@ const routes = [
   {
     path: '/studentList',
     name: 'studentList',
-    component: () =>  import('../views/coordinators/UsersView.vue')
+    component: () =>  import('../views/coordinators/StudentView.vue')
   },
   {
     path: '/teacherList',

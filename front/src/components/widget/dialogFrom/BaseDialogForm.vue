@@ -132,7 +132,7 @@
 import Base_Button from '../button/BaseButton.vue';
 import alertForm from '../alertValidation/alert_form.vue';
 import axios from 'axios';
-const Swal = require('sweetalert2')
+// const Swal = require('sweetalert2')
 export default ({
 props:['object', 'updateValue'],
 emits:['close'],
@@ -279,11 +279,11 @@ emits:['close'],
                 if (this.object.to_do == 'update') {
                     axios.put('http://localhost:8000/api/user/'+this.object.id, stdList).then(() => {
                     this.$emit('close', false)
-                    Swal.fire({
-                        icon: 'success',
-                        text: 'User Updated',
+                    // Swal.fire({
+                    //     icon: 'success',
+                    //     text: 'User Updated',
                       
-                    })
+                    // })
                 }).catch((err) => {
                     console.log(err)
                         this.validateEmail()
@@ -291,12 +291,10 @@ emits:['close'],
                 } else {  
                         axios.post('http://localhost:8000/api/user/', addList).then(() => {
                             this.$emit('close', false)
-                            Swal.fire({
-                                icon: 'success',
-                                text: 'User Added',
-                                
-                            })
-
+                            // Swal.fire({
+                            //     icon: 'success',
+                            //     text: 'User Added',
+                            // })
                         }).catch((err) => {
                             console.log(err);
                                 this.validateEmail()

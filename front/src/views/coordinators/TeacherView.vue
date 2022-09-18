@@ -1,7 +1,7 @@
 <template>
   <div class="w-10/12 m-auto h-screen fixed top-20 right-0 flex justify-center">
       <div class=" w-11/12">
-        <Teachercomponent :listUsers="teacherList" :createUsers="teacherInfoCreate" :updateUser="teacherInfoUpdate" :title="title" @delete_id="deleteUser" :standingPage="standingPage"/>
+        <Teachercomponent :listUsers="teacherList" :createUsers="teacherInfoCreate" :updateUser="teacherInfoUpdate" :title="title" @delete_id="deleteUser" :standingPage="standingPage" @refresh_data="getAllData"/>
       </div>
   </div>
 </template>

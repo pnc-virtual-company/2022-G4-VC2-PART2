@@ -1,5 +1,5 @@
 <template>
-    <div class="w-10/12 m-auto h-screen fixed top-20 right-0 flex justify-center">
+    <div class="w-10/12 m-auto h-screen fixed top-20 right-0 flex justify-center ">
         <div class="group inline-block z-40">
             <button class="outline-none focus:outline-none justify-between border border-gray-500 px-1 py-1.5 rounded-sm flex items-center min-w-32">
                 <span class="text-black">{{ title }}</span>
@@ -34,4 +34,5 @@ export default {
     }
 }
 </script>
+
 
