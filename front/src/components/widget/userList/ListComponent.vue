@@ -4,6 +4,8 @@
     <div class="py-1pb-3">
       <h2 class="text-gray-800 text-2xl font-bold text-center mb-2 uppercase">{{ title }}</h2>
     </div>
+    <DetailUser>
+      </DetailUser>
       <!-- BUTTON CREATE USER -->
       <Base_Button class="" @click="addUser">
         <i class="mx-1">
@@ -36,24 +38,20 @@
         </tr>
       </thead>
 
-      <tbody class=" overflow-right-aut0">
-        <tr 
-          v-for="(item,index) in listUsers" :key="index"
-          class=" border-b  dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-200 "
-        >
-          <th
-            scope="row"
-            class="flex items-center py-4 px-3 text-gray-900 whitespace-nowrap "
-          >
+
+      <tbody class=" overflow-right-auto">
+        
+        <tr  v-for="(item,index) in listUsers" :key="index" class=" border-b  dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-200 cursor-pointer "  > 
+          <th scope="row" class="flex items-center py-4 px-3 text-gray-900 whitespace-nowrap " >
             <div class="pl-3">
               <div class="text-base font-semibold text-center">{{ item.first_name }} {{ item.last_name }}</div>
+              
             </div>
           </th>
-          
           <td class="py-2 px-4 text-center" v-if="item.role=='student'">{{ item.student[0] }}</td>
           <td class="py-2 px-4 text-center" v-if="item.role == 'teacher' ">{{ item.email }}</td> <!-- Teacher email -->
           <td class="py-2 px-4 text-center" v-if="item.role == 'student' ">{{ item.student[0]  }}</td>
-
+          
          <!-- GROUP BUTTON -->
           <td  class="w-8/12 flex items-center mt-2 justify-end">
               <button
@@ -76,6 +74,7 @@
         <div v-if="listUsers.length == 0 || ifDataIsNull" class="w-full border-b dark:bg-gray-800  dark:hover:bg-gray-600 flex justify-center items-center py-4">
           <h1 class="text-red-600 text-[20px]">None List here!</h1>
         </div>
+
       </tbody>
     </table>
 
@@ -84,11 +83,13 @@
 <script>
 import Base_Button from '../button/BaseButton.vue'
 import RegisterForm from '../allForm/signUpForm.vue'
+import DetailUser from '../allForm/DetailStu.vue'
 export default {
     props:['listUsers', 'createUsers', 'updateUser', 'title'], 
+          
     emits:['emits-page'],
     components: {
-       RegisterForm, Base_Button
+       RegisterForm, Base_Button,DetailUser
     },
     data(){
       return {
@@ -117,6 +118,8 @@ export default {
         }
       }
     },
+
+
     // SHOWING CANCEL
     onCancelCreated(isShow){
         this.openDialog = isShow
