@@ -71,7 +71,6 @@ export default ({
                 this.last_name = (res.data[0].last_name)
                 this.gender = (res.data[0].gender)
                 this.email = (res.data[0].email)
-                console.log(res.data)
             })
         },
         pageUpdata(){
@@ -86,9 +85,8 @@ export default ({
                 role:'teacher'
                 // img: this.img.name,
             };
-            axios.put('http://127.0.0.1:8000/api/user/2', teacherList).then((res) => {
+            axios.put('http://127.0.0.1:8000/api/user/2', teacherList).then(() => {
                 this.getTeacher()
-                console.log(res.data);
             })
         },
      

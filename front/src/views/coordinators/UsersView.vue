@@ -1,7 +1,7 @@
 <template>
     <div class="w-10/12 m-auto h-screen fixed top-20 right-0 flex justify-center">
         <div class=" w-11/12 ">
-            <UserTemplates :listUsers="listStudents" :createUsers="studentInfoCreate" :updateUser="studentInfoUpdate" :title="title" @delete_id="deleteUser" @emits-page="relaodNow"/>
+            <UserTemplates :listUsers="listStudents" :createUsers="studentInfoCreate" :updateUser="studentInfoUpdate" :title="title" @delete_id="deleteUser" @refresh_data="getAllData"/>
         </div>
     </div>
 </template>
@@ -26,24 +26,18 @@ export default {
         getAllData(){
             axios.get('http://127.0.0.1:8000/api/getUserBy/student').then((response)=>{
                 this.listStudents = response.data
-                console.log(response.data)
             })
         },
         // DELET DATA FROM STORAGE
       deleteUser(id){
         axios.delete('http://localhost:8000/api/user/'+id).then(() => {
-            return this.getAllData()
+             this.getAllData()
         })
-      },
-
-      relaodNow(value){
-        console.log(value)
-        return this.getAllData()
-     }
-     
+     },
+    
     },
     mounted() {
-        return this.getAllData();
+      this.getAllData();
     }
 }
 </script>

@@ -4,8 +4,8 @@
     <div class="py-1pb-3">
       <h2 class="text-gray-800 text-2xl font-bold text-center mb-2 uppercase">{{ title }}</h2>
     </div>
-    <DetailUser>
-      </DetailUser>
+  
+    <DetailUser></DetailUser>
       <!-- BUTTON CREATE USER -->
       <Base_Button class="" @click="addUser">
         <i class="mx-1">
@@ -20,7 +20,7 @@
       <!-- MY DIALOG -->
       <div class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex" v-if="openDialog">
           <div class="form-container rounded w-11/12">
-              <RegisterForm  @cancel="onCancelCreated" @close="openDialogs" :object="object" :id="userID" @create_student="emitPage" :updateValue="objectUpdating"></RegisterForm>
+              <RegisterForm  @cancel="onCancelCreated" @close="openDialogs" :object="object" :id="userID"  :updateValue="objectUpdating"></RegisterForm>
           </div>
       </div>
 
@@ -44,14 +44,16 @@
         <tr  v-for="(item,index) in listUsers" :key="index" class=" border-b  dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-200 cursor-pointer "  > 
           <th scope="row" class="flex items-center py-4 px-3 text-gray-900 whitespace-nowrap " >
             <div class="pl-3">
-              <div class="text-base font-semibold text-center">{{ item.first_name }} {{ item.last_name }}</div>
-              
+              <div class="text-base font-semibold text-center">{{ item.first_name }} {{ item.last_name }}
+              </div>
+
             </div>
           </th>
-          <td class="py-2 px-4 text-center" v-if="item.role=='student'">{{ item.student[0] }}</td>
+          <td class="py-2 px-4 text-center" v-if="item.role=='student'">{{ item.student[0].year }}</td>
           <td class="py-2 px-4 text-center" v-if="item.role == 'teacher' ">{{ item.email }}</td> <!-- Teacher email -->
-          <td class="py-2 px-4 text-center" v-if="item.role == 'student' ">{{ item.student[0]  }}</td>
-          
+          <td class="py-2 px-4 text-center" v-if="item.role == 'student' ">{{ item.student[0].class  }}</td>
+
+
          <!-- GROUP BUTTON -->
           <td  class="w-8/12 flex items-center mt-2 justify-end">
               <button
@@ -71,7 +73,7 @@
         </tr>
 
         <!-- IF NON LIST HERE -->
-        <div v-if="listUsers.length == 0 || ifDataIsNull" class="w-full border-b dark:bg-gray-800  dark:hover:bg-gray-600 flex justify-center items-center py-4">
+        <div v-if="!ifDataIsNull" class="w-full border-b dark:bg-gray-800  dark:hover:bg-gray-600 flex justify-center items-center py-4">
           <h1 class="text-red-600 text-[20px]">None List here!</h1>
         </div>
 
@@ -97,7 +99,7 @@ export default {
             openDialog: false,
             object:{},
             userID:null,
-            objectUpdating:{}
+             objectUpdating: {},
         }
   },
   methods: {
@@ -113,10 +115,11 @@ export default {
       this.userID = userId;
       for(var i = 0; i < this.listUsers.length; i++){
         if(this.listUsers[i].id == userId){
-          console.log('my object', this.listUsers[i].first_name)
           this.objectUpdating = this.listUsers[i]
         }
       }
+      this.object.id=userId
+
     },
 
 
@@ -126,17 +129,16 @@ export default {
     },
   // OPEN THE DIALOG
     openDialogs(isShow){
-        this.openDialog = isShow;
+      this.openDialog = isShow;
+      this.$emit('refresh_data')
     },
-    emitPage(value){
-      return this.$emit('emits-page',value);
-    }
   },
   mounted() {
     this.objectUpdating
-    setTimeout(function(){
-      this.ifDataIsNull == true
-    }, 1500)
+    if (this.listUsers.length == 0) {
+      this.ifDataIsNull = true
+    }
+   
   }
 };
 </script>

@@ -42,31 +42,19 @@
         data-bs-parent="#accordionFlushExample"
       >
         <div class="accordion-body py-4 px-5">
-          <div
-            class="
-              w-full
-              px-8
-              m-auto
-              flex
-              justify-end
-              items-center
-            "
-          >
+          <div class=" px-8 m-auto flex ">
             <ul class="w-full flex justify-center">
               <!-- <div class="bg-fuchsia-300 flex justify-center items-center h-sreen"> -->
               <div
                 class="
-                  bg-gray-100
-                  flex flex-row
-                  justify-between
-                  w-4/5
-                  gap-4
+                  flex 
+                  justify-around
                   p-4
+                  w-full
                   rounded-xl
                   shadow-xl
                   border border-fuchsin-400
-                "
-              >
+                ">
                 <!--Profile-->
                 <img
                   src="@/assets/savert.jpg"
@@ -74,10 +62,10 @@
                   class="w-32 h-32 rounded-full shadow-md"
                 />
                 <!--Name of user-->
-                <div>
-                  <form>
-                    <div class="flex flex-row px-5">
-                      <div class="mb-3 mr-1">
+                <div class="w-full ">
+                  <form >
+                    <div class=" flex  px-5">
+                      <div class="w-full  mb-3 mr-1">
                         <label
                           for="text"
                           class="
@@ -90,18 +78,19 @@
                           "
                           >FristName</label
                         >
-                        <input
-                          type="text"
-                          id="text"
+                        <div
                           class="
+                            border border-current
                             text-gray-900 text-sm
                             w-full
                             p-2.5
-                            dark:text-dark
                           "
-                        />
+                        >
+                          <h3>Samoul</h3>
+                        </div>
                       </div>
-                      <div class="mb-3 ml-1">
+
+                      <div class="w-full  mb-3 ml-1">
                         <label
                           for="text"
                           class="
@@ -114,21 +103,21 @@
                           "
                           >lastName</label
                         >
-                        <input
-                          type="text"
-                          id="text"
+                        <div
                           class="
+                            border border-current
                             text-gray-900 text-sm
                             w-full
                             p-2.5
-                            dark:text-dark
                           "
-                        />
+                        >
+                          <h3>Vann </h3>
+                        </div>
                       </div>
                     </div>
 
-                    <div class="flex flex-row px-5">
-                      <div class="mb-3 mr-1">
+                    <div class=" flex  px-5">
+                      <div class="w-full  mb-3 mr-1">
                         <label
                           for="text"
                           class="
@@ -141,18 +130,19 @@
                           "
                           >Batch</label
                         >
-                        <input
-                          type="text"
-                          id="text"
+                        <div
                           class="
+                            border border-current
                             text-gray-900 text-sm
                             w-full
                             p-2.5
-                            dark:text-dark
                           "
-                        />
+                        >
+                          <h3>2023</h3>
+                        </div>
                       </div>
-                      <div class="mb-3 ml-1">
+
+                      <div class="w-full  mb-3 ml-1">
                         <label
                           for="text"
                           class="
@@ -165,21 +155,21 @@
                           "
                           >Class</label
                         >
-                        <input
-                          type="text"
-                          id="text"
+                        <div
                           class="
+                            border border-current
                             text-gray-900 text-sm
                             w-full
                             p-2.5
-                            dark:text-dark
                           "
-                        />
+                        >
+                          <h3>WEB B </h3>
+                        </div>
                       </div>
                     </div>
 
-                    <div class="flex flex-row px-5">
-                      <div class="mb-3 mr-1">
+                    <div class=" flex  px-5">
+                      <div class="w-full  mb-3 mr-1">
                         <label
                           for="text"
                           class="
@@ -192,18 +182,19 @@
                           "
                           >Gender</label
                         >
-                        <input
-                          type="text"
-                          id="text"
+                        <div
                           class="
+                            border border-current
                             text-gray-900 text-sm
                             w-full
                             p-2.5
-                            dark:text-dark
                           "
-                        />
+                        >
+                          <h3>Female </h3>
+                        </div>
                       </div>
-                      <div class="mb-3 ml-1">
+
+                      <div class="w-full  mb-3 ml-1">
                         <label
                           for="text"
                           class="
@@ -214,24 +205,23 @@
                             text-gray-900
                             dark:text-300
                           "
+                          >Provenve</label
                         >
-                          NGO Name</label
-                        >
-                        <input
-                          type="text"
-                          id="text"
+                        <div
                           class="
+                            border border-current
                             text-gray-900 text-sm
                             w-full
                             p-2.5
-                            dark:text-dark
                           "
-                        />
+                        >
+                          <h3>Banthery Meanchey </h3>
+                        </div>
                       </div>
                     </div>
 
-                    <div class="flex flex-row px-5">
-                      <div class="mb-3 mr-1">
+                    <div class=" flex  px-5">
+                      <div class="w-full  mb-3 mr-1">
                         <label
                           for="text"
                           class="
@@ -242,20 +232,21 @@
                             text-gray-900
                             dark:text-300
                           "
-                          >Gender</label
+                          >NGO_Name</label
                         >
-                        <input
-                          type="text"
-                          id="text"
+                        <div
                           class="
+                            border border-current
                             text-gray-900 text-sm
                             w-full
                             p-2.5
-                            dark:text-dark
                           "
-                        />
+                        >
+                          <h3>PasserellNumeriques.Cambodia</h3>
+                        </div>
                       </div>
                     </div>
+
                   </form>
                 </div>
               </div>
