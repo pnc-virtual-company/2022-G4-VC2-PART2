@@ -33,6 +33,9 @@ Route::apiResource('/comment', CommentController::class);
 Route::get('/getAllStudentFolowUp', [StudentController::class , 'getAllStudentFolowUp']);
 //set student to follow up
 Route::post('/setFollowUp/{id}', [StudentController::class , 'setFollowUp']);
+//send mail to student to inform that they have been added to student follow up list
+Route::post('/mailFollowUp', [MailController::class , 'informFolowUpToStudent']);
+
 //
 // });
 // ----------------------userLogin-------------------------

@@ -5,21 +5,22 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Comment extends Model
+class Follow_up extends Model
 {
     use HasFactory;
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
 
     public function student()
     {
         return $this->belongsTo(Student::class);
     }
 
-    public function followUp()
+    public function user()
     {
-        return $this->hasMany(Follow_up::class);
+        return $this->belongsTo(User::class);
+    }
+
+    public function comment()
+    {
+        return $this->belongsTo(Comment::class);
     }
 }
