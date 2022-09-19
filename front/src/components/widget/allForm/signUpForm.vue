@@ -33,8 +33,7 @@
                             v-model="email"
                             type="email"
                             class="block border border-grey-light w-full p-2 rounded border-cyan-500 bg-transparent"
-                            placeholder="you@example.com"
-                            
+                            placeholder=""
                         />
                             <alertForm  v-if="userEmail !='' " :psw="userEmail"  />
                     </div>
@@ -55,7 +54,7 @@
                 </div>
 
             <div class="flex mb-2">
-                <div class="w-full flex gap-2" >
+                <div class="w-full flex gap-2" v-if="object.to_do == 'create'">
                     <div class=" w-full ">
                         <span class="text-gray-500">Passsword</span>
                     <input 
@@ -63,7 +62,6 @@
                         type="email"
                         class="block border border-grey-light w-full p-2 rounded border-cyan-500 bg-transparent"
                     />
-         
                         <alertForm v-if="password.length<8 " :psw="checkPassword(password)" />
                 </div>
 
@@ -72,7 +70,7 @@
                     <input  
                         v-if="!showStudentForm"
                         v-model="province"
-                        type="email"
+                        type="text"
                         class="block border border-grey-light w-full p-2 rounded border-cyan-500 bg-transparent"
                     />
                     <alertForm v-if="province =='' " :psw="checkPassword(province)" />
@@ -83,17 +81,23 @@
             <div class="flex gap-2 mb-5" v-if="object.role != 'teacher'">
                 <div class="w-full" >
                     <span class="text-gray-500">Batch*</span>
-                    <select   class="outline-1 block border border-grey-light w-full p-2 rounded text-gray-400 border-cyan-500 bg-transparent" v-model="batch" >
-                        <option value="2022">2022</option>
-                        <option value="2023">2023</option>
+                    <select v-if="!showAddNewBatch"   class="outline-1 block border border-grey-light w-full p-2 rounded text-gray-400 border-cyan-500 bg-transparent" v-model="batch" >
+                        <option :value="batch.batch" v-for="batch of allBatch" :key="batch">{{batch.batch}}</option>
                     </select>
+                     <input  
+                        v-if="showAddNewBatch"
+                        v-model="batch"
+                        type="number"
+                        class="block border border-grey-light w-full p-2 rounded border-cyan-500 bg-transparent"
+                    />
                     <alertForm v-if="batch =='' " :psw="checkPassword(batch)" />
+                    <span  @click="showAddNewBatch = true" class="text-blue-500 cursor-pointer underline underline-offset-2 hover:text-blue-700">Create new batch !</span>
                 </div>
                 <div class="w-full">
                     <span class="text-gray-500">Class*</span>
                     <select v-model="student_class"  class="outline-1 block border border-grey-light w-full p-2 rounded text-gray-400 border-cyan-500 bg-transparent">
-                        <option value="A">A</option>
-                        <option value="B">B</option>
+                        <option value="WEB-A">A</option>
+                        <option value="WEB-B">B</option>
                     </select>
                     <alertForm v-if="student_class =='' " :psw="checkPassword(student_class)"/>
                 </div>
@@ -113,7 +117,7 @@
                     <input  checked id="inline-checked-radio" type="radio" value="others" name="inline-radio-group" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" v-model="sex">
                     <label for="inline-checked-radio" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Others</label>
                 </div>     
-            </div>
+        </div>
             <!-- Base_Button -->
            <section class="flex justify-between w-full pt-2">
                 <Base_Button @click="($emit('close', false))" class="  bg-slate-300 border-teal-900 text-black ">Cancel</Base_Button>
@@ -130,14 +134,16 @@ import alertForm from '../alertValidation/alert_form.vue';
 import axios from 'axios';
 const Swal = require('sweetalert2')
 export default ({
-props:['object'],
+props:['object', 'updateValue'],
 emits:['close'],
     components: {
-        alertForm, Base_Button
+        alertForm,
+        Base_Button,
     },
     data()
     {
         return {
+            showAddNewBatch:false,
             dataToUpdate:[],
             showStudentForm: false,
             email: ' ',
@@ -152,30 +158,16 @@ emits:['close'],
             validatePSW: 'Password must be at least 8 characters !',
             ifAllfiedInput: false,
             userEmail: '',
-            
+            role: 'student',
         }
     },
     methods: {
-        // CREATE OR UPDATE
+        
         toggleShow() {
         this.showPassword = !this.showPassword;
         },
+        // CREATE OR UPDATE
         UpdateOrCreateUser(){
-            if(this.object.to_do == 'create'){ 
-            //    YOUR CREATE HERE
-            this.$emit('close', false)
-    
-            }else if(this.object.to_do == 'update'){ 
-                // YOUR UPDATE HERE
-            }
-        },
-
-
-        async getImg(event) {
-            this.img = event.target.files[0];
-            console.log(this.img.name)
-        },
-        signUP() {
             const stdList = {
                 email: this.email,
                 first_name: this.first_name,
@@ -186,8 +178,7 @@ emits:['close'],
                 gender: this.sex,
                 year: this.batch,
                 province: this.province,
-                role: 'student',
-                // gender:this.gender
+                role: this.role,
             };
             const std = [
                 this.email,
@@ -199,24 +190,124 @@ emits:['close'],
                 this.sex,
                 this.batch,
                 this.province,
+            ];
+             const stdUpdate = [
+                this.email,
+                this.first_name,
+                this.last_name,
+                this.NGO,
+                this.student_class,
+                this.sex,
+                this.batch,
+            ];
+            const teacher = [
+                this.email,
+                this.first_name,
+                this.last_name,
+                this.password,
+                this.sex,
             ]
-            this.ifAllfiedInput = std.every(this.checkForm);
-            if (this.ifAllfiedInput) {
-                axios.post('http://localhost:8000/api/user/', stdList).then(() => {
-                    this.$emit("create_student",stdList)
+            if(this.object.to_do == 'create'){ 
+                     //    YOUR CREATE HERE
+                if(this.object.role == 'teacher'){
+                    this.role = 'teacher';
+                    this.ifAllfiedInput = teacher.every(function(element){
+                        return element.trim() != '';
+                    });
+                     this.signUP()
+                }else if(this.object.role=='student'){
+                    this.role = 'student'
+                      this.ifAllfiedInput = stdUpdate.every(function(element){
+                        return element != ' ';
+                      });
+                     this.signUP()
+                }
+    
+            }else { 
+                // YOUR UPDATE HERE
+                if (this.object.role == 'teacher') {
+                     this.ifAllfiedInput = teacher.every(function(element){
+                        return element != ' ';
+                    });
+                    stdList.role = 'teacher';
+                     this.signUP()
+                }else if(this.object.role=='student'){
+                     this.ifAllfiedInput = std.every(function(element){
+                        return element != ' ';
+                    });
+                     this.signUP() 
+                }
+            }
+        },
+        async getImg(event) {
+            this.img = event.target.files[0];
+            console.log(this.img.name)
+        },
+        
+        // Create user Account
+        signUP() {
+            const stdList = {
+                if_follow_up:'No',
+                email: this.email,
+                first_name: this.first_name,
+                last_name: this.last_name,
+                password: this.password,
+                NGO: this.NGO,
+                class: this.student_class,
+                gender: this.sex,
+                year: this.batch,
+                batch: this.batch,
+                province: this.province,
+                role: this.role,
+                // gender:this.gender
+            };
+            const addList = {
+                email: this.email,
+                first_name: this.first_name,
+                last_name: this.last_name,
+                password: this.password,
+                NGO: this.NGO,
+                class: this.student_class,
+                gender:this.sex,
+                year: this.batch,
+                batch: this.batch,
+                province: this.province,
+                role: this.role,
+            }
+            if (this.ifAllfiedInput) { 
+                console.log(this.object.id);
+                if (this.object.to_do == 'update') {
+                    axios.put('http://localhost:8000/api/user/'+this.object.id, stdList).then(() => {
+                    this.$emit('close', false)
                     Swal.fire({
                         icon: 'success',
-                        text: 'User Created',
+                        text: 'User Updated',
+                      
                     })
                 }).catch(() => {
                         this.validateEmail()
                 })
+                } else {  
+                        axios.post('http://localhost:8000/api/user/', addList).then(() => {
+                            this.$emit('close', false)
+                            Swal.fire({
+                                icon: 'success',
+                                text: 'User Added',
+                                
+                            })
+
+                        }).catch((err) => {
+                            console.log(err);
+                                this.validateEmail()
+                        })
+                }
             } else {
                 if (this.email.trim() == '') {  
                     this.validateEmail()
                 }
-                if (this.first_name.trim() == '') {  
+                if (this.first_name.trim() == '' ) {  
                     this.first_name = ''
+                    // this.first_name.trim() == '' ? "is greater" : "is less than";
                 }
                 if (this.last_name.trim() == '') {  
                     this.last_name = ''
@@ -224,81 +315,81 @@ emits:['close'],
                 if (this.NGO.trim() == '') {  
                     this.NGO = ''
                 }
-                if (this.batch.trim() == '') {  
-                    this.batch = ''
+                if (this.batch.trim() == '' ) {  
+                    this.batch == '';
                 }
-                if (this.province.trim() == '') {  
-                    this.province = ''
+                if (typeof(this.province) != 'undefined') {  
+                     this.province == '' ;
                 }
-                if (this.student_class.trim() == '') {  
-                    this.student_class = ''
+                if (typeof(this.student_class) != 'undefined') {  
+                   this.student_class == '' ;
                 }
             }
             
         },
 
-        updateStudent() {
-            const stdList = {
-                email: this.dataToUpdate[0].email,
-                first_name:this.dataToUpdate[0].first_name,
-                last_name: this.dataToUpdate[0].last_name,
-                password: this.dataToUpdate[0].password,
-                NGO:  this.dataToUpdate[0].student[0].NGO,
-                batch: this.dataToUpdate[0].student[0].year,
-                province: this.dataToUpdate[0].student[0].province,
-                class: this.dataToUpdate[0].student[0].class,
-                gender: this.dataToUpdate[0].gender,
-                role: this.dataToUpdate[0].role
-            };
-            console.log(stdList);
-            const std = [
-                this.email,
-                this.first_name,
-                this.last_name,
-                this.password,
-                this.NGO,
-                this.student_class,
-                this.sex,
-                this.batch,
-                this.province,
-            ]
-            this.ifAllfiedInput = std.every(this.checkForm);
-            if (this.ifAllfiedInput) {
-                axios.put('http://localhost:8000/api/user/', stdList).then(() => {
-                    this.$emit("update_student",stdList)
-                    Swal.fire({
-                        icon: 'success',
-                        text: 'User Created',
-                    })
-                }).catch((err) => {
-                    console.log(err);
-                        this.validateEmail()
-                })
-            } else {
-                if (this.email.trim() == '') {  
-                    this.validateEmail()
-                }
-                if (this.first_name.trim() == '') {  
-                    this.first_name = ''
-                }
-                if (this.last_name.trim() == '') {  
-                    this.last_name = ''
-                }
-                if (this.NGO.trim() == '') {  
-                    this.NGO = ''
-                }
-                if (this.batch.trim() == '') {  
-                    this.batch = ''
-                }
-                if (this.province.trim() == '') {  
-                    this.province = ''
-                }
-                if (this.student_class.trim() == '') {  
-                    this.student_class = ''
-                }
-            }
+        // updateStudent() {
+        //     const stdList = {
+        //         email: this.updateValue.email,
+        //         first_name:this.updateValue.first_name,
+        //         last_name: this.updateValue.last_name,
+        //         password: this.updateValue.password,
+        //         NGO:  this.updateValue.student[0].NGO,
+        //         batch: this.updateValue.student[0].year,
+        //         province: this.updateValue.student[0].province,
+        //         class: this.updateValue.student[0].class,
+        //         gender: this.updateValue.gender,
+        //         role: this.updateValue.role
+        //     };
+        //     console.log(stdList);
+        //     const std = [
+        //         this.email,
+        //         this.first_name,
+        //         this.last_name,
+        //         this.password,
+        //         this.NGO,
+        //         this.student_class,
+        //         this.sex,
+        //         this.batch,
+        //         this.province,
+        //     ]
+        //     this.ifAllfiedInput = std.every(this.checkForm);
+        //     if (this.ifAllfiedInput) {
+        //         axios.put('http://localhost:8000/api/user/', stdList).then(() => {
+        //             this.$emit("update_student",stdList)
+        //             Swal.fire({
+        //                 icon: 'success',
+        //                 text: 'User Created',
+        //             })
+        //         }).catch((err) => {
+        //             console.log(err);
+        //                 this.validateEmail()
+        //         })
+        //     } else {
+        //         if (this.email.trim() == '') {  
+        //             this.validateEmail()
+        //         }
+        //         if (this.first_name.trim() == '') {  
+        //             this.first_name = ''
+        //         }
+        //         if (this.last_name.trim() == '') {  
+        //             this.last_name = ''
+        //         }
+        //         if (this.NGO.trim() == '') {  
+        //             this.NGO = ''
+        //         }
+        //         if (this.batch.trim() == '') {  
+        //             this.batch = ''
+        //         }
+        //         if (this.province.trim() == '' || this.province == undefined) {  
+        //             this.province = ''
+        //         }
+        //         if (this.student_class.trim() == '') {  
+        //             this.student_class = ''
+        //         }
+        //     }
             
-        },
+        // },
 
         checkForm(txt) {
             return txt.trim() != '';
@@ -322,30 +413,50 @@ emits:['close'],
              if (this.email.trim() == '') {
                  this.userEmail = 'Email is required !';
             } else {
-                 this.userEmail = 'Your email is wrong format !';
+                 this.userEmail = 'Wrong format email !';
              }
              return this.userEmail;
              
         },
-        showOldData() {
-            this.email = this.dataToUpdate[0].email
-            this.first_name=this.dataToUpdate[0].first_name
-            this.last_name= this.dataToUpdate[0].last_name
-            this.password= this.dataToUpdate[0].password
-            this.NGO=  this.dataToUpdate[0].student[0].NGO
-            this.batch= this.dataToUpdate[0].student[0].year
-            this.province= this.dataToUpdate[0].student[0].province
-            this.class= this.dataToUpdate[0].student[0].class
-            this.gender= this.dataToUpdate[0].gender,
-            this.role= this.dataToUpdate[0].role
-        },
-       
+        created(){
+            if(this.object.to_do == 'update' && this.object.role == 'student'){
+                this.email= this.updateValue.email,
+                this.first_name= this.updateValue.first_name,
+                this.last_name= this.updateValue.last_name,
+                this.password = this.updateValue.password,   
+                this.NGO= this.updateValue.student[0].NGO,
+                this.class= this.updateValue.student[0].student_class,
+                this.gender= this.updateValue.sex,
+                this.year= this.updateValue.batch,
+                this.province= this.updateValue.province,
+                this.role= this.updateValue.role
+            } if(this.object.to_do == 'update' && this.object.role == 'teacher') {
+                this.email= this.updateValue.email,
+                this.first_name= this.updateValue.first_name,
+                this.last_name= this.updateValue.last_name,
+                this.password = this.updateValue.password,   
+                this.gender= this.updateValue.sex,
+                this.year= this.updateValue.batch,
+                this.province= this.updateValue.province,
+                this.role= this.updateValue.role
+            }
+        // console.log(this.updateValue)
+        }
     },
     mounted() {
+        axios.get('http://localhost:8000/api/batch').then((res) => {
+            this.allBatch = res.data
+            if (this.allBatch == '') {
+                this.showAddNewBatch = true
+            }
+            console.log(res.data);
+        })
         axios.get('http://localhost:8000/api/user/' + this.object.id).then((res) => {
             this.dataToUpdate = res.data
-            this.showOldData()
+            // this.showOldData()
         })
-    }
+        this.created()
+    },
+    
 })
 </script>

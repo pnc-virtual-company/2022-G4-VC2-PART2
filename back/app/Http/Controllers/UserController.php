@@ -8,7 +8,9 @@ use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
-use Validator;
+use Illuminate\Support\MessageBag;
+use Illuminate\Validation\Rule;
+use Illuminate\Contracts\Validation\Validator;
 
 class UserController extends Controller
 {
@@ -23,22 +25,18 @@ class UserController extends Controller
     {
         $user = new User();
         $validate = $request->validate([
-            'email' => 'required|email|unique:users,email,regex:/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix',
+            'email' => 'required|regex:/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix',
             'first_name' => 'required',
             'last_name' => 'required',
             'gender' => 'required',
             'password' => 'required',
         ]);
-        if(!$validate){
-            return response()->json(['message' => 'Invalid email']);
-        }
-        else{
+
             $user->first_name = $request->first_name;
             $user->last_name = $request->last_name;
             $user->gender = $request->gender;
             if($request->img != null)
             {
-                // $user->img = $request->file('img')->store('public/storage');
                 $path = public_path('images');
                 if (!file_exists($path)) {
                     mkdir($path, 0777, true);
@@ -52,8 +50,14 @@ class UserController extends Controller
             $user->email = $request->email;
             $user->password = bcrypt($request->password);
             $user->save();
-            $token = $user->createToken('myTOken')->plainTextToken;
             if ($request->role == 'student') {
+                $validate = $request->validate([
+                    'province' => 'required',
+                    'NGO' => 'required',
+                    'class' => 'required',
+                    'year' => 'required',
+                    'batch' => 'required',
+                ]);
                 $student = new Student();
                 $batchs = new Batch();
                 $id = User::latest()->first();
@@ -68,8 +72,6 @@ class UserController extends Controller
                 $batchs->save();
                 $student->save();
             }
-            return response()->json(['message' => "Created successfully"]);
-        }
     }
 
 
@@ -83,16 +85,12 @@ class UserController extends Controller
     {
         $user = User::findOrfail($id);
         $validate = $request->validate([
-            'email' => 'required|regex:/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix',
+            'email' => 'required|email|regex:/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix',
             'first_name' => 'required',
             'last_name' => 'required',
             'gender' => 'required',
-            'password' => 'required',
         ]);
-        if (!$validate) {
-            return response()->json(['message' => 'Invalid email']);
-        }
-        else{
+
             $user->first_name = $request->first_name;
             $user->last_name = $request->last_name;
             $user->gender = $request->gender;
@@ -106,26 +104,34 @@ class UserController extends Controller
                 $file->move($path, $fileName);
                 $user->img = asset('images/' . $fileName);
             }
-            $user->role = $request->role;
+            if($request->role != null){
+                $user->role = $request->role;
+            }
             $user->email = $request->email;
+            if ($request->password != null) {
             $user->password = bcrypt($request->password);
-            $token = $user->createToken('myTOken')->plainTextToken;
+        }
             if ($request->role == 'student') {
                 $student = Student::findOrfail($id);
                 $batchs = Batch::findOrfail($student->batch_id);
                 $student->if_follow_up = $request->if_follow_up;
-                $student->province = $request->province;
+                if($request->province != null){
+                    $student->province = $request->province;
+                }else{
+                    $student->province = $student->province;
+                }
                 $student->NGO = $request->NGO;
                 $student->class = $request->class;
+                $batchs->batch = $request->batch;
                 $student->year = $request->year;
-                $batchs->batch = $student->year;
                 $batchs->update();
                 $student->update();
             }
             $user->update();
             return response()->json(['message'=>'update successfully']);
-        }
+
     }
+
 
     public function destroy($id)
     {
