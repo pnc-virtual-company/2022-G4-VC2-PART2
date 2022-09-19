@@ -11,8 +11,8 @@ return new class extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("user_id")->constrained()->onDelete("CASCADE")->nullable();
-            $table->foreignId("batch_id")->constrained()->onDelete("CASCADE")->nullable();
+            $table->foreignId("user_id")->constrained()->onDelete("CASCADE");
+            $table->foreignId("batch_id")->constrained()->onDelete("CASCADE");
             $table->string('if_follow_up')->default("No");
             $table->string('province');
             $table->string('NGO')->default("No");

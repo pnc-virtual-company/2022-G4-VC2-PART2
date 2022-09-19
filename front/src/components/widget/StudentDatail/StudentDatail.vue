@@ -1,8 +1,30 @@
 <template>
+<<<<<<< HEAD
   <div class="w-4/12 border-l-2 px-2 bg-gray-100">
       <div class="flex flex-col justify-center">
           <div class="text-xl flex justify-center py-2 w-full uppercase">
             <H class="font-bold">Student Detail</H>
+=======
+  <div class="w-1/3 border-l-2 px-5">
+            <div class="flex flex-col">
+              <div class="font-semibold text-xl py-4">Student Detail</div>
+              <img
+                src="https://source.unsplash.com/_7LbC5J-jw4/600x600"
+                class="object-cover rounded-full h-50 w-50"
+                alt=""
+              />
+              <div class="font-semibold py-4">
+                <ul>
+                  <li>First Name: MERN</li>
+                  <li>Last Name: Stack</li>
+                  <li>Class: WEB-A</li>
+                  <li>Batch: 2022</li>
+                  <li>Province: Kompong Thom</li>
+                  <li>Gender: M</li>
+                </ul>
+              </div>
+            </div>
+>>>>>>> 886e6b04b24f1659221eebaca04c6d8ee6733980
           </div>
           
           <div class="p-2 h-44 w-44 flex justify-center items-center m-auto ">

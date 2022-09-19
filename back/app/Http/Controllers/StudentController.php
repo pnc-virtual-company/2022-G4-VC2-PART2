@@ -18,31 +18,31 @@ class StudentController extends Controller
 
     public function store(Request $request)
     {
-        //
+    //
     }
 
 
-    public function show( $id)
+    public function show($id)
     {
-        return User::with(['student'])->where('id',$id)->get();
+        return User::with(['student'])->where('id', $id)->get();
 
     }
 
 
     public function update(Request $request, Student $student)
     {
-        //
+    //
     }
 
 
-    public function destroy(Student $student) 
+    public function destroy(Student $student)
     {
-        //
+    //
     }
 
     public function getStudentByBatch($batch)
     {
-        return Student::with(['User'])->where('year',$batch)->get();
+        return Student::with(['User'])->where('year', $batch)->get();
     }
 
     public function getStudentByClass($class)
@@ -55,12 +55,12 @@ class StudentController extends Controller
         return Student::with(['User'])->where('class', 'LIKE', '%' . $major . '%')->get();
     }
 
-    public function setFollowUp(Request $request,$id)
+    public function setFollowUp(Request $request, $id)
     {
         $student = Student::findOrfail($id);
-        // $student->if_follow_up = $request->if_follow_up;
-        // $student->update();
-        // return response()->json(['message' => 'student set to follow up list']);
+        $student->if_follow_up = $request->if_follow_up;
+        $student->update();
+        return response()->json(['message' => 'student set to follow up list']);
     }
 
     public function getAllStudentFolowUp()

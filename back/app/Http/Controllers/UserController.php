@@ -52,8 +52,6 @@ class UserController extends Controller
             $user->save();
             if ($request->role == 'student') {
                 $validate = $request->validate([
-                    // 'province' => 'required',
-                    // 'NGO' => 'required',
                     'class' => 'required',
                     'year' => 'required',
                     'batch' => 'required',
