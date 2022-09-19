@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\MailController;
 
 // Route::post('/createUser',[UserController::class ,'createUser']);
 Route::post('/user',[UserController::class,'store']);
@@ -22,4 +23,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/logout', [UserController::class, 'logout']);
 });
 // ----------------------userLogin-------------------------
+Route::post('/resetPassword/{id}', [UserController::class, 'createNewPassword']);
 Route::post('/login', [UserController::class, 'login']);
+Route::post('/mailFollowUp', [MailController::class , 'informFolowUpToStudent']);
+Route::post('/sendVeifyCode', [MailController::class , 'sendCodeResetPSW']);

@@ -42,11 +42,9 @@
 <script>
 import router from "@/router";
 import axios from "axios";
-// import FormForget from "./ForgotPassword.vue";
 import PasswordForm from "./PasswordForm.vue";
 export default {
   components:{
-    // FormForget,
     PasswordForm
 },
   props: ["listAllUser"],
@@ -67,6 +65,7 @@ export default {
       allUserList.forEach((user) => {
         if (user.email == this.email) {
           localStorage.setItem("user", user.email);
+          localStorage.setItem("id", user.id);
           localStorage.setItem("role", user.role);
          this.isCorrectEmail = true
          this.isFormEmail=false
@@ -84,7 +83,6 @@ export default {
           console.log(response.data);
           if (response.data.sms !== "Invalid password") {
             localStorage.setItem("token", response.data.token);
-            localStorage.setItem("coorId", response.data.id);
             console.log("Login Success");
             if (localStorage.getItem("role") == "coordinator") {
               router.push("/coorNavigation");

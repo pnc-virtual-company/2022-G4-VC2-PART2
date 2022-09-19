@@ -132,6 +132,12 @@ class UserController extends Controller
         return "Item not found";
     }
 
+    public function createNewPassword(Request $request, $id){
+        $user = User::findOrfail($id);
+        $user->password = bcrypt($request->password);
+        $user ->update();
+    }
+
     public function getUserBy($role)
     {
         if(strtoupper($role) == 'STUDENT'){
@@ -161,16 +167,6 @@ class UserController extends Controller
         return User::orderBy('first_name')->get();
     }
     /********************************** User Log In ************************************* */
-    // public function login(Request $request) {
-    //     if(Auth::attempt($request->only('email', 'password'))){
-    //         $user = Auth::user();
-    //         $token = $user->createToken('mytoken')->plainTextToken;
-    //         $cookie = cookie('jwt', $token, 60*24);
-    //         return response()->json(['mas'=> 'success','token'=>$token], 200)->withCookie($cookie);
-    //     }
-    //     return response()->json(['mas'=>"Invalid"]);
-    // }
-
     public function login(Request $request)
     {
         $user = User::where('email', $request->email)->first();

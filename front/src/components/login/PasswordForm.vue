@@ -46,13 +46,14 @@ export default {
     return {
       password: "",
       isForgetPassword: false,
+      email:localStorage.getItem("user")
     };
   },
   methods: {
     checkPassword() {
       axios
         .post(" http://localhost:8000/api/login", {
-          email: localStorage.getItem("user"),
+          email:this.email,
           password: this.password,
         })
         .then((response) => {
@@ -70,7 +71,13 @@ export default {
         });
     },
     forgetPassword() {
-      this.isForgetPassword = true;
+      axios.post("http://127.0.0.1:8000/api/sendVeifyCode",{'email':this.email}).then(response=>{
+        console.log(response.data)
+        localStorage.setItem('code',response.data.code)
+      })
+      if(this.code == localStorage.getItem('code')){
+        this.isForgetPassword = true;
+      }
     },
   },
 };
