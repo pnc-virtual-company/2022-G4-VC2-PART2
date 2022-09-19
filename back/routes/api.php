@@ -24,9 +24,9 @@ use App\Http\Controllers\StudentController;
     //CRUD for batchs
     Route::apiResource('/batch',BatchController::class);
     //get all students follow up
-    Route::get('/getStdFU/{value}', [StudentController::class , 'getStudentFollowUp']);
+    Route::get('/getStuendFollow', [StudentController::class , 'getAllStudentFolowUp']);
     //set student to follow up
-    Route::post('/follow_up/{id}', [StudentController::class , 'setFollowUp']);
+    Route::post('/follow_up/id', [StudentController::class , 'setFollowUp']);
 
 
 // });

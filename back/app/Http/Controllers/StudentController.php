@@ -35,22 +35,22 @@ class StudentController extends Controller
     }
 
 
-    public function destroy(Student $student)
+    public function destroy(Student $student) 
     {
         //
     }
 
-    public function filterStudentByBatch($batch)
+    public function getStudentByBatch($batch)
     {
         return Student::with(['User'])->where('year',$batch)->get();
     }
 
-    public function filterStudentByClass($class)
+    public function getStudentByClass($class)
     {
         return Student::with(['User'])->where('class', strtoupper($class))->get();
     }
 
-    public function filterStudentByMajor($major)
+    public function getStudentByMajor($major)
     {
         return Student::with(['User'])->where('class', 'LIKE', '%' . $major . '%')->get();
     }
@@ -58,14 +58,14 @@ class StudentController extends Controller
     public function setFollowUp(Request $request,$id)
     {
         $student = Student::findOrfail($id);
-        $student->if_follow_up = $request->if_follow_up;
-        $student->update();
-        return response()->json(['message' => 'student set to follow up']);
+        // $student->if_follow_up = $request->if_follow_up;
+        // $student->update();
+        // return response()->json(['message' => 'student set to follow up list']);
     }
 
-    public function getStudentFollowUp($followUp)
+    public function getAllStudentFolowUp()
     {
-        return Student::with('user')->where('if_follow_up', ucfirst($followUp))->get();
+        return Student::with('user')->where('if_follow_up', 'Yes')->get();
     }
 
 
