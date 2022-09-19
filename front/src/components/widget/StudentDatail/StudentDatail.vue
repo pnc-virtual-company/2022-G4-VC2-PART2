@@ -1,10 +1,10 @@
 <template>
-  <div class="w-2/5 border-l-2 px-5">
+  <div class="w-1/3 border-l-2 px-5">
             <div class="flex flex-col">
               <div class="font-semibold text-xl py-4">Student Detail</div>
               <img
                 src="https://source.unsplash.com/_7LbC5J-jw4/600x600"
-                class="object-cover rounded-full h-60 w-60"
+                class="object-cover rounded-full h-50 w-50"
                 alt=""
               />
               <div class="font-semibold py-4">

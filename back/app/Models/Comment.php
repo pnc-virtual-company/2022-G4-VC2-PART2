@@ -20,6 +20,6 @@ class Comment extends Model
 
     public function followUp()
     {
-        return $this->hasMany(Follow_up::class);
+        return $this->belongsTo(Follow_up::class);
     }
 }
