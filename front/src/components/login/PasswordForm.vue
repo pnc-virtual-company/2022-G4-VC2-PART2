@@ -60,7 +60,6 @@ export default {
           console.log(response.data);
           if (response.data.sms !== "Invalid password") {
             localStorage.setItem("token", response.data.token);
-            localStorage.setItem("coorId", response.data.id);
             console.log("Login Success");
             if (localStorage.getItem("role") == "coordinator") {
               router.push("/coorNavigation");
