@@ -42,8 +42,13 @@ class CommentController extends Controller
 
     public function show($id)
     {
-        return Comment::with(['followUp'])->where('follow_up_id',$id)->get();
+        return Comment::with(['followUp','user'])->where('follow_up_id',$id)->get();
 
+    }
+
+    public function getSpecificComment($id)
+    {
+        return Comment::where('id',$id)->get();
     }
 
 
@@ -51,14 +56,12 @@ class CommentController extends Controller
     {
         $comment = Comment::findOrfail($id);
         $validate = $request->validate([
-            'topic' => 'required',
             'content' => 'required',
-
         ]);
-        $comment->topic = $request->topic;
-        $comment->student_id = $request->student_id;
-        $comment->follow_up_id = $request->follow_up_id;
-        $comment->user_id = $request->user_id;
+        // $comment->topic = $request->topic;
+        // $comment->student_id = $request->student_id;
+        // $comment->follow_up_id = $request->follow_up_id;
+        // $comment->user_id = $request->user_id;
         $comment->content = $request->content;
         $comment->update();
         return response()->json(['msg' => 'successfully']);

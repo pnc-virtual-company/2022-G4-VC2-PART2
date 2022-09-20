@@ -37,6 +37,8 @@ Route::get('/get_follow_up', [StudentController::class , 'getAllStudentFolowUp']
 Route::put('/get_follow_up/{id}', [StudentController::class , 'setFollowUp']);
 //send mail to student to inform that they have been added to student follow up list
 Route::post('/mailFollowUp', [MailController::class , 'informFolowUpToStudent']);
+Route::get('/getSpecificComment/{id}', [CommentController::class , 'getSpecificComment']);
+
 
 // });
 // ----------------------userLogin-------------------------
