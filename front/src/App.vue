@@ -1,19 +1,15 @@
 <template>
   <CoorNavbar v-if="isLogin" @loginSuccess="isLogin=true"/>
-  
-  <!-- <Loging/> -->
-  <!-- <router-link  to="coorNavigation"/> -->
   <router-view></router-view>
 </template>
 <script>
 
 import CoorNavbar from './views/coordinators/CoorNavigationView.vue'
 
+
 export default {
   components:{
     CoorNavbar,
-
-    // Loging
   },
   data(){
     return {

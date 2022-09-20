@@ -1,7 +1,7 @@
 <template>
   <div>
     <PasswordForm v-if="isCorrectEmail && !isForgetPassword"/>
-  <div class="bg-grey-lighter min-h-screen flex flex-col">
+  <div class="bg-grey-lighter min-h-screen flex flex-col" v-if="isFormEmail">
     <div
       class="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2"
     >
@@ -11,7 +11,7 @@
         </p>
       </div>
       <div class="bg-white px-6 py-8 rounded shadow-md text-black w-full">
-        <form  @submit.prevent="loginEmail" v-if="isFormEmail">
+        <form  @submit.prevent="loginEmail">
           <h1 class="mb-8 text-3xl text-center">Sign in to Account</h1>
 
           <input
@@ -40,8 +40,6 @@
 
 </template>
 <script>
-import router from "@/router";
-import axios from "axios";
 import PasswordForm from "./PasswordForm.vue";
 export default {
   components:{
@@ -67,30 +65,10 @@ export default {
           localStorage.setItem("user", user.email);
           localStorage.setItem("id", user.id);
           localStorage.setItem("role", user.role);
-         this.isCorrectEmail = true
-         this.isFormEmail=false
+          this.isCorrectEmail = true
+          this.isFormEmail=false
         }
       });
-    },
-  
-    checkPassword() {
-      axios
-        .post(" http://localhost:8000/api/login", {
-          email: localStorage.getItem("user"),
-          password: this.password,
-        })
-        .then((response) => {
-          console.log(response.data);
-          if (response.data.sms !== "Invalid password") {
-            localStorage.setItem("token", response.data.token);
-            console.log("Login Success");
-            if (localStorage.getItem("role") == "coordinator") {
-              router.push("/coorNavigation");
-              //emit back
-              this.$emit("loginSuccess");
-            }
-          }
-        });
     },
   },
 };

@@ -19,7 +19,7 @@ methods:{
         localStorage.setItem('role',)
         localStorage.removeItem('user');
         localStorage.removeItem('email');
-        localStorage.removeItem('token');
+        localStorage.removeItem(localStorage.role+'_token');
         router.push('/')
       }
 }

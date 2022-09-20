@@ -59,13 +59,16 @@ export default {
         .then((response) => {
           console.log(response.data);
           if (response.data.sms !== "Invalid password") {
-            localStorage.setItem("token", response.data.token);
             console.log("Login Success");
             if (localStorage.getItem("role") == "coordinator") {
-              router.push("/coorNavigation");
-              //emit back
-              this.$emit("loginSuccess");
+              localStorage.setItem("coordinator_token", response.data.token);
+            }else if(localStorage.getItem("role") == "teacher"){
+              localStorage.setItem("teacher_token", response.data.token);
+            }else{
+              localStorage.setItem("student_token", response.data.token);
             }
+            router.push("/navigation");
+            this.$emit("loginSuccess");
           }
         });
     },

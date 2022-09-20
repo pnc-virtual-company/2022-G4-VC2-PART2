@@ -22,10 +22,11 @@ const routes = [
     component: () => import("../views/coordinators/ProfileView.vue"),
   },
   {
-    path: "/coorNavigation",
-    name: "coorNavigation",
+    path: "/navigation",
+    name: "navigation",
     meta: {
       requiresAuth: true,
+      isAdmin:true
     },
     component: () => import("../views/coordinators/CoorNavigationView.vue"),
     children: [
@@ -34,6 +35,7 @@ const routes = [
         name: "teacherList",
         meta: {
           requiresAuth: true,
+          isAdmin:true,
         },
         component: () => import("../views/coordinators/TeacherView.vue"),
       },
@@ -42,7 +44,8 @@ const routes = [
         name: "listFollowUp",
         meta: {
           requiresAuth: true,
-      
+          isAdmin:true,
+          isTeacher:true
         },
         component: () =>
           import("../views/coordinators/ListOfStudentFollowUpView.vue"),
@@ -52,9 +55,33 @@ const routes = [
         name: "studentList",
         meta: {
           requiresAuth: true,
+          isAdmin:true,
+          isTeacher:true
         },
         component: () => import("../views/coordinators/UsersView.vue"),
       },
+// --------------------------Rout for Teacher-----------------------------------------------
+// {
+//   path: "/studentList/teacher",
+//   name: "studentList",
+//   meta: {
+//     requiresAuth: true,
+//     requireTeacher:true
+//   },
+//   component: () => import("../views/coordinators/UsersView.vue"),
+// },
+// {
+//   path: "/listFollowUp/teacher",
+//   name: "listFollowUp",
+//   meta: {
+//     requiresAuth: true,
+//     requireTeacher:true
+    
+//   },
+//   component: () =>
+//     import("../views/coordinators/ListOfStudentFollowUpView.vue"),
+// },
+
     ],
   },
   {
@@ -62,33 +89,70 @@ const routes = [
     component: () => import("../views/NotFoundView.vue"),
   },
 ];
-function authenticationGuard(to, from, next) {
-  let requiresAuth = to.meta.requiresAuth;
-  if (requiresAuth) {
-    if (!localStorage.coorId) {
-      next("/");
+
+// function authenticationGuard(to, from, next) {
+//   let requiresAuth = to.meta.requiresAuth;
+//   if (requiresAuth) {
+//     if(to.meta.isAdmin && to.meta.isTeacher){
+//       if(!localStorage.admin_token){
+//         next('/')
+//       }else{
+//         if(to.path == "/navigation"){
+//           next('/')
+//         }else{
+//           next()
+//         }
+//       }
+//     }else{
+//       if(to.meta.isTeacher){
+//         if(!localStorage.teacher_token){
+//           next('/')
+//         }else{
+//           if(to.path == "/"){
+//             next('/navigation')
+//           }else{
+//             next()
+//           }
+//         }
+//       }
+//     }
+//   }
+//   next();
+// }
+//manage route of coordinator
+router.beforeEach((to, from, next) => {
+  if (!localStorage.getItem("coordinator_token")) {
+    if (!to.meta.requiresAuth) {
+      next();
     } else {
-      if (to.path === "/") {
-        next("/");
-      } else {
-        next();
-      }
+      next("/");
     }
-  } else {
-    if (localStorage.coorId) {
-      if (to.path === "/") {
-        next("/");
-      }
+  }
+
+  if (localStorage.getItem("coordinator_token")) {
+    if (to.meta.requiresAuth) {
+      next();
+    } else {
+      next("/");
     }
   }
   next();
-}
+});
+// router.beforeEach(async (to, from) => {
+//   let isAuthenticated = to.meta.requiresAuth;
+//   if (
+//     !isAuthenticated &&
+//     to.name !== 'Login'
+//   ) {
+//     return { name: 'Login' }
+//   }
+// })
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
 });
 
-router.beforeEach(authenticationGuard);
+// router.beforeEach(authenticationGuard);
 
 export default router;
