@@ -1,25 +1,22 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use App\Models\User;
 use App\Models\Batch;
 use App\Models\Student;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+// use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\MessageBag;
 use Illuminate\Validation\Rule;
 use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-
     public function index()
     {
         return User::with(['student'])->get();
     }
-
 
     public function store(Request $request)
     {
@@ -142,6 +139,12 @@ class UserController extends Controller
         return "Item not found";
     }
 
+    public function createNewPassword(Request $request, $id){
+        $user = User::findOrfail($id);
+        $user->password = bcrypt($request->password);
+        $user ->update();
+    }
+
     public function getUserBy($role)
     {
         if(strtoupper($role) == 'STUDENT'){
@@ -170,21 +173,22 @@ class UserController extends Controller
     {
         return User::orderBy('first_name')->get();
     }
-
     /********************************** User Log In ************************************* */
-    public function login(Request $request) {
-        if(Auth::attempt($request->only('email', 'password'))){
-            $user = Auth::user();
-            $token = $user->createToken('mytoken')->plainTextToken;
-            $cookie = cookie('jwt', $token, 60*24);
-            return response()->json(['mas'=> 'success','token'=>$token], 200)->withCookie($cookie);
+    public function login(Request $request)
+    {
+        $user = User::where('email', $request->email)->first();
+        //check password
+        if(!$user || !Hash::check($request->password,$user->password)){
+            return response()->json(['sms'=>"Invalid password"]);
         }
-        return response()->json(['mas'=>"Invalid"]);
-    }
+        $token = $user->createToken('myToken')->plainTextToken;
+        // $cookie = cookie('jwt', $token, 60*24*30);
+        return response()->json(['token' => $token,'message'=>'success login','id'=>$user['id']],200);
 
+    }
 /************************************ Log out ****************************************/
     public function logout() {
-         $cookie = Cookie::forget('jwt');
-         return response()->json(['mes'=>'Logged out Successfully'])->withCookie($cookie);
+        $cookie = Cookie::forget('jwt');
+        return response()->json(['mes'=>'Logged out Successfully'])->withCookie($cookie);
     }
 }

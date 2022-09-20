@@ -12,6 +12,7 @@
     "axios": "^0.27.2",
     "core-js": "^3.8.3",
     "flowbite": "^1.5.3",
+    "localstorage-slim": "^2.3.0",
     "postcss": "^8",
     "sweetalert2": "^11.4.32",
     "tailwind": "^4.0.0",

@@ -1,72 +1,27 @@
 <template>
-  <div
-    class="bg-grey-lighter flex justify-center item-center w-8/12 m-auto mt-28"
-  >
-    <div
-      class="
-        container
-        items-center
-        rounded
-        shadow-md
-      "
-    >
-      <div class="accordion accordion-flush" id="accordionFlushExample">
-        <div
-          class="
-            accordion-item
-            border-t-0 border-l-0 border-r-0
-            rounded-none
-            bg-gray-200
-            border border-gray-200
-          "
-        >
-          <h2 class="accordion-header mb-0" id="flush-headingOne">
-            <button
-              class="
-                accordion-button
-                relative
-                flex
-                items-center
-                w-full
-                py-4
-                px-5
-                text-base text-gray-200 text-left
-                bg-blue-500
-                border-0
-                rounded-none
-                transition
-                focus:outline-none
-              "
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#flush-collapseOne"
-              aria-expanded="false"
-              aria-controls="flush-collapseOne"
-            >
-            <img
-                  src="@/assets/savert.jpg"
-                  alt=""
-                  class="w-10 h-10 rounded-full shadow-md mr-2"
-                />
-              Samoul Vann
-            </button>
-          </h2>
-          <div
-            id="flush-collapseOne"
-            class="accordion-collapse border-0 collapse show"
-            aria-labelledby="flush-headingOne"
-            data-bs-parent="#accordionFlushExample"
-          >
-            <div class="accordion-body py-4 px-5">
-              Placeholder content for this accordion, which is intended to
-              demonstrate the <code>.accordion-flush</code> class. This is the
-              first item's accordion body.
-            </div>
-          </div>
-        </div>
-      </div>
+  <div class="w-full px-2 m-auto h-screen fixed top-20 right-0 flex justify-end">
+      <div class=" px-2 w-9/12">      
+<button id="dropdownDefault" data-dropdown-toggle="dropdown" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">Dropdown button <svg class="ml-2 w-4 h-4" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
+<!-- Dropdown menu -->
+<div id="dropdown" class=" z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700" data-popper-reference-hidden="" data-popper-escaped="" data-popper-placement="bottom" style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate3d(0px, 1076.67px, 0px);">
+    <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefault">
+      <li>
+        <a href="#" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>
+      </li>
+      <li>
+        <a href="#" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
+      </li>
+      <li>
+        <a href="#" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Earnings</a>
+      </li>
+      <li>
+        <a href="#" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Sign out</a>
+      </li>
+    </ul>
+</div>
     </div>
-  </div>
+</div>
+
 </template>
 <script>
 export default {

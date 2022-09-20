@@ -1,19 +1,22 @@
 <template>
-    <section>
-      <RightBar v-show ="!isClosed" />
-      <NavBar @emits-nav="isHidden"/> 
-    </section>
-  <router-view />
+  <section>
+    <CoorNavbar v-if="isLogin" @loginSuccess="isLogin=true"/>
+    <router-view></router-view>
+  </section>
 </template>
 <script>
-import RightBar from '@/components/navigation/RightBarComponent.vue'
-import NavBar from '@/components/navigation/NavigationComponent.vue'
+
+import CoorNavbar from './views/coordinators/CoorNavigationView.vue'
+
 
 export default {
-  components: {RightBar, NavBar},
+  components:{
+    CoorNavbar,
+  },
   data(){
     return {
       isClosed:false,
+      isLogin: false,
     }
   },
   methods:{

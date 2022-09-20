@@ -1,32 +1,168 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory } from "vue-router";
+import ls from 'localstorage-slim'
+ls.config.encrypt = true;
 
 const routes = [
   {
-    path: '/teacherList',
-    name: 'teacherList',
-    component:() => import('../views/coordinators/TeacherView.vue')
+    path: "/",
+    name: "login",
+    component: () => import("../views/login&logout/LoginView.vue"),
   },
   {
-    path: '/listFollowUp',
-    name: 'listFollowUp',
-    component: () => import('../views/coordinators/ListOfStudentFollowUpView.vue')
+    path: "/logout",
+    name: "logout",
+    component: () => import("../views/login&logout/LogoutView"),
+  
   },
+ 
+  {
+    path: "/profiles",
+    name: "profiels",
+    meta: {
+      requiresAuth: true,
+    },
+    component: () => import("../views/coordinators/ProfileView.vue"),
+  },
+  {
+    path: "/navigation",
+    name: "navigation",
+    component: () => import("../views/coordinators/CoorNavigationView.vue"),
+    children: [
+      {
+        path: "/teacherList",
+        name: "teacherList",
+        meta: {
+          requiresAuth: true,
+          isAdmin:true,
+        },
+        component: () => import("../views/coordinators/TeacherView.vue"),
+      },
+      {
+        path: "/listFollowUp",
+        name: "listFollowUp",
+        meta: {
+          requiresAuth: true,
+          isAdmin:true,
+          isTeacher:true
+        },
+        component: () =>
+          import("../views/coordinators/ListOfStudentFollowUpView.vue"),
+      },
+      {
+        path: "/studentList",
+        name: "studentList",
+        meta: {
+          requiresAuth: true,
+          isAdmin:true,
+          isTeacher:true
+        },
+        component: () => import("../views/coordinators/UsersView.vue"),
+      },
+    ],
+  },
+  {
+    path: "/:pathMatch(.*)*",
+    component: () => import("../views/NotFoundView.vue"),
+  },
+];
 
-  {
-    path: '/studentList',
-    name: 'studentList',
-    component: () =>  import(/* webpackChunkName: "about" */ '../views/coordinators/UsersView.vue')
-  },
-  {
-    path: '/profiles',
-    name: 'profiels',
-    component: () => import('../views/coordinators/ProfileView.vue')
-  },
-]
+function authenticationGuard(to, from, next) {
+  let requiresAuth = to.meta.requiresAuth;
+  if (requiresAuth) {
+    if(to.meta.isStudent){
+      if(!localStorage.student_token){
+          localStorage.removeItem(ls.get('role')+'_token');
+          localStorage.removeItem('role',)
+          localStorage.removeItem('user');
+          localStorage.removeItem('email');
+        next('/')
+      }else{
+        if(to.path == "/"){
+          localStorage.removeItem(ls.get('role')+'_token');
+          localStorage.removeItem('role',)
+          localStorage.removeItem('user');
+          localStorage.removeItem('email');
+          next('/')
+        }else{
+          next()
+        }
+      }
+    }else if(to.meta.isTeacher){
+      if(!localStorage.teacher_token){
+          localStorage.removeItem(ls.get('role')+'_token');
+          localStorage.removeItem('role',)
+          localStorage.removeItem('user');
+          localStorage.removeItem('email');
+        next('/')
+      }else{
+        if(to.path == "/"){
+          localStorage.removeItem(ls.get('role')+'_token');
+          localStorage.removeItem('role',)
+          localStorage.removeItem('user');
+          localStorage.removeItem('email');
+          next('/')
+        }else{
+          next()
+        }
+      }
+    }else{
+      if(to.meta.isAdmin){
+        if(!localStorage.coordinator_token){
+          localStorage.removeItem(ls.get('role')+'_token');
+          localStorage.removeItem('role',)
+          localStorage.removeItem('user');
+          localStorage.removeItem('email');
+          next('/')
+        }else{
+          if(to.path == "/"){
+            localStorage.removeItem(ls.get('role')+'_token');
+            localStorage.removeItem('role',)
+            localStorage.removeItem('user');
+            localStorage.removeItem('email');
+            next('/')
+          }else{
+            next()
+          }
+        }
+      }
+    }
+  }
+  next();
+}
+//manage route of coordinator
+// router.beforeEach((to, from, next) => {
+//   if (!localStorage.getItem("coordinator_token")) {
+//     if (!to.meta.requiresAuth) {
+//       next();
+//     } else {
+//       next("/");
+//     }
+//   }
+
+//   if (localStorage.getItem("coordinator_token")) {
+//     if (to.meta.requiresAuth) {
+//       next();
+//     } else {
+//       next("/");
+//     }
+//   }
+//   next();
+// });
+// router.beforeEach(async (to, from) => {
+//   let isAuthenticated = to.meta.requiresAuth;
+//   if (
+//     !isAuthenticated &&
+//     to.name !== 'Login'
+//   ) {
+//     return { name: 'Login' }
+//   }
+// })
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
-  routes
-})
+  routes,
+});
 
-export default router
+router.beforeEach(authenticationGuard);
+
+export default router;
