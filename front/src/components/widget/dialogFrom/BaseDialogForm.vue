@@ -326,8 +326,6 @@ emits:['close'],
             }
             
         },
-
-        // updateStudent() {
         //     const stdList = {
         //         email: this.updateValue.email,
         //         first_name:this.updateValue.first_name,
@@ -411,9 +409,7 @@ emits:['close'],
          validateEmail() {
              if (this.email.trim() == '') {
                  this.userEmail = 'Email is required !';
-            } else {
-                 this.userEmail = 'Wrong format email !';
-             }
+            } 
              return this.userEmail;
              
         },

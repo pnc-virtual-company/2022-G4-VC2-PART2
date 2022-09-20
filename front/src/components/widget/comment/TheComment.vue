@@ -1,7 +1,9 @@
 <template>
-  <div @click="hideRightClik()" class="w-2/3 flex flex-col justify-between overflow-y-auto " style="overflow: scroll;height: 400px; overflow-x: hidden; background-color:rgba(221, 232, 240, 1);">
-        <div class="flex flex-col mt-5 " v-for="comment of allComments" :key="comment" >
-          <div class="flex justify-end mb-4 " v-if="comment.user_id == 1" >
+
+
+  <div  @click="hideRightClik()" class="w-2/3 flex flex-col justify-between overflow-y-auto " style="overflow: scroll;height: 400px; overflow-x: hidden; background-color:rgba(221, 232, 240, 1);">
+        <div  class="flex flex-col mt-5 " v-for="comment of allComments" :key="comment" >
+          <div class="flex justify-end mb-4 " v-if="comment.student_id == 1" >
             <div class="flex justify-center items-end">
               <div @click="hideShow(comment.id)" @contextmenu.capture.prevent="showAction(comment.id)"
                 class="mr-2 py-3 px-4 bg-blue-400 rounded-bl-3xl rounded-tl-3xl rounded-tr-xl text-white cursor-pointer " style=" max-width: 460px;word-break: break-all;  ">
@@ -19,7 +21,7 @@
                 :id="comment.id">
                 {{comment.updated_at}}
             </p>
-          <div class="flex justify-start mb-4 cursor-pointer"  v-if="comment.user_id != 1" >
+          <div class="flex justify-start mb-4 cursor-pointer"  v-if="comment.student_id != 1" >
             <div class="flex justify-center items-end" >
               <img
                 src="https://source.unsplash.com/vpOeXr5wmR4/600x600"
@@ -70,7 +72,7 @@
 <script>
 import axios from 'axios';
 export default {
-
+  props:['commets'],
   data() {
     return {
       allComments: null,
@@ -80,22 +82,34 @@ export default {
       comment_id: null,
       ifEdite:false,
       rightClike: false,
+      ifHasTopic:false,
     }
+  },
+  watch: {
+    commets() {
+      this.getAllComments();
+      // this.comment = '',
+      // axios.get('http://localhost:8000/api/comment/'+this.commets.user).then((response) => {
+      //   this.allComments = response.data
+      //   console.log(this.allComments);
+      // })
+    },
   },
   methods: {
     getAllComments() {
       this.comment = '',
-      axios.get('http://localhost:8000/api/comment/1').then((response) => {
+      axios.get('http://localhost:8000/api/comment/'+this.commets.user.id).then((response) => {
         this.allComments = response.data
+        console.log(this.allComments);
       })
     },
     addComment() {
       const userComment = {
         content: this.comment,
         topic: 'English',
-        user_id:2,
-        student_id: 1,
-        follow_up_id:1
+        user_id:this.commets.user.id,
+        student_id: this.commets.user.id,
+        follow_up_id:2
       }
       const editCmt = {
           content:this.comment,
@@ -158,10 +172,6 @@ export default {
           return word[0].toUpperCase() + loweredCase.slice(1);
       }
   },
-
-  mounted() {
-    this.getAllComments();
-  }
 }
 </script>
 
