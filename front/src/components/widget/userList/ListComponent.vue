@@ -44,7 +44,7 @@
         <!-- ____HEADER OF TABLE LIST_____ -->
         <tr>
           <th scope="col" class="py-2 px-4 text-left">Name</th>
-          <th scope="col" class="py-2 px-4 text-center" v-if="standingPage=='teacher'" >Email</th> <!-- Teacher email title-->
+          <th scope="col" class="py-2 px-4 text-center" v-if="standingPage=='teacher'" >Email</th> 
           <th scope="col" class="py-2 px-4 text-center" v-if="standingPage=='student'">Batch</th>
           <th scope="col" class="py-2 px-4 text-center" v-if="standingPage=='student'">class</th>
           <th scope="col" class="py-2  text-center w-4 mx-4">Action</th>
@@ -88,7 +88,7 @@
         </tbody>
       </table>
       <!--______IF NON LIST HERE_______-->
-    <div v-if="listUsers.length == 0" class="w-full  dark:bg-gray-800  dark:hover:bg-gray-600 flex justify-center items-center py-4">
+    <div v-if="!showListStd" class="w-full  dark:bg-gray-800  dark:hover:bg-gray-600 flex justify-center items-center py-4">
       <h1 class="text-red-600 text-[20px]">List User is empty</h1>
     </div>
 
