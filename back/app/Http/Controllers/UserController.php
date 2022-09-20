@@ -69,7 +69,13 @@ class UserController extends Controller
                 $batchs->batch = $request->year;
                 $batchs->save();
                 $student->save();
-            }
+                if(!$student->save() or !$batchs->save()) {
+                    User::destroy($id['id']);
+                    return response()->json(['msg'=>'error']);
+                }
+            return response()->json(['msg' => 'success']);
+
+        }
     }
 
 
