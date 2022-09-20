@@ -7,58 +7,39 @@ use Illuminate\Http\Request;
 
 class FollowUpController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
-        //
+        return Follow_up::all();
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
-        //
+        $follow_up = new Follow_up();
+        $follow_up->user_id = $request->user_id;
+        $follow_up->student_id = $request->student_id;
+        $follow_up->save();
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Follow_up  $follow_up
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Follow_up $follow_up)
+
+    public function show( $id)
     {
-        //
+        return Follow_up::findOrfail($id);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Follow_up  $follow_up
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Follow_up $follow_up)
+
+    public function update(Request $request,  $id)
     {
-        //
+        $follow_up = Follow_up::findOrfail($id);
+        $follow_up->user_id = $request->user_id;
+        $follow_up->student_id = $request->student_id;
+        $follow_up->save();
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Follow_up  $follow_up
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Follow_up $follow_up)
+
+    public function destroy( $id)
     {
-        //
+        return Follow_up::destroy($id);
     }
 }

@@ -121,7 +121,7 @@
             <!-- Base_Button -->
            <section class="flex justify-between w-full pt-2">
                 <Base_Button @click="($emit('close', false))" class="  bg-slate-300 border-teal-900 text-black ">Cancel</Base_Button>
-                <Base_Button @click="UpdateOrCreateUser" class="bg-cyan-500 hover:bg-cyan-600">{{ object.button }}</Base_Button> 
+                <Base_Button @click="UpdateOrCreateUser" class="bg-[#018ABD]  hover:bg-cyan-600">{{ object.button }}</Base_Button> 
            </section>
         </div>
         </div>
@@ -132,7 +132,7 @@
 import Base_Button from '../button/BaseButton.vue';
 import alertForm from '../alertValidation/alert_form.vue';
 import axios from 'axios';
-const Swal = require('sweetalert2')
+// const Swal = require('sweetalert2')
 export default ({
 props:['object', 'updateValue'],
 emits:['close'],
@@ -279,11 +279,11 @@ emits:['close'],
                 if (this.object.to_do == 'update') {
                     axios.put('http://localhost:8000/api/user/'+this.object.id, stdList).then(() => {
                     this.$emit('close', false)
-                    Swal.fire({
-                        icon: 'success',
-                        text: 'User Updated',
+                    // Swal.fire({
+                    //     icon: 'success',
+                    //     text: 'User Updated',
                       
-                    })
+                    // })
                 }).catch((err) => {
                     console.log(err)
                         this.validateEmail()
@@ -291,12 +291,10 @@ emits:['close'],
                 } else {  
                         axios.post('http://localhost:8000/api/user/', addList).then(() => {
                             this.$emit('close', false)
-                            Swal.fire({
-                                icon: 'success',
-                                text: 'User Added',
-                                
-                            })
-
+                            // Swal.fire({
+                            //     icon: 'success',
+                            //     text: 'User Added',
+                            // })
                         }).catch((err) => {
                             console.log(err);
                                 this.validateEmail()

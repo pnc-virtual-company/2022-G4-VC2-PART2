@@ -1,6 +1,6 @@
 <template>
      <!-- This is an example component -->
-    <div class="container mx-auto shadow-lg rounded-lg">
+    <div class="container mx-auto shadow-lg rounded-lg ">
             <!-- headaer -->
         <div class="px-5 py-5 flex justify-between items-center bg-white border-b-2">
             <div class="font-semibold text-2xl">GoingChat</div>

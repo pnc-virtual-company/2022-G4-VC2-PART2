@@ -1,31 +1,20 @@
 <template>
     <section>
-      <RightBar v-show ="!isClosed" />
-      <NavBar @emits-nav="isHidden"/> 
+      <NavBar/> 
+      <router-view/>
     </section>
   
-  <router-view />
 </template>
 <script>
-import RightBar from '@/components/navigation/RightBarComponent.vue'
 import NavBar from '@/components/navigation/NavigationComponent.vue'
 export default {
-  components: {RightBar, NavBar },
+  components: {NavBar },
   data(){
     return {
-      isClosed:false,
     }
   },
   methods:{
-    isHidden(value){
-      this.isClosed = value
-    },
   },
-  provide(){
-    return {
-      openRightBar: this.isClosed
-    }
-  }
 }
 </script>
 <style>
@@ -36,6 +25,7 @@ export default {
     --main-color-light: #018ABD;  /* Second Color */
     --main-color-active: #b0c9d2;  /* Third Color */
     --main-color-hover: #a4bac1;  /* Third Color */
+
   
   }
   
@@ -51,7 +41,7 @@ export default {
   
 a.router-link-exact-active {
   color: white;
-  background: var(--main-color-active);
+  border-bottom: 3px solid orange;
 }
 a:hover {
   color: white;

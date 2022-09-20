@@ -1,9 +1,9 @@
 <template>
-  <div class="w-10/12 m-auto h-screen fixed top-20 right-0 flex justify-center">
-      <div class=" w-11/12">
-        <Teachercomponent :listUsers="teacherList" :createUsers="teacherInfoCreate" :updateUser="teacherInfoUpdate" :title="title" @delete_id="deleteUser" :standingPage="standingPage"/>
+   <div class="w-full mt-28 m-aut flex justify-center px-4">
+      <div class="w-11/12">
+        <Teachercomponent :listUsers="teacherList" :createUsers="teacherInfoCreate" :updateUser="teacherInfoUpdate" :title="title" @delete_id="deleteUser" :standingPage="standingPage" @refresh_data="getAllData"/>
       </div>
-  </div>
+  </div> 
 </template>
 <script>
 import axios  from 'axios'
@@ -18,8 +18,7 @@ export default {
       teacherInfoUpdate: { title: 'Edit Teacher',button: "Update", to_do: "update", role: 'teacher'}, // TEACHER UPDATE INFOR
       title: 'Let See All List Of TeacheerS!', // TITLE OF HOME PAGE
       teacherList: [],
-      standingPage: 'teacher',
-         
+      standingPage: 'teacher',        
     }
   },
   methods: {
@@ -41,11 +40,6 @@ export default {
             console.log(response.data)
         })
     },
-    relaodNow(value){
-      console.log(value)
-      return this.getAllData()
-    }
-
   },
   mounted() {
       return this.getAllData();

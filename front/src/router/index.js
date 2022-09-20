@@ -4,12 +4,12 @@ const routes = [
   {
     path: '/listFollowUp',
     name: 'listFollowUp',
-    component:() => import('../views/coordinators/ListOfStudentFollowUpView.vue')
+    component:() => import('../views/coordinators/FollowUpView.vue')
   },
   {
     path: '/studentList',
     name: 'studentList',
-    component: () =>  import('../views/coordinators/UsersView.vue')
+    component: () =>  import('../views/coordinators/StudentView.vue')
   },
   {
     path: '/teacherList',
