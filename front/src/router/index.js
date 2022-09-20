@@ -24,10 +24,6 @@ const routes = [
   {
     path: "/navigation",
     name: "navigation",
-    meta: {
-      requiresAuth: true,
-      isAdmin:true
-    },
     component: () => import("../views/coordinators/CoorNavigationView.vue"),
     children: [
       {
@@ -60,28 +56,6 @@ const routes = [
         },
         component: () => import("../views/coordinators/UsersView.vue"),
       },
-// --------------------------Rout for Teacher-----------------------------------------------
-// {
-//   path: "/studentList/teacher",
-//   name: "studentList",
-//   meta: {
-//     requiresAuth: true,
-//     requireTeacher:true
-//   },
-//   component: () => import("../views/coordinators/UsersView.vue"),
-// },
-// {
-//   path: "/listFollowUp/teacher",
-//   name: "listFollowUp",
-//   meta: {
-//     requiresAuth: true,
-//     requireTeacher:true
-    
-//   },
-//   component: () =>
-//     import("../views/coordinators/ListOfStudentFollowUpView.vue"),
-// },
-
     ],
   },
   {
@@ -90,54 +64,88 @@ const routes = [
   },
 ];
 
-// function authenticationGuard(to, from, next) {
-//   let requiresAuth = to.meta.requiresAuth;
-//   if (requiresAuth) {
-//     if(to.meta.isAdmin && to.meta.isTeacher){
-//       if(!localStorage.admin_token){
-//         next('/')
-//       }else{
-//         if(to.path == "/navigation"){
-//           next('/')
-//         }else{
-//           next()
-//         }
-//       }
-//     }else{
-//       if(to.meta.isTeacher){
-//         if(!localStorage.teacher_token){
-//           next('/')
-//         }else{
-//           if(to.path == "/"){
-//             next('/navigation')
-//           }else{
-//             next()
-//           }
-//         }
-//       }
-//     }
-//   }
-//   next();
-// }
-//manage route of coordinator
-router.beforeEach((to, from, next) => {
-  if (!localStorage.getItem("coordinator_token")) {
-    if (!to.meta.requiresAuth) {
-      next();
-    } else {
-      next("/");
-    }
-  }
-
-  if (localStorage.getItem("coordinator_token")) {
-    if (to.meta.requiresAuth) {
-      next();
-    } else {
-      next("/");
+function authenticationGuard(to, from, next) {
+  let requiresAuth = to.meta.requiresAuth;
+  if (requiresAuth) {
+    if(to.meta.isStudent){
+      if(!localStorage.student_token){
+          localStorage.removeItem(localStorage.role+'_token');
+          localStorage.removeItem('role',)
+          localStorage.removeItem('user');
+          localStorage.removeItem('email');
+        next('/')
+      }else{
+        if(to.path == "/"){
+          localStorage.removeItem(localStorage.role+'_token');
+          localStorage.removeItem('role',)
+          localStorage.removeItem('user');
+          localStorage.removeItem('email');
+          next('/')
+        }else{
+          next()
+        }
+      }
+    }else if(to.meta.isTeacher){
+      if(!localStorage.teacher_token){
+          localStorage.removeItem(localStorage.role+'_token');
+          localStorage.removeItem('role',)
+          localStorage.removeItem('user');
+          localStorage.removeItem('email');
+        next('/')
+      }else{
+        if(to.path == "/"){
+          localStorage.removeItem(localStorage.role+'_token');
+          localStorage.removeItem('role',)
+          localStorage.removeItem('user');
+          localStorage.removeItem('email');
+          next('/')
+        }else{
+          next()
+        }
+      }
+    }else{
+      if(to.meta.isAdmin){
+        if(!localStorage.coordinator_token){
+          localStorage.removeItem(localStorage.role+'_token');
+          localStorage.removeItem('role',)
+          localStorage.removeItem('user');
+          localStorage.removeItem('email');
+          next('/')
+        }else{
+          if(to.path == "/"){
+            localStorage.removeItem(localStorage.role+'_token');
+            localStorage.removeItem('role',)
+            localStorage.removeItem('user');
+            localStorage.removeItem('email');
+            next('/')
+          }else{
+            next()
+          }
+        }
+      }
     }
   }
   next();
-});
+}
+//manage route of coordinator
+// router.beforeEach((to, from, next) => {
+//   if (!localStorage.getItem("coordinator_token")) {
+//     if (!to.meta.requiresAuth) {
+//       next();
+//     } else {
+//       next("/");
+//     }
+//   }
+
+//   if (localStorage.getItem("coordinator_token")) {
+//     if (to.meta.requiresAuth) {
+//       next();
+//     } else {
+//       next("/");
+//     }
+//   }
+//   next();
+// });
 // router.beforeEach(async (to, from) => {
 //   let isAuthenticated = to.meta.requiresAuth;
 //   if (
@@ -153,6 +161,6 @@ const router = createRouter({
   routes,
 });
 
-// router.beforeEach(authenticationGuard);
+router.beforeEach(authenticationGuard);
 
 export default router;

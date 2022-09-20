@@ -16,10 +16,10 @@ import router from '@/router';
 export default {
 methods:{
     logout(){
-        localStorage.setItem('role',)
+        localStorage.removeItem(localStorage.role+'_token');
+        localStorage.removeItem('role',)
         localStorage.removeItem('user');
         localStorage.removeItem('email');
-        localStorage.removeItem(localStorage.role+'_token');
         router.push('/')
       }
 }
