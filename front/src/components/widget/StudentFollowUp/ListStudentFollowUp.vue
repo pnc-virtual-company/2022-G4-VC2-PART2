@@ -21,7 +21,7 @@
   <!-- ADD OR CLOSE THE REQUEST -->
   <div class="fixed bottom-0 left-0 w-3/12">
     <div v-if="checked.length>0" class="flex justify-end border py-2 px-4 w-full font-serif">
-      <button @click="$emit('emit_id', false)" class="text-[#464646] border-white hover:hover:bg-green-100 py-2 px-2 w-24">
+      <button @click="$emit('emit_add', false)" class="text-[#464646] border-white hover:hover:bg-green-100 py-2 px-2 w-24">
           Cancel
       </button>
         <button @click="getCheckBox" class="text-[#454df3] border-white hover:bg-green-100 py-2 px-2 w-24 ">
