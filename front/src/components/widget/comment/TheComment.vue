@@ -42,7 +42,8 @@
 </template>
 
 <script>
-import axios from 'axios';
+// import axios from 'axios';
+import axios from '@/api/api'
 export default {
   data() {
     return {
@@ -53,7 +54,7 @@ export default {
   },
   methods: {
     getAllComments() {
-      axios.get('http://localhost:8000/api/comment').then((response) => {
+      axios.get('comment').then((response) => {
         this.allComments = response.data
       })
     },

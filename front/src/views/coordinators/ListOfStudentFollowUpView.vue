@@ -31,7 +31,8 @@
 </template>
 
 <script>
-import axios from "axios";
+// import axios from "axios";
+import axios from "@/api/api"
 import BaseSearch from "@/components/widget/search/BaseSearch.vue";
 import ListStudentFollowUp from "@/components/widget/StudentFollowUp/ListStudentFollowUp.vue";
 import TheComment from "@/components/widget/comment/TheComment.vue";
@@ -57,7 +58,7 @@ export default {
     },
 
     getAllData() {
-      axios.get("http://127.0.0.1:8000/api/user").then((response) => {
+      axios.get("user").then((response) => {
         for (var i = 0; i < response.data.length; i++) {
           if (response.data[i].student[0].if_follow_up == "Yes") {
             this.listStudents.push(response.data[i]);

@@ -48,7 +48,8 @@
 </template>
 
 <script>
-import axios from "axios"
+// import axios from "axios"
+import axios from '@/api/api'
 
 
 export default ({
@@ -66,7 +67,7 @@ export default ({
     },
     methods: {
         getTeacher(){
-            axios.get('http://127.0.0.1:8000/api/user/2').then((res)=>{
+            axios.get('user/2').then((res)=>{
                 this.first_name = (res.data[0].first_name)
                 this.last_name = (res.data[0].last_name)
                 this.gender = (res.data[0].gender)
@@ -86,7 +87,7 @@ export default ({
                 role:'teacher'
                 // img: this.img.name,
             };
-            axios.put('http://127.0.0.1:8000/api/user/2', teacherList).then((res) => {
+            axios.put('user/2', teacherList).then((res) => {
                 this.getTeacher()
                 console.log(res.data);
             })

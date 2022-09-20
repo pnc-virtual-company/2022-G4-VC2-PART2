@@ -6,7 +6,8 @@
   </div>
 </template>
 <script>
-import axios  from 'axios'
+// import axios  from 'axios'
+import axios from '@/api/api'
 import Teachercomponent from '@/components/widget/userList/ListComponent.vue'
 export default {
   components:{
@@ -30,7 +31,7 @@ export default {
 
       // DELET DATA FROM STORAGE
       deleteUser(id){
-        axios.delete('http://localhost:8000/api/user/'+id).then(() => {
+        axios.delete('/user/'+id).then(() => {
             return this.getAllData()
         })
       },

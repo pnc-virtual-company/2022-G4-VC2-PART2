@@ -6,7 +6,8 @@
     </div>
 </template>
 <script>
-import axios  from 'axios'
+// import axios  from 'axios'
+import axios from '@/api/api'
 import UserTemplates from '@/components/widget/userList/ListComponent.vue'
 export default {
     components:{ UserTemplates },
@@ -25,14 +26,14 @@ export default {
         },
         // GET ALL DATABASE
         getAllData(){
-            axios.get('http://127.0.0.1:8000/api/getUserBy/student').then((response)=>{
+            axios.get('getUserBy/student').then((response)=>{
                 this.listStudents = response.data
                 console.log(response.data)
             })
         },
         // DELET DATA FROM STORAGE
       deleteUser(id){
-        axios.delete('http://localhost:8000/api/user/'+id).then(() => {
+        axios.delete('api/user/'+id).then(() => {
             return this.getAllData()
         })
       },

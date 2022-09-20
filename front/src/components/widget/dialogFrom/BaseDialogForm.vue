@@ -131,7 +131,8 @@
 <script>
 import Base_Button from '../button/BaseButton.vue';
 import alertForm from '../alertValidation/alert_form.vue';
-import axios from 'axios';
+// import axios from 'axios';
+import axios from '@/api/api'
 const Swal = require('sweetalert2')
 export default ({
 props:['object', 'updateValue'],
@@ -277,7 +278,7 @@ emits:['close'],
             if (this.ifAllfiedInput) { 
                 console.log(this.object);
                 if (this.object.to_do == 'update') {
-                    axios.put('http://localhost:8000/api/user/'+this.object.id, stdList).then(() => {
+                    axios.put('user/'+this.object.id, stdList).then(() => {
                     this.$emit('close', false)
                     Swal.fire({
                         icon: 'success',
@@ -289,7 +290,7 @@ emits:['close'],
                         this.validateEmail()
                 })
                 } else {  
-                        axios.post('http://localhost:8000/api/user/', addList).then(() => {
+                        axios.post('user/', addList).then(() => {
                             this.$emit('close', false)
                             Swal.fire({
                                 icon: 'success',
@@ -445,14 +446,14 @@ emits:['close'],
         }
     },
     mounted() {
-        axios.get('http://localhost:8000/api/batch').then((res) => {
+        axios.get('batch').then((res) => {
             this.allBatch = res.data
             if (this.allBatch == '') {
                 this.showAddNewBatch = true
             }
             console.log(res.data);
         })
-        axios.get('http://localhost:8000/api/user/' + this.object.id).then((res) => {
+        axios.get('user/' + this.object.id).then((res) => {
             this.dataToUpdate = res.data
             // this.showOldData()
         })
