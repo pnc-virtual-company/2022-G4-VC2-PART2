@@ -1,8 +1,6 @@
 <template>
-     <div class="w-full mt-28 m-aut flex justify-center px-4">
-        <div class="w-11/12">
-            <UserTemplates :listUsers="listStudents" :createUsers="studentInfoCreate" :updateUser="studentInfoUpdate" :title="title" @delete_id="deleteUser" :standingPage="standingPage" @refresh_data="getAllData"/>
-        </div>
+    <div class="w-full  mt-28 m-aut px-2">
+        <UserTemplates :listUsers="listStudents" :createUsers="studentInfoCreate" :updateUser="studentInfoUpdate" :title="title" @delete_id="deleteUser" :standingPage="standingPage" @refresh_data="getAllData"/>
     </div>
 </template>
 <script>

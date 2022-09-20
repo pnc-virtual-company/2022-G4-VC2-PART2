@@ -1,6 +1,5 @@
 <template>
-<div class="w-full mt-28 m-aut flex justify-center px-4">
-        <div class="w-11/12">
+<div class="w-full  mt-28 m-aut px-2">
           <!-- component -->
         <div class="bg-gray-100">
             <div class="w-full text-white bg-main-color">
@@ -203,7 +202,6 @@
         </div>
     </div>
 </div>
-      </div>
 </div>
 </template>
 <script>

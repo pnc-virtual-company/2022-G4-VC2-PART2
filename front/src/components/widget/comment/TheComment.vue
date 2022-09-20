@@ -52,23 +52,23 @@ export default {
     }
   },
   methods: {
-    getAllComments() {
-      axios.get('http://localhost:8000/api/comment').then((response) => {
-        this.allComments = response.data
-      })
-    },
-    addComment() {
-      const userComment = {
-        content: this.comment,
-        topic: 'English',
-        user_id:3,
-        student_id: 1,
-        follow_up_id:3
-      }
-       axios.post('http://localhost:8000/api/comment',userComment).then(() => {
-          this.getAllComments();    
-      })
-    },
+    // getAllComments() {
+    //   axios.get('http://localhost:8000/api/comment').then((response) => {
+    //     this.allComments = response.data
+    //   })
+    // },
+    // addComment() {
+    //   const userComment = {
+    //     content: this.comment,
+    //     topic: 'English',
+    //     user_id:3,
+    //     student_id: 1,
+    //     follow_up_id:3
+    //   }
+    //    axios.post('http://localhost:8000/api/comment',userComment).then(() => {
+    //       this.getAllComments();    
+    //   })
+    // },
     hideShow(id) {
       if (this.hide) {
         this.showDate(id);
@@ -90,7 +90,7 @@ export default {
     }
   },
   mounted() {
-    this.getAllComments()
+    // this.getAllComments()
   }
 }
 </script>

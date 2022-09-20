@@ -1,13 +1,13 @@
 <template>
+  <!-- TITLE OF PAGES -->
   <div class="overflow-x-auto relative shadow-sm bg-gray-50 sm:rounded-lg p-4 z-50 border-4 border-t-[#018ABD]">
-    <!-- TITLE OF PAGES -->
     <div class="py-1 pb-3">
       <h2 class="text-gray-800 text-2xl font-bold text-center mb-2 uppercase">{{ title }}</h2>
     </div>
 
       <!-- ___BUTTON CREATE USER__-->
-      <section class="flex justify-start mb-2">
-          <Base_Button class="bg-[#018ABD] py-[6px] flex justify-start" @click="addUser">
+      <div class="flex justify-start items-center mb-2">
+          <Base_Button class="h-10 bg-[#018ABD] py-[6px] flex justify-start" @click="addUser">
             <i class="mx-1">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-white">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M19 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zM4 19.235v-.11a6.375 6.375 0 0112.75 0v.109A12.318 12.318 0 0110.374 21c-2.331 0-4.512-.645-6.374-1.766z" />
@@ -17,9 +17,18 @@
               Create
             </i>
         </Base_Button>
-        <!-- BUTON DROP DOWN MENU -->
-        <Base_DropDwon_Menu :title="'Batches'" :lists="lists"/>
-      </section>
+ 
+        
+        <!-- BUTON DROP DOWN MENU  BY BATCH-->
+        <Base_DropDwon_Menu  :title="'Batches'" :lists="lists"/>
+        <!--  GET FILTER BY CLASS-->
+        <Base_DropDwon_Menu  :title="'Class'"/>
+        <!-- GET FILTER BY SEARCH -->
+        <BaseSearch  />
+      </div>
+      <div>
+        
+      </div>
       <!--_____FORM DIALOG_______-->
       <div class=" overflow-x-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex" v-if="openDialog">
           <div class="form-container rounded w-11/12">
@@ -47,7 +56,7 @@
         <tr v-for="(item,index) in listUsers" :key="index" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
           <td class="text-black font-semibold py-3 px-4 text-cente">{{ item.first_name }} {{ item.last_name }}</td>
           <td class="py-3 px-4 text-center" v-if="standingPage=='teacher'">{{ item.email }}</td> <!-- Teacher email -->
-          <td class="py-3 px-4 text-center" v-if="(standingPage=='student')"> {{ item.student[0].year }}</td>
+          <td class="py-3 px-4 text-center text-orange-300" v-if="(standingPage=='student')"> {{ item.student[0].year }}</td>
           <td class="py-3 px-4 text-center text-blue-300" v-if="standingPage=='student'">{{ item.student[0].class }}</td>
          <!-- ________GROUP BUTTON ACTIONS____________-->
           <td  class="w-11/12 flex items-center justify-end mt-2">
@@ -90,11 +99,15 @@ import axios  from 'axios'
 import Base_Button from '../button/BaseButton.vue'
 import Bass_Dialog_Form from '../dialogFrom/BaseDialogForm.vue'
 import Base_DropDwon_Menu from '../dropdown_menu/BaseDropDown.vue'
+import BaseSearch from '../search/BaseSearch.vue'
 export default {
     props:['listUsers', 'createUsers', 'updateUser', 'title','standingPage'], 
     emits:['emits-page', 'set_to_sfu'],
     components: {
-       Bass_Dialog_Form, Base_Button, Base_DropDwon_Menu
+       Bass_Dialog_Form, 
+       Base_Button, 
+       Base_DropDwon_Menu,
+       BaseSearch
     },
     data(){
       return {

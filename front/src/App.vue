@@ -36,7 +36,7 @@ export default {
   }
   
   html {
-    font-family: 'Roboto', sans-serif;
+    font-family: sans-serif;
   }
   
 a.router-link-exact-active {

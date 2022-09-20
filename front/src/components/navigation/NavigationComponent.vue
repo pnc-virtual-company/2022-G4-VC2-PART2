@@ -45,9 +45,9 @@ export default {
     data(){
       return {
           pages: [
-            {title:'Follow Up', link:'/listFollowUp', imag: '../../assets/student1.png'},
-            {title:'Teachers', link:'/teacherList', imag: '../../assets/sfu.png'},
-            {title:'Students', link:'/studentList', imag: '../../assets/student1.png'},
+            {title:'Follow Up', link:'/listFollowUp'},
+            {title:'Teachers', link:'/teacherList'},
+            {title:'Students', link:'/studentList'},
           ]
       }
     }
