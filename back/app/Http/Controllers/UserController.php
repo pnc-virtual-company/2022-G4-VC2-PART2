@@ -67,8 +67,11 @@ class UserController extends Controller
                 $student->class = $request->class;
                 $student->year = $request->year;
                 $batchs->batch = $request->year;
-                $batchs->save();
-                $student->save();
+                if ( !$batchs->save() or  !$student->save()){
+                    User::destroy($id);
+                    Student::destroy($id);
+                    Batch::destroy($id);
+                }
             }
     }
 

@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 const routes = [
   {
-    path: '/listFollowUp',
+    path: '/listFollowUp', 
     name: 'listFollowUp',
     component:() => import('../views/coordinators/FollowUpView.vue')
   },
