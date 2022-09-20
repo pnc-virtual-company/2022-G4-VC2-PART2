@@ -155,7 +155,6 @@ export default {
           })
         }
       }
-      console.log('Good is Good1', id)
       }
   },
   mounted() {

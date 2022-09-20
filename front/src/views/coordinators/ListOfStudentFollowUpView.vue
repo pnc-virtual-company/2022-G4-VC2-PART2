@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full m-auto fixed  flex justify-center item-center" style="margin-top:80px;">
+  <div class="w-full m-auto fixed  flex justify-center item-center " >
     <div class="w-10/12 ml-44 top-10 ">
       <!-- This is an example component -->
       <div class="container mx-auto shadow-lg rounded-lg">

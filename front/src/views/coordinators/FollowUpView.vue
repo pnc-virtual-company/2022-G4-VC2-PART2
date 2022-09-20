@@ -1,6 +1,6 @@
 <template>
-    <div class="w-full mt-28 m-aut flex justify-center px-4">
-      <div class="w-11/12">
+    <div class="w-full mt-28 m-aut flex justify-center px-4 ">
+      <div class="w-full">
       <!-- This is an example component -->
       <div class="container mx-auto shadow-lg rounded-lg">
         <!-- headaer -->
@@ -44,9 +44,6 @@
           <!-- message -->
           <TheComment></TheComment>
           <!-- end message -->
-          <!-- _____student detail___ -->
-          <StudentDetail />
-          <!--____end student detail___ -->
         </div>
       </div>
     </div>
@@ -58,14 +55,12 @@ import axios from "axios";
 import BaseSearch from "@/components/widget/search/BaseSearch.vue";
 import ListStudentFollowUp from "@/components/widget/StudentFollowUp/ListStudentFollowUp.vue";
 import TheComment from "@/components/widget/comment/TheComment.vue";
-import StudentDetail from "@/components/widget/StudentDatail/StudentDatail.vue";
 
 export default {
   components: {
     BaseSearch,
     ListStudentFollowUp,
     TheComment,
-    StudentDetail,
   },
   data() {
     return {

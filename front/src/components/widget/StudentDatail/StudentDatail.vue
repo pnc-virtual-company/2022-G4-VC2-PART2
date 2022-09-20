@@ -79,4 +79,4 @@ export default {
   display: flex;
   justify-content: space-between;
  }
-</style>
+</style> 
