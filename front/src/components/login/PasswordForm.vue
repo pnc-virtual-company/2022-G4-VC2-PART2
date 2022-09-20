@@ -38,6 +38,8 @@
 import router from "@/router";
 import axios from "axios";
 import ForgotPassword from "./ForgotPassword.vue";
+import ls from 'localstorage-slim'
+ls.config.encrypt = true;
 export default {
   components: {
     ForgotPassword,
@@ -46,7 +48,7 @@ export default {
     return {
       password: "",
       isForgetPassword: false,
-      email:localStorage.getItem("user")
+      email:ls.get("user")
     };
   },
   methods: {
@@ -60,12 +62,12 @@ export default {
           console.log(response.data);
           if (response.data.sms !== "Invalid password") {
             console.log("Login Success");
-            if (localStorage.getItem("role") == "coordinator") {
-              localStorage.setItem("coordinator_token", response.data.token);
-            }else if(localStorage.getItem("role") == "teacher"){
-              localStorage.setItem("teacher_token", response.data.token);
+            if (ls.get("role") == "coordinator") {
+              ls.set("coordinator_token", response.data.token);
+            }else if(ls.get("role") == "teacher"){
+              ls.set("teacher_token", response.data.token);
             }else{
-              localStorage.setItem("student_token", response.data.token);
+              ls.set("student_token", response.data.token);
             }
             router.push("/navigation");
             this.$emit("loginSuccess");
@@ -75,9 +77,9 @@ export default {
     forgetPassword() {
       axios.post("http://127.0.0.1:8000/api/sendVeifyCode",{'email':this.email}).then(response=>{
         console.log(response.data)
-        localStorage.setItem('code',response.data.code)
+        ls.set('code',response.data.code)
       })
-      if(this.code == localStorage.getItem('code')){
+      if(this.code == ls.get('code')){
         this.isForgetPassword = true;
       }
     },

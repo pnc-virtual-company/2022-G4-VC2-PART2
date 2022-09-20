@@ -47,38 +47,13 @@
             >List Follow Up</span
           >
         </router-link>
-        <!-- --------------------------------Rout for TeacherView--------------------------------------->
-        <!-- <router-link
-          to="/studentList/teacher"
-          class="bg-gray-400 p-2 flex items-center px-4 duration-300 cursor-pointer border-[1px]"
-          v-if="checkRole == 'coordinator'"
-        >
-          <i>
-            <img src="../../assets/student.png" alt="" width="40" height="40" />
-          </i>
-          <span
-            class="text-[18px] ml-4 text-black self-center whitespace-nowrap dark:text-white"
-            >List Students</span
-          >
-        </router-link>
-        <router-link
-          to="/listFollowUp/teacher"
-          class="bg-gray-400 p-2 flex items-center px-4 duration-300 cursor-pointer border-[1px]"
-          v-if="checkRole == 'coordinator'"
-        >
-          <i>
-            <img src="../../assets/sfu.png" alt="" width="40" height="40" />
-          </i>
-          <span
-            class="text-[18px] ml-4 text-black self-center whitespace-nowrap dark:text-white"
-            >List Follow Up</span
-          >
-        </router-link> -->
       </div>
     </div>
   </div>
 </template>
 <script>
+import ls from 'localstorage-slim'
+ls.config.encrypt = true;
 export default {
   data() {
     return {
@@ -86,7 +61,7 @@ export default {
       isStudent: false,
       isFollowUp: false,
       getPageStading: { teacher: null, student: null, follow: null },
-      checkRole: localStorage.getItem("role"),
+      checkRole: ls.get("role"),
     };
   },
   methods: {},

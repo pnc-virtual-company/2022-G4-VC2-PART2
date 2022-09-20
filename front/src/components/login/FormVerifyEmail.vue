@@ -41,6 +41,8 @@
   </div>
 </template>
 <script>
+import ls from 'localstorage-slim'
+ls.config.encrypt = true;
 import axios from 'axios';
 import PasswordForm from './PasswordForm.vue'
 export default {
@@ -58,7 +60,7 @@ export default {
     methods:{
         finalLogin(){
             if(this.newPassword == this.confirmPassword){
-               let id = JSON.parse(localStorage.getItem("id"));
+               let id = JSON.parse(ls.get("id"));
                axios.post("http://127.0.0.1:8000/api/resetPassword/"+id, {'password':this.newPassword}).then(()=>{
                 console.log(this.newPassword)
                 console.log(id)

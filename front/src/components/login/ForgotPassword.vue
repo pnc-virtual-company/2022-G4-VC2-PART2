@@ -32,9 +32,9 @@
     <FormVerifyEmailVue v-if="isFormVerifyEmail"/>
     </div>
   </template>
-  <script>
-
-// import router from '@/router';
+<script>
+import ls from 'localstorage-slim'
+ls.config.encrypt = true;
 import FormVerifyEmailVue from './FormVerifyEmail.vue'
     export default{
      components:{
@@ -42,7 +42,7 @@ import FormVerifyEmailVue from './FormVerifyEmail.vue'
      },
       data(){
         return{
-          email:localStorage.getItem('user'),
+          email:ls.get('user'),
           isFormVerifyEmail: false,
           code:""
         }

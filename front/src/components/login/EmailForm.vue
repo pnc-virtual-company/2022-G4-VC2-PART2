@@ -41,6 +41,8 @@
 </template>
 <script>
 import PasswordForm from "./PasswordForm.vue";
+import ls from 'localstorage-slim'
+ls.config.encrypt = true;
 export default {
   components:{
     PasswordForm
@@ -62,9 +64,11 @@ export default {
       console.log(allUserList);
       allUserList.forEach((user) => {
         if (user.email == this.email) {
-          localStorage.setItem("user", user.email);
-          localStorage.setItem("id", user.id);
-          localStorage.setItem("role", user.role);
+          ls.set('user',user.email)
+          // console.log(ls.get('user'))
+          // localStorage.setItem("user", user.email);
+          ls.set("id", user.id);
+          ls.set("role", user.role);
           this.isCorrectEmail = true
           this.isFormEmail=false
         }

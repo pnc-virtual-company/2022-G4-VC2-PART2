@@ -1,4 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
+import ls from 'localstorage-slim'
+ls.config.encrypt = true;
 
 const routes = [
   {
@@ -69,14 +71,14 @@ function authenticationGuard(to, from, next) {
   if (requiresAuth) {
     if(to.meta.isStudent){
       if(!localStorage.student_token){
-          localStorage.removeItem(localStorage.role+'_token');
+          localStorage.removeItem(ls.get('role')+'_token');
           localStorage.removeItem('role',)
           localStorage.removeItem('user');
           localStorage.removeItem('email');
         next('/')
       }else{
         if(to.path == "/"){
-          localStorage.removeItem(localStorage.role+'_token');
+          localStorage.removeItem(ls.get('role')+'_token');
           localStorage.removeItem('role',)
           localStorage.removeItem('user');
           localStorage.removeItem('email');
@@ -87,14 +89,14 @@ function authenticationGuard(to, from, next) {
       }
     }else if(to.meta.isTeacher){
       if(!localStorage.teacher_token){
-          localStorage.removeItem(localStorage.role+'_token');
+          localStorage.removeItem(ls.get('role')+'_token');
           localStorage.removeItem('role',)
           localStorage.removeItem('user');
           localStorage.removeItem('email');
         next('/')
       }else{
         if(to.path == "/"){
-          localStorage.removeItem(localStorage.role+'_token');
+          localStorage.removeItem(ls.get('role')+'_token');
           localStorage.removeItem('role',)
           localStorage.removeItem('user');
           localStorage.removeItem('email');
@@ -106,14 +108,14 @@ function authenticationGuard(to, from, next) {
     }else{
       if(to.meta.isAdmin){
         if(!localStorage.coordinator_token){
-          localStorage.removeItem(localStorage.role+'_token');
+          localStorage.removeItem(ls.get('role')+'_token');
           localStorage.removeItem('role',)
           localStorage.removeItem('user');
           localStorage.removeItem('email');
           next('/')
         }else{
           if(to.path == "/"){
-            localStorage.removeItem(localStorage.role+'_token');
+            localStorage.removeItem(ls.get('role')+'_token');
             localStorage.removeItem('role',)
             localStorage.removeItem('user');
             localStorage.removeItem('email');
