@@ -32,15 +32,18 @@ Route::apiResource('/batch', BatchController::class);
 //CRUD comments
 Route::apiResource('/comment', CommentController::class);
 //get all students follow up
-Route::get('/getAllStudentFolowUp', [StudentController::class , 'getAllStudentFolowUp']);
+Route::get('/get_follow_up', [StudentController::class , 'getAllStudentFolowUp']);
 //set student to follow up
-Route::post('/setFollowUp/{id}', [StudentController::class , 'setFollowUp']);
+Route::put('/get_follow_up/{id}', [StudentController::class , 'setFollowUp']);
 //send mail to student to inform that they have been added to student follow up list
 Route::post('/mailFollowUp', [MailController::class , 'informFolowUpToStudent']);
 
-//
 // });
 // ----------------------userLogin-------------------------
 Route::post('/login', [UserController::class , 'login']);
 Route::post('/logout', [UserController::class , 'logout']);
 Route::post('/createUser', [UserController::class , 'createUser']);
+// getFollowUpOne
+
+// getFollowUpOne
+Route::get('/get_follow_up/{id}', [StudentController::class , 'getFollowUpOne']);

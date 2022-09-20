@@ -12,7 +12,7 @@ class StudentController extends Controller
 
     public function index()
     {
-        return User::with(['student'])->get();
+        return Student::with(['user'])->get();
     }
 
 
@@ -24,7 +24,7 @@ class StudentController extends Controller
 
     public function show($id)
     {
-        return User::with(['student'])->where('id', $id)->get();
+        return Student::with(['user'])->where('id', $id)->get();
 
     }
 
@@ -65,8 +65,13 @@ class StudentController extends Controller
 
     public function getAllStudentFolowUp()
     {
-        return Student::with('user')->where('if_follow_up', 'Yes')->get();
+        return Student::with('User')->where('if_follow_up', 'Yes')->get();
     }
 
+        // GET THE STUDENT FOLLOW UP IN EACH ONE
+        public function getFollowUpOne($id)
+        {
+            return Student::with(['user'])->where('id', $id)->get();
 
+        }
 }
