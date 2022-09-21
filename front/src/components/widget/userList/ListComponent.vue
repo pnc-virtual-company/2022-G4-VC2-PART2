@@ -39,19 +39,19 @@
       <!-- CLOSE THE DIALOG -->
      <div v-if="openDialog" class="opacity-30 fixed inset-0 z-40 bg-black"></div>
     <!-- TABLES COMTAINER ALL LIST OF STUDENTS-->
-    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400" v-if="listUsers.length > 0">
-      <thead class="text-xs text-gray-700 uppercase bg-slate-300 dark:bg-gray-50 dark:text-gray-500">
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400" >
+      <thead class="text-xs text-gray-700 uppercase bg-slate-300 dark:bg-gray-50 dark:text-gray-400">
         <!-- ____HEADER OF TABLE LIST_____ -->
         <tr>
           <th scope="col" class="py-2 px-4 text-left">Name</th>
-          <th scope="col" class="py-2 px-4 text-center " v-if="standingPage=='teacher'" >Email</th> <!-- Teacher email title-->
+          <th scope="col" class="py-2 px-4 text-center" v-if="standingPage=='teacher'" >Email</th> 
           <th scope="col" class="py-2 px-4 text-center" v-if="standingPage=='student'">Batch</th>
           <th scope="col" class="py-2 px-4 text-center" v-if="standingPage=='student'">class</th>
           <th scope="col" class="py-2  text-center w-4 mx-4">Action</th>
         </tr>
       </thead>
 
-      <tbody class="overflow-right-auto">
+      <tbody class="overflow-right-auto" v-if="showListStd">
         <!-- __BODY LIST USER____-->
         <tr v-for="(item,index) in listUsers" :key="index" class=" border-b dark:bg-gray-100  hover:bg-gray-50 dark:hover:bg-gray-300">
           <td class="text-black font-semibold py-3 px-4 text-cente">{{ item.first_name }} {{ item.last_name }}</td>
@@ -89,7 +89,7 @@
         </tbody>
       </table>
       <!--______IF NON LIST HERE_______-->
-    <div v-if="listUsers.length == 0" class="w-full    dark:hover:bg-gray-600 flex justify-center items-center py-4">
+    <div v-if="!showListStd" class="w-full  dark:bg-gray-800  dark:hover:bg-gray-600 flex justify-center items-center py-4">
       <h1 class="text-red-600 text-[20px]">List User is empty</h1>
     </div>
 
@@ -116,7 +116,14 @@ export default {
           object:{},
           objectUpdating:{}, // Store list which should we update
           lists: [2022, 2023, 2024],
+          showListStd: false,
         }
+  },
+  watch: {
+    listUsers() {
+          this.showListStd = this.listUsers.length>0
+          this.listUsers
+    } 
   },
   methods: {
     // ADD USER THE DATABASE
@@ -135,7 +142,6 @@ export default {
         }
       }
       this.object.id = userId
-      console.log(this.object);
     },
 
     // SHOWING CANCEL
@@ -165,7 +171,9 @@ export default {
       }
   },
   mounted() {
-    console.log(this.listUsers)
+    if (this.listUsers.length > 0) {
+        this.showListStd = true
+    }
   }
 };
 </script>

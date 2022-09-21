@@ -48,7 +48,7 @@
            
           <!-- end chat list -->
           <!-- message -->
-          <TheComment :commets="commets" />
+          <TheComment :commets="commets"  />
           <!-- end message -->
         </div>
       </div>
@@ -111,10 +111,9 @@ export default {
     },
     // Filter to fine the student
     provideId(id){
-      console.log(id)
       axios.get('http://127.0.0.1:8000/api/get_follow_up/'+id).then((response)=>{
-        this.commets = response.data[0]
-        console.log(this.commets)
+        this.commets = response.data[0];
+        console.log(this.commets);
       })
     },
   },

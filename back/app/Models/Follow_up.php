@@ -24,8 +24,5 @@ class Follow_up extends Model
         return $this->hasMany(Comment::class);
     }
 
-    public function bgColor()
-    {
-        return $this->hasOne(BgColor::class);
-    }
+   
 }

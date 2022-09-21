@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Follow_up;
+use App\Models\Student;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class FollowUpController extends Controller
@@ -20,12 +22,17 @@ class FollowUpController extends Controller
         $follow_up->user_id = $request->user_id;
         $follow_up->student_id = $request->student_id;
         $follow_up->save();
+        $user =  Student::findOrfail($request->student_id);
+        $user->if_follow_up = 'Yes';
+        $user->update();
+
     }
 
 
-    public function show( $id)
+    public function show($id)
     {
-        return Follow_up::findOrfail($id);
+        return Follow_up::with(['student'])->where('student_id', $id)->get();
+        // return Follow_up::find($id);
     }
 
 

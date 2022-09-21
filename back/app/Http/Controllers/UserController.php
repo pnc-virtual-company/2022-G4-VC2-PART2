@@ -54,7 +54,8 @@ class UserController extends Controller
                 $validate = $request->validate([
                     'class' => 'required',
                     'year' => 'required',
-                    'batch' => 'required',
+                    'province' => 'required',
+                    'NGO' => 'required',
                 ]);
                 $student = new Student();
                 $batchs = new Batch();
@@ -67,12 +68,15 @@ class UserController extends Controller
                 $student->class = $request->class;
                 $student->year = $request->year;
                 $batchs->batch = $request->year;
-                if ( !$batchs->save() or  !$student->save()){
-                    User::destroy($id);
-                    Student::destroy($id);
-                    Batch::destroy($id);
+                if(!$student->save() or !$batchs->save()) {
+                    User::destroy($id['id']);
+                    Student::destroy($id['id']);
+                    Batch::destroy($id['id']);
+                    return response()->json(['msg'=>'error']);
                 }
-            }
+            return response()->json(['msg' => 'success']);
+
+        }
     }
 
 

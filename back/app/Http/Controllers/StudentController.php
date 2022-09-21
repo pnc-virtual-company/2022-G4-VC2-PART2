@@ -65,7 +65,7 @@ class StudentController extends Controller
 
     public function getAllStudentFolowUp()
     {
-        return Student::with('User')->where('if_follow_up', 'Yes')->get();
+        return Student::with(['User','followUp'])->where('if_follow_up', 'Yes')->get();
     }
 
         // GET THE STUDENT FOLLOW UP IN EACH ONE
