@@ -1,5 +1,5 @@
 <template>
-  <div class=" flex justify-evenly bg-blue-200">
+  <div class=" flex justify-evenly bg-indigo-400">
     <div  class=" flex  flex-col items-center justify-center">
         <div>
             <img class="h-24 w-24 rounded-full"
