@@ -18,8 +18,8 @@
                     <input
                         class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 focus:outline-primary focus:shadow-outline"  type="text" placeholder="Verify code.."
                         v-model="code">
+                        <p v-if="isMatchPwd == false" class="text-red-400">Invalid Code!</p>
                 </div>
-                <div class= "text-red-500 mb-4"></div>
                 <div class="flex text-right justify-end" >
                     <button class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded focus:outline-primary focus:shadow-outline" type="submit"   >
                         Submit
@@ -44,15 +44,20 @@ import FormVerifyEmailVue from './FormVerifyEmail.vue'
         return{
           email:ls.get('user'),
           isFormVerifyEmail: false,
-          code:""
+          code:"",
+          isMatchPwd:null
         }
       },
       methods:{
         verifyCode(){
           console.log(true)
-          this.isFormVerifyEmail = true
+          if(this.code == ls.get('code')){
+            this.isFormVerifyEmail = true
+          }else{
+            this.isMatchPwd = false
+          }
         }
-        },
+      },
     }
   </script>
   <style>

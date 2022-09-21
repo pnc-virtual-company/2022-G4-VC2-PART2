@@ -1,7 +1,7 @@
 <template>
   <div>
     <ForgotPassword v-if="isForgetPassword" />
-    <div class="bg-grey-lighter min-h-screen flex flex-col">
+    <div class="bg-grey-lighter min-h-screen flex flex-col" v-if="!isForgetPassword">
       <div
         class="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2"
       >
@@ -20,6 +20,7 @@
               placeholder="Password"
               v-model="password"
             />
+            <p v-if="isCorrectPassword==false" class="text-red-500">Incorrect Password!</p>
             <a @click="forgetPassword">Forget Password</a>
             <div class="flex text-right justify-end">
               <button
@@ -44,17 +45,18 @@ export default {
   components: {
     ForgotPassword,
   },
+  props:['isPassword'],
   data() {
     return {
       password: "",
       isForgetPassword: false,
+      isCorrectPassword:null,
       email:ls.get("user")
     };
   },
   methods: {
     checkPassword() {
-      axios
-        .post(" http://localhost:8000/api/login", {
+      axios.post(" http://localhost:8000/api/login", {
           email:this.email,
           password: this.password,
         })
@@ -71,6 +73,8 @@ export default {
             }
             router.push("/navigation");
             this.$emit("loginSuccess");
+          }else{
+            this.isCorrectPassword = false;
           }
         });
     },
@@ -79,11 +83,12 @@ export default {
         console.log(response.data)
         ls.set('code',response.data.code)
       })
-      if(this.code == ls.get('code')){
-        this.isForgetPassword = true;
-      }
+      this.isForgetPassword = true
     },
   },
+  mounted(){
+    this.isForgetPassword = false
+  }
 };
 </script>
 <style>

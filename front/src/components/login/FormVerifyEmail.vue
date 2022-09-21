@@ -1,6 +1,5 @@
 <template>
  <div>
-  <PasswordForm v-if="passwordForm "/>
     <div class="bg-grey-lighter min-h-screen flex flex-col" v-if="!passwordForm">
       <div
         class="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2"
@@ -27,6 +26,7 @@
               placeholder="Conform Password "
               v-model="confirmPassword"
             />
+            <p v-if="isMatchPwd == false" class="text-red-400">Password doesn't match!!</p>
             <div class="flex text-right justify-end">
               <button
                 class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded focus:outline-primary focus:shadow-outline" 
@@ -38,6 +38,7 @@
         </div>
       </div>
     </div>
+    <PasswordForm v-if='passwordForm' :isPassword="isPassword"/>
   </div>
 </template>
 <script>
@@ -54,26 +55,28 @@ export default {
             isFileInput:false,
             newPassword:'',
             confirmPassword:'',
-            passwordForm:false
+            passwordForm:false,
+            isMatchPwd:null,
+            isPassword:true
         }
     },
     methods:{
-        finalLogin(){
-            if(this.newPassword == this.confirmPassword){
-               let id = JSON.parse(ls.get("id"));
-               axios.post("http://127.0.0.1:8000/api/resetPassword/"+id, {'password':this.newPassword}).then(()=>{
-                console.log(this.newPassword)
-                console.log(id)
-                this.passwordForm = true
-             
-               }) .catch((error)=>{
-                  console.log(error);
-                  alert("please check your confirm password")
+      finalLogin(){
+        if(this.newPassword == this.confirmPassword){
+          let id = JSON.parse(ls.get("id"));
+          axios.post("http://127.0.0.1:8000/api/resetPassword/"+id, {'password':this.newPassword}).then(()=>{
+            console.log(this.newPassword)
+            console.log(id)
+            this.passwordForm = true
+            this.isPassword = true
+          }) .catch((error)=>{
+            console.log(error);
+            alert("please check your confirm password")
+          });
+        }else{
+          this.isMatchPwd = false;
         }
-        );
-            }
-        },
-
+      },
     }
 
 
