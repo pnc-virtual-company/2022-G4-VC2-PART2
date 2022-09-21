@@ -1,5 +1,5 @@
 <template>
-  <div @click="hideRightClik()" class="flex flex-col justify-between overflow-y-auto" style="overflow: scroll; background-color: #DDE8F0; height: 80vh; overflow-x: hidden;">
+  <div @click="hideRightClik()" class="flex flex-col justify-between overflow-y-auto" style="overflow: scroll;margin-top: 1px; background-color: #DDE8F0; height: 70vh; overflow-x: hidden;">
         <div class="flex flex-col " v-for="comment of allComments" :key="comment" >
           <div class="flex justify-end mb-4 " v-if="comment.user_id == 1" >
             <div class="flex justify-center items-end">
@@ -38,19 +38,19 @@
                 {{comment.updated_at}}
           </p>
         </div>
-        <div class="w-full flex items-end" style="height:100%">
+        <div class="w-full  flex items-end" style="height:100%">
               <div class="w-full">
                 <Base_DropDwon_Menu  :title="'Topic'" :lists="lists"/>
                 <div class="flex">
                   <input @keyup.enter.prevent="addComment()"  v-model="comment"  type="search" id="search-dropdown" class="block p-2.5 text-sm text-gray-900 bg-gray-50 border-l-gray-100 border-l-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500" placeholder="Type your topic here..." required=""
                   style="width:85%"
                   >
-                  <button @click.prevent="addComment()"  type="submit" class="text-sm font-medium text-white bg-blue-700 border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 p-3">
+                  <button @click.prevent="addComment()"  type="submit" class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium  text-sm px-5 py-2.5 text-center mr-2">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
                     </svg>
                   </button>
-                  <button type="button"  style="width:15%" class="ml-2 text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Close Board</button>
+                  
                 </div>
               </div>
             </div>
