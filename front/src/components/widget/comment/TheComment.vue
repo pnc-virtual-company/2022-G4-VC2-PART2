@@ -1,9 +1,8 @@
 <template>
 
-
-  <div  @click="hideRightClik()" class="w-2/3 flex flex-col justify-between overflow-y-auto " style="overflow: scroll;height: 400px; overflow-x: hidden; background-color:rgba(221, 232, 240, 1);">
-        <div  class="flex flex-col mt-5 " v-for="comment of allComments" :key="comment" >
-          <div class="flex justify-end mb-4 " v-if="comment.student_id == 1" >
+  <div @click="hideRightClik()" class="flex flex-col justify-between overflow-y-auto" style="overflow: scroll; background-color: #DDE8F0; height: 80vh; overflow-x: hidden;">
+        <div class="flex flex-col " v-for="comment of allComments" :key="comment" >
+          <div class="flex justify-end mb-4 " v-if="comment.user_id == 1" >
             <div class="flex justify-center items-end">
               <div @click="hideShow(comment.id)" @contextmenu.capture.prevent="showAction(comment.id)"
                 class="mr-2 py-3 px-4 bg-blue-400 rounded-bl-3xl rounded-tl-3xl rounded-tr-xl text-white cursor-pointer " style=" max-width: 460px;word-break: break-all;  ">
@@ -21,7 +20,7 @@
                 :id="comment.id">
                 {{comment.updated_at}}
             </p>
-          <div class="flex justify-start mb-4 cursor-pointer"  v-if="comment.student_id != 1" >
+          <div class="flex justify-start mb-4 cursor-pointer"  v-if="comment.user_id != 1" >
             <div class="flex justify-center items-end" >
               <img
                 src="https://source.unsplash.com/vpOeXr5wmR4/600x600"
@@ -35,23 +34,29 @@
               </div>
             </div>
           </div>
-          <p class="text-xs -mt-4 mb-2 ml-80  " style="display:none;" 
+          <p class="text-xs -mt-4 mb-2 ml-80" style="display:none;" 
                 :id="comment.id ">
                 {{comment.updated_at}}
-            </p>
+          </p>
         </div>
-        <div class="py-5  fixed  flex " style="margin-top:377px; width:42%;  background-color:rgba(221, 232, 240, 1); height:11vh">
-              <div class="relative w-full">
-                      <input @keyup.enter.prevent="addComment()"  v-model="comment"  type="search" id="search-dropdown" class="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-l-lg border-l-gray-100 border-l-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500" placeholder="Search" required=""
-                      style="width:100%"
-                      >
-                      <button @click.prevent="addComment()"  type="submit" class="absolute top-0 right-0  text-sm font-medium text-white bg-blue-700 rounded-r-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" style="padding:7.7px;">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                          <path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
-                        </svg>
-                      </button>
+        <div class="w-full flex items-end" style="height:100%">
+              <div class="w-full fixed bottom-12 opacity-60">
+                <div class="flex">
+                  <Base_DropDwon_Menu  :title="'Topic'" :lists="lists"  v-model="topic"/>
+                </div>
+                <div class="flex">
+                  <input @keyup.enter.prevent="addComment()"  v-model="comment"  type="search" id="search-dropdown" class="block p-2.5 text-sm text-gray-900 bg-gray-50 border-l-gray-100 border-l-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500" placeholder="Type your topic here..." required=""
+                  style="width:65%"
+                  >
+                  <button @click.prevent="addComment()"  type="submit" class="text-sm font-medium text-white bg-blue-700 border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 p-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
+                    </svg>
+                  </button>
+                  <button type="button"  style="width:15%" class="ml-2 text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Close Board</button>
+                </div>
               </div>
-        </div>
+            </div>
         <!-- right clcik and show action delete and edit -->
         <div class="grid rounded-md shadow-sm fixed  bg-gray-400 h-28 m-48 w-40 text-white animate-pulse" role="group" v-if="rightClike">
           <button type="button" class="flex justify-center items-center text-white  hover:bg-blue-400" @click="edit()">
@@ -64,15 +69,19 @@
             </svg>
             Delete
           </button>
-        </div>
-
+        </div> 
   </div>
 </template>
 
 <script>
 import axios from 'axios';
+import Base_DropDwon_Menu from '../dropdown_menu/BaseDropDown.vue'
 export default {
   props:['commets'],
+
+  components: {
+    Base_DropDwon_Menu,
+  },
   data() {
     return {
       allComments: null,
@@ -82,17 +91,15 @@ export default {
       comment_id: null,
       ifEdite:false,
       rightClike: false,
-      ifHasTopic:false,
+      ifHasTopic: false,
+      topic:'',
+      lists: ['HTML', 'CSS', 'Algorithm'],
+
     }
   },
   watch: {
     commets() {
       this.getAllComments();
-      // this.comment = '',
-      // axios.get('http://localhost:8000/api/comment/'+this.commets.user).then((response) => {
-      //   this.allComments = response.data
-      //   console.log(this.allComments);
-      // })
     },
   },
   methods: {
@@ -104,12 +111,13 @@ export default {
       })
     },
     addComment() {
+      console.log(this.commets);
       const userComment = {
         content: this.comment,
         topic: 'English',
         user_id:this.commets.user.id,
         student_id: this.commets.user.id,
-        follow_up_id:2
+        follow_up_id:1
       }
       const editCmt = {
           content:this.comment,

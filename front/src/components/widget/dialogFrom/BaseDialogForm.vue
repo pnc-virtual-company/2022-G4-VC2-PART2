@@ -91,15 +91,17 @@
                         class="block border border-grey-light w-full p-2 rounded border-cyan-500 bg-transparent"
                     />
                     <alertForm v-if="batch =='' " :psw="checkPassword(batch)" />
-                    <span  @click="showAddNewBatch = true" class="text-blue-500 cursor-pointer underline underline-offset-2 hover:text-blue-700">Create new batch !</span>
+                    <span  @click="showAddNewBatch = !showAddNewBatch" class="text-blue-500 cursor-pointer underline underline-offset-2 hover:text-blue-700">Create new batch !</span>
                 </div>
                 <div class="w-full">
                     <span class="text-gray-500">Class*</span>
-                    <select v-model="student_class"  class="outline-1 block border border-grey-light w-full p-2 rounded text-gray-400 border-cyan-500 bg-transparent">
+                    <select v-if="!showAddNewClass" v-model="student_class"  class="outline-1 block border border-grey-light w-full p-2 rounded text-gray-400 border-cyan-500 bg-transparent">
                         <option value="WEB-A">A</option>
                         <option value="WEB-B">B</option>
                     </select>
+                    <input v-if="showAddNewClass" v-model="student_class" type="text" class="block border border-grey-light w-full p-2 rounded border-cyan-500 bg-transparent" />
                     <alertForm v-if="student_class =='' " :psw="checkPassword(student_class)"/>
+                    <span @click="showAddNewClass = !showAddNewClass" class="text-blue-500 cursor-pointer underline underline-offset-2 hover:text-blue-700">Create new class !</span>
                 </div>
             </div>
 
@@ -143,6 +145,7 @@ emits:['close'],
     data()
     {
         return {
+            showAddNewClass:false,
             showAddNewBatch:false,
             dataToUpdate:[],
             showStudentForm: false,

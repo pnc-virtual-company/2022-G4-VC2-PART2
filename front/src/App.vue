@@ -41,7 +41,7 @@ export default {
   
 a.router-link-exact-active {
   color: white;
-  border-bottom: 3px solid orange;
+  border-bottom: 3px solid rgb(255, 255, 255);
 }
 a:hover {
   color: white;
