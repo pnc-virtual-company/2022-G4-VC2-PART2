@@ -1,11 +1,11 @@
 <template>
-  <div>
+  <div >
     <PasswordForm v-if="isCorrectEmail && !isForgetPassword"/>
-  <div class="bg-grey-lighter min-h-screen flex flex-col" v-if="isFormEmail">
+  <div class="bg-grey-lighter min-h-screen flex flex-col w-full" v-if="isFormEmail">
     <div
-      class="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2"
+      class="container  w-full mx-auto flex-1 flex flex-col items-center justify-center px-2"
     >
-      <div class="align-start">
+      <div class="align-start ">
         <p class="font-semibold">
           Student <span class="text-blue-400">Follow Up</span>
         </p>

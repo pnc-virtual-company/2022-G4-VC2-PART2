@@ -1,9 +1,9 @@
 <template>
   <div
-    class="sidebar fixed top-[62px] bottom-0 lg:left-0 left-[-300px] duration-1000 w-[200px] overflow-auto text-center h-screen z-10"
-    style="background: var(--main-color-light)"
+  class="sidebar fixed top-[62px] bottom-0 lg:left-0 left-[-300px] duration-1000 w-[200px] overflow-auto text-center h-screen z-10"
+  style="background: var(--main-color-light)"
   >
-    <div class="text-gray-100 text-xl">
+  <div class="text-gray-100 text-xl">
       <div class="">
         <!-- ----------------------------Rout for Coordinator------------------------------------ -->
         <router-link
@@ -50,6 +50,7 @@
       </div>
     </div>
   </div>
+
 </template>
 <script>
 import ls from 'localstorage-slim'
