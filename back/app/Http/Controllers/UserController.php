@@ -50,15 +50,16 @@ class UserController extends Controller
             $user->email = $request->email;
             $user->password = bcrypt($request->password);
             $user->save();
+            $student = new Student();
+            $batchs = new Batch();
             if ($request->role == 'student') {
                 $validate = $request->validate([
                     'class' => 'required',
                     'year' => 'required',
                     'province' => 'required',
                     'NGO' => 'required',
+                    'batch' => 'required',
                 ]);
-                $student = new Student();
-                $batchs = new Batch();
                 $id = User::latest()->first();
                 $student->user_id = $id['id'];
                 $student->batch_id = $id['id'];
@@ -70,15 +71,13 @@ class UserController extends Controller
                 $batchs->batch = $request->year;
                 $batchs->save();
                 $student->save();
-                if(!$student->save() or !$batchs->save()) {
-                    User::destroy($id['id']);
-                    Student::destroy($id['id']);
-                    Batch::destroy($id['id']);
-                    return response()->json(['msg'=>'error']);
+                if(!$student->save() || !$batchs->save()){
+                    User::destroy( $id['id']);
+                    Student::destroy( $id['id']);
+                    Batch::destroy( $id['id']);
                 }
-            return response()->json(['msg' => 'success']);
+            }
 
-        }
     }
 
 

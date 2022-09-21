@@ -6,7 +6,7 @@ use App\Http\Controllers\MailController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\FollowUpController;
-
+use App\Http\Controllers\ReplyMessageController;
 
 // send veify code to user for reset their password
 Route::post('/sendVeifyCode', [MailController::class , 'sendCodeResetPSW']);
@@ -38,6 +38,8 @@ Route::put('/get_follow_up/{id}', [StudentController::class , 'setFollowUp']);
 //send mail to student to inform that they have been added to student follow up list
 Route::post('/mailFollowUp', [MailController::class , 'informFolowUpToStudent']);
 Route::get('/getSpecificComment/{id}', [CommentController::class , 'getSpecificComment']);
+//student reply msg to teacher
+Route::apiResource('/replyMsg', ReplyMessageController::class);
 
 
 // });
