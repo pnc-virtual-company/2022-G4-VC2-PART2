@@ -1,11 +1,11 @@
 <template>
-  <div class=" flex justify-evenly bg-indigo-400">
+  <div class=" flex justify-evenly bg-cyan-800">
     <div  class=" flex  flex-col items-center justify-center">
         <div>
             <img class="h-24 w-24 rounded-full"
                     src="../../assets/logo.png">
                 </div>
-                <p class="text-2xl ">Please input your <span class="text-orange-400 text-3xl">information</span></p>  
+                <p class="text-2xl text-white">Please input your <span class="text-orange-400 text-3xl ">information</span></p>  
         <div>
             <div class="">
                 <img class="h-80 w-80 "
@@ -14,7 +14,7 @@
         </div>
     </div>
     <div class="">
-        <FormUserLogin :listAllUser="listOfUser" />
+        <FormUserLogin :listAllUser="listOfUser" class="text-white" />
     </div> 
  </div> 
 </template>
