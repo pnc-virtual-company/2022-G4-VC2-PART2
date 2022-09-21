@@ -6,8 +6,9 @@
     <!-- ___LINK PAGE STUDENT SOCIAL AFIA_____ -->
     <div class="constainer flex justify-between w-7/12">
       <div class="page w-4/6 500 flex justify-between px-3">
-        <router-link :to="item.link" class="w-2/6 py-1 flex items-center justify-center mx-1 duration-300 cursor-pointer" v-for="item of pages" :key="item">
-            <span class="text-[18px] text-white self-center whitespace-nowrap dark:text-white">{{ item.title }}</span>
+        <router-link :to="item.link" class="w-2/6 py-1 flex items-center justify-center mx-7 duration-300 cursor-pointer" v-for="item of pages" :key="item">
+          <img :src="item.icon" alt="" width="20" class="mr-5">
+          <span class="text-[18px] text-white self-center whitespace-nowrap dark:text-white">{{ item.title }}</span>
         </router-link>
       </div>
       <!-- ________STUDENT, ADMIN, COORDINATOR_____ -->
@@ -45,9 +46,9 @@ export default {
     data(){
       return {
           pages: [
-            {title:'Follow Up', link:'/listFollowUp'},
-            {title:'Teachers', link:'/teacherList'},
-            {title:'Students', link:'/studentList'},
+            {title:'Follow Up', link:'/listFollowUp', icon:'https://cdn-icons-png.flaticon.com/512/8486/8486151.png'},
+            {title:'Teachers', link:'/teacherList', icon:'https://cdn-icons-png.flaticon.com/512/65/65882.png'},
+            {title:'Students', link:'/studentList', icon:'https://cdn-icons-png.flaticon.com/512/57/57073.png'},
           ]
       }
     }

@@ -1,14 +1,11 @@
 <template>
-    <div class="w-full fixed top-20 m-aut flex justify-center px-2">
+    <div class="w-full fixed mt-16 top-1">
       <!-- This is an example component -->
       <div class="container mx-auto shadow-lg rounded-lg">
-        <!-- headaer -->
-        <div class="bg-white border-b-2"></div>
-        <!-- end header -->
         <!-- Chatting -->
-        <div class="flex flex-row justify-between bg-white">
+        <div class="h-screen flex flex-rol justify-between ">
           <!-- chat list -->
-          <div class="flex flex-col w-3/12 border-r-2 overflow-y-auto">
+          <div class="flex flex-col w-2/12 border-r-2 overflow-y-auto">
             <!-- ___________search compt ___________-->
             <div class="border py-4 px-2 flex justify-between items-center border-b-black" v-if="!isOpenSearches">
               <div class="flex justify-between items-center">
@@ -32,7 +29,7 @@
               </svg>
             </div>
 
-            <BaseSearch v-if="isOpenSearches" @emit_search="filterSearch" />
+            <BaseSearch v-if="isOpenSearches" @emit_search="filterSearch"/>
             <!-- end search compt -->
             <!-- user list -->
             <!-- <div v-if="isOpenSearches" class="opacity-30 fixed inset-0 z-40 bg-black"></div> -->
@@ -41,18 +38,21 @@
           
             <!-- end user list -->
             <!-- _____________Give the inoformation_________ -->
-              <div class= "w-full flex justify-center items-center h-full text-blue-600 text-2xl uppercase" v-if="(this.listStudents.length <= 0 && !isOpenSearches)">
+              <div class= "w-full flex justify-center m-2 h-full text-blue-600 text-1xl uppercase" v-if="(this.listStudents.length <= 0 && !isOpenSearches)">
                 <h1>No Studet Follow Up!</h1>
               </div>
+            </div>
+            
+            <!-- end chat list -->
+            <!-- message -->
+            <div class="w-full">
+              <TheComment :commets="commets"></TheComment>
+              <button class="m-5" style="width:15%">+ Add Board</button>
+            </div>
+            <!-- end message -->
           </div>
-           
-          <!-- end chat list -->
-          <!-- message -->
-          <TheComment :commets="commets" />
-          <!-- end message -->
         </div>
       </div>
-  </div>
 </template>
 
 <script>
