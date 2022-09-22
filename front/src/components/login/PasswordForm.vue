@@ -86,9 +86,6 @@ export default {
       this.isForgetPassword = true
     },
   },
-  mounted(){
-    this.isForgetPassword = false
-  }
 };
 </script>
 <style>
