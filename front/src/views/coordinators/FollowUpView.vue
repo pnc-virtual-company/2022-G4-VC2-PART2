@@ -65,12 +65,12 @@
                     <div class="w-full">
                       <div class="flex">
                         <Base_DropDwon_Menu  :title="'Topic'" :lists="lists"/>
-                        <input @keyup.enter.prevent="addComment()"  v-model="comment"  type="search" id="search-dropdown" class="block p-2.5 text-sm text-gray-900 bg-gray-50 border-green-200 border-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500" placeholder="Type your message here..." required="" style="width:85%">
-                        <div class="inline-flex shadow-sm" role="group">
-                          <button type="button" class="ml-2 bg-green-100 border-green-200 border-2 py-2 px-4 text-sm font-medium text-gray-900 bg-white border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
+                        <input @keyup.enter.prevent="addComment()"  v-model="comment"  type="search" id="search-dropdown" class="block p-2.5 text-sm text-gray-900 bg-gray-50 border-green-200 border-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500" placeholder="Type your message here..." required="" style="width:75%">
+                        <div class="w-full inline-flex shadow-sm" role="group" style="width:25%">
+                          <button type="button" class="w-full ml-2 py-2 px-4 text-sm font-medium text-gray-900 bg-white border border-gray-200 hover:bg-green-100 hover:text-green-900 focus:z-10 focus:ring-2 focus:ring-green-300 focus:text-green-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-blue-500 dark:focus:text-white">
                             Action
                           </button>
-                          <button type="button" class="bg-gray-100 border-gray-300 border-2 py-2 px-4 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
+                          <button type="button" class="w-full bg-gray-100 border-gray-300 border-2 py-2 px-4 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-gray-700 focus:z-10 focus:ring-2 focus:ring-gray-600 focus:text-gray-600 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
                             Normal
                           </button>
                         </div>
