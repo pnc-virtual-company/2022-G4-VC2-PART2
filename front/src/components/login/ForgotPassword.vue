@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="bg-grey-lighter min-h-screen flex flex-col" v-if="!isFormVerifyEmail">
+    <div class="bg-grey-lighter min-h-screen flex flex-col" v-if="!isFormVerifyEmail ">
       <div
         class="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2"
       >
@@ -30,6 +30,7 @@
       </div>
     </div>
     <FormVerifyEmailVue v-if="isFormVerifyEmail"/>
+ 
     </div>
   </template>
 <script>
@@ -38,7 +39,7 @@ ls.config.encrypt = true;
 import FormVerifyEmailVue from './FormVerifyEmail.vue'
     export default{
      components:{
-      FormVerifyEmailVue
+      FormVerifyEmailVue,
      },
       data(){
         return{

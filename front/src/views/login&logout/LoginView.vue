@@ -1,5 +1,22 @@
 <template>
-    <FormUserLogin :listAllUser="listOfUser"/>
+  <div class=" flex justify-evenly bg-cyan-800">
+    <div  class=" flex  flex-col items-center justify-center">
+        <div>
+            <img class="h-24 w-24 rounded-full"
+                    src="../../assets/logo.png">
+                </div>
+                <p class="text-2xl text-white">Please input your <span class="text-orange-400 text-3xl ">information</span></p>  
+        <div>
+            <div class="">
+                <img class="h-80 w-80 "
+                src="../../assets/home.png">
+            </div>
+        </div>
+    </div>
+    <div class="">
+        <FormUserLogin :listAllUser="listOfUser" class="text-white" />
+    </div> 
+ </div> 
 </template>
 <script>
 import FormUserLogin from '@/components/login/EmailForm.vue' 
