@@ -1,6 +1,8 @@
 <template>
-  <CoorNavbar v-if="isLogin" @loginSuccess="isLogin=true"/>
-  <router-view></router-view>
+  <div>
+    <CoorNavbar v-if="isLogin" @loginSuccess="isLogin=true"/>
+    <router-view></router-view>
+  </div>
 </template>
 <script>
 

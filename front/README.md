@@ -1,5 +1,4 @@
 # front
-
 ## Project setup
 ```
 npm install

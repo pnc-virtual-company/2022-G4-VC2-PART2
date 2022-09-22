@@ -26,6 +26,9 @@ const routes = [
   {
     path: "/navigation",
     name: "navigation",
+    meta:{
+      requiresAuth: true,
+    },
     component: () => import("../views/coordinators/CoorNavigationView.vue"),
     children: [
       {
@@ -88,7 +91,7 @@ function authenticationGuard(to, from, next) {
         }
       }
     }else if(to.meta.isTeacher){
-      if(!localStorage.teacher_token){
+      if(!localStorage.teacher_token && !localStorage.coordinator_token){
           localStorage.removeItem(ls.get('role')+'_token');
           localStorage.removeItem('role',)
           localStorage.removeItem('user');
