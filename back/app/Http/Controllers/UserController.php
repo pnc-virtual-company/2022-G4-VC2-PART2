@@ -71,11 +71,11 @@ class UserController extends Controller
                 $batchs->batch = $request->year;
                 $batchs->save();
                 $student->save();
-                if(!$student->save() || !$batchs->save()){
-                    User::destroy( $id['id']);
-                    Student::destroy( $id['id']);
-                    Batch::destroy( $id['id']);
-                }
+                // if(!$student->save() || !$batchs->save()){
+                //     User::destroy( $id['id']);
+                //     Student::destroy( $id['id']);
+                //     Batch::destroy( $id['id']);
+                // }
             }
 
     }

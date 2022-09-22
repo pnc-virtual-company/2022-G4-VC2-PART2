@@ -15,6 +15,7 @@
                 <p class="w-full text-start mb-3">Topic : {{comment.topic.toUpperCase()}}</p>
                 {{comment.content}}
               </div>
+              <p v-if="comment.reply_msg.length>0" >{{comment.reply_msg[0].reply_msg}}</p>
             </div>
           </div>
 
@@ -86,6 +87,7 @@ export default {
       this.comment = '',
       axios.get('http://localhost:8000/api/comment/'+this.commets.user.id).then((response) => {
         this.allComments = response.data
+        console.log(this.allComments);
       })
     },
     getSeleted(value) {
