@@ -70,7 +70,7 @@ export default {
               ls.set("student_token", response.data.token);
             }
             router.push("/navigation");
-            this.$emit("loginSuccess");
+            // this.$emit("loginSuccess");
           }
         });
     },

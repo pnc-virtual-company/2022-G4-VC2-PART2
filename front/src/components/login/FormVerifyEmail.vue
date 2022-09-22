@@ -65,6 +65,7 @@ export default {
                 console.log(this.newPassword)
                 console.log(id)
                 this.passwordForm = true
+                
              
                }) .catch((error)=>{
                   console.log(error);

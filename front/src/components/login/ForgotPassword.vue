@@ -53,6 +53,7 @@ import FormVerifyEmailVue from './FormVerifyEmail.vue'
         verifyCode(){
           console.log(true)
           this.isFormVerifyEmail = true
+          
         }
         },
     }

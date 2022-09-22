@@ -71,6 +71,7 @@ export default {
           ls.set("role", user.role);
           this.isCorrectEmail = true
           this.isFormEmail=false
+          
         }
       });
     },
