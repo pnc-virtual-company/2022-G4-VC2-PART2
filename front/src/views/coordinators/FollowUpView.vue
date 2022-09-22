@@ -1,7 +1,7 @@
 <template>
-    <div class="w-full fixed mt-16 top-1">
+    <div class="w-full mt-16 top-1">
       <!-- This is an example component -->
-      <div class="container mx-auto shadow-lg rounded-lg">
+      <div class="mx-auto shadow-lg rounded-lg">
         <!-- Chatting -->
         <div class="h-screen flex flex-rol justify-between ">
           <!-- chat list -->
@@ -48,10 +48,10 @@
             <div class="w-full">
               <!-- ________Title Board Comment_____ -->
               <div class="group inline-block w-full text-center">
-                <button class="w-full outline-none focus:outline-none border px-3 py-4 rounded-sm flex items-center min-w-32 hover:bg-[#6267f6]"  style="background-color: #DDE8F0;" @click="isTrue = !isTrue">
-                  <span class="pr-1 font-semibold flex-1">Coordinator</span>
-                  <button type="button" style="width:15%" class="ml-2 text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-4 text-center">Close Board</button>
-                  <span>
+                <button class="w-full outline-none focus:outline-none border px-3 py-3 rounded-sm flex items-center min-w-32 hover:bg-[#6267f6]"  style="background-color: #E7FFF0;">
+                  <span class="pr-1 font-semibold flex-1">Student Name</span>
+                  <button type="button" style="width:15%" class="mr-16 text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm py-2 text-center">Close Board</button>
+                  <span  @click="isTrue = !isTrue">
                     <svg class="fill-current h-4 w-4 transform group-hover:-rotate-180 transition duration-150 ease-in-out" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" >
                       <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
                     </svg>
@@ -59,21 +59,30 @@
             
                 </button>
                 <!-- ________BUTTON GET TO DO ________-->
-                <TheComment :commets="commets" class="border rounded-sm scale-0  duration-500 ease-in-out origin-top min-w-32 z-40" :class="{'scale-100':isTrue, ' absolute':!isTrue}" style="background-color: #DDE8F0;"></TheComment>
-                <!-- <ul class="bg-gra-500 border rounded-sm scale-0 group-hover:scale-100 absolute duration-150 ease-in-out origin-top min-w-32 z-40" style="background:var(--main-color)">
-                  <li class="rounded-sm px-2 py-1 bg-[#004581] hover:bg-gray-400 flex justify-start cursor-pointer text-white" @click="$router.push({ path: '/profiles'})">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7 text-white mx-1">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
-                    </svg>
-                    Profile
-                  </li>
-                  <li class="rounded-sm px-2 py-1 bg-[#004581] hover:bg-gray-400 flex justify-start cursor-pointer text-white" @click="$router.push({ path: '/'})">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7 text-white mx-1">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
-                    </svg>
-                    Logout
-                  </li>
-                </ul> -->
+                <div class="border rounded-sm scale-0  duration-500 ease-in-out origin-top min-w-32 z-40" :class="{'scale-100':isTrue, ' absolute':!isTrue}" style="background-color: #DDE8F0;">
+                  <TheComment :commets="commets"></TheComment>
+                  <div class="w-full  flex items-end" style="height:100%">
+                    <div class="w-full">
+                      <div class="flex">
+                        <Base_DropDwon_Menu  :title="'Topic'" :lists="lists"/>
+                        <input @keyup.enter.prevent="addComment()"  v-model="comment"  type="search" id="search-dropdown" class="block p-2.5 text-sm text-gray-900 bg-gray-50 border-green-200 border-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500" placeholder="Type your message here..." required="" style="width:85%">
+                        <div class="inline-flex shadow-sm" role="group">
+                          <button type="button" class="ml-2 bg-green-100 border-green-200 border-2 py-2 px-4 text-sm font-medium text-gray-900 bg-white border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
+                            Action
+                          </button>
+                          <button type="button" class="bg-gray-100 border-gray-300 border-2 py-2 px-4 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
+                            Normal
+                          </button>
+                        </div>
+                        <!-- <button @click.prevent="addComment()"  type="submit" class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium  text-sm px-5 py-2.5 text-center">
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
+                          </svg>
+                        </button> -->
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
               
               <button class="m-5" style="width:15%">+ Add Board</button>
@@ -89,12 +98,13 @@ import axios from "axios";
 import ListStudentFollowUp from "@/components/widget/StudentFollowUp/ListStudentFollowUp.vue";
 import TheComment from "@/components/widget/comment/TheComment.vue";
 import BaseSearch from "@/components/widget/search/BaseSearch.vue";
-
+import Base_DropDwon_Menu from '@/components/widget/dropdown_menu/BaseDropDown.vue'
 export default {
   components: {
     BaseSearch,
     ListStudentFollowUp,
     TheComment,
+    Base_DropDwon_Menu,
   },
   data() {
     return {
@@ -105,7 +115,8 @@ export default {
       isOpenSearches: false,
       search_data : '',
       commets: {},
-      isTrue:false
+      isTrue:false,
+      lists: ['HTML', 'CSS', 'Algorithm'],
     };
   },
   methods: {
