@@ -1,6 +1,6 @@
 <template>
    <!-- <div class="w-full mt-28 m-aut flex justify-center px-4"> -->
-      <div class="w-full  mt-28 m-aut px-2">
+      <div class="w-full  mt-20 m-aut px-2">
         <Teachercomponent :listUsers="teacherList" :createUsers="teacherInfoCreate" :updateUser="teacherInfoUpdate" :title="title" @delete_id="deleteUser" :standingPage="standingPage" @refresh_data="getAllData"/>
       </div>
   <!-- </div>  -->

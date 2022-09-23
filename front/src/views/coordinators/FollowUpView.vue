@@ -109,7 +109,7 @@ export default {
     filterSearch(value){
       this.search_data = value
     },
-    // Filter to fine the student
+    // Filter search fine the student
     provideId(id){
       console.log(id)
       axios.get('http://127.0.0.1:8000/api/get_follow_up/'+id).then((response)=>{

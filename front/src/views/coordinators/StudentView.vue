@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full  mt-28 m-aut px-2">
+    <div class="w-full  mt-20 m-aut px-2">
         <UserTemplates :listUsers="listStudents" :createUsers="studentInfoCreate" :updateUser="studentInfoUpdate" :title="title" @delete_id="deleteUser" :standingPage="standingPage" @refresh_data="getAllData"/>
     </div>
 </template>

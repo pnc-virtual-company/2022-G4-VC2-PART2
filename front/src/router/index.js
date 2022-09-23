@@ -26,6 +26,11 @@ const routes = [
     name: 'profiels',
     component: () => import('../views/coordinators/ProfileView.vue')
   },
+  {
+    path: '/studetnCommentview',
+    name: 'studetnCommentview',
+    component: () => import('../views/students/StudentCommentView.vue')
+  },
 ]
 
 const router = createRouter({
