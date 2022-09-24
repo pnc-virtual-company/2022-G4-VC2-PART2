@@ -5,11 +5,11 @@
         <img src="../../assets/sfu-logo.png" alt="" width="60" height="60">
        </span>
     </div>
-    <!-- ___LINK PAGE STUDENT SOCIAL AFIA_____ -->
-    <div class="constainer flex justify-between w-8/12">
 
+    <!-- ___LINK PAGE STUDENT SOCIAL AFIA_____ -->
+    <div class="constainer flex justify-between w-8/12 ">
       <!-- _______SEE ONLY STUDETT_______ -->
-      <div class="w-8/12 flex justify-end">
+      <div class="w-8/12 flex justify-end" v-if="true">
           <div class="group inline-block w-5/12  text-center px-4">
             <div @click="$router.push({ path: '/studetnCommentview'})" class="w-11/12 py-1 flex items-center justify-center mx-1 duration-300 cursor-pointer rounded-sm  hover:bg-[#173043]">
               <span class="z-0 mx-2">
@@ -17,11 +17,12 @@
                   <path stroke-linecap="round" stroke-linejoin="round" d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 01-.923 1.785A5.969 5.969 0 006 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337z" />
                 </svg>
               </span> 
-              <span class="rounded-full text-white w-4 h-4 p-2 text-[10px] flex justify-center items-center z-10 absolute left-[825px]" :class="{'bg-red-600':listnoteds.length>0}" v-if="listnoteds.length>0">{{ listnoteds.length }}</span>
+              <span class="rounded-full text-white w-4 h-4 p-2.5 text-[10px] flex justify-center items-center z-10 absolute left-[815px] " :class="{'bg-red-600':listnoteds.length>0}" v-if="listnoteds.length>0">{{ listnoteds.length }}</span>
               <span class="text-4 text-white self-center whitespace-nowrap dark:text-white">
                 Notifications
               </span>
             </div>
+
             <div class="w-3/12 scale-0 group-hover:scale-100  absolute duration-150 ease-in-out origin-top">
                 <div class="rounded-sm z-40 py-2" v-if='listnoteds.length>0'>
                   <span v-for="item of listnoteds" :key="item" class=" rounded-sm px-1 py-1 flex bg-white items-center font-extralight border text-black justify-start cursor-pointer hover:bg-gray-100" 
@@ -42,16 +43,17 @@
                     <p class="font-extralight absolute left-[250px] hover:text-red-600">Clear All</p>
                   </span>
                 </div>
-               
             </div>
+
           </div>
         </div>
         <!-- _____END STUDENT VIEW_____ -->
 
       <!-- _____START PAGE VIEW_____ -->
-      <div class="page w-4/6 500 flex justify-between px-3" v-if="true">
-        <router-link :to="item.link" class="w-2/6 py-1 flex items-center justify-center mx-1 duration-300 cursor-pointer" v-for="item of pages" :key="item">
-            <span class="text-[18px] text-white self-center whitespace-nowrap dark:text-white">{{ item.title }}</span>
+     <div class="page w-4/6 500 flex justify-between px-3" v-if="false">
+        <router-link :to="item.link" class="w-2/6 py-1 flex items-center justify-center mx-7 duration-300 cursor-pointer" v-for="item of pages" :key="item">
+          <img :src="item.icon" alt="" width="20" class="mr-5">
+          <span class="text-4 text-white self-center whitespace-nowrap dark:text-white">{{ item.title }}</span>
         </router-link>
       </div>
 
@@ -80,9 +82,10 @@
             Logout
           </li>
         </ul>
-
       </div>
-    </div>
+      <!-- _________END BUTTON __________ -->
+      <!-- _________END PROFILE__________ -->
+  </div>
 </div>
 </template>
 <script>
@@ -90,9 +93,9 @@ export default {
     data(){
       return {
           pages: [
-            {title:'Follow Up', link:'/listFollowUp'},
-            {title:'Teachers', link:'/teacherList'},
-            {title:'Students', link:'/studentList'},
+            {title:'Follow Up', link:'/listFollowUp', icon:'https://cdn-icons-png.flaticon.com/512/8486/8486151.png'},
+            {title:'Teachers', link:'/teacherList', icon:'https://cdn-icons-png.flaticon.com/512/65/65882.png'},
+            {title:'Students', link:'/studentList', icon:'https://cdn-icons-png.flaticon.com/512/57/57073.png'},
           ],
           listnoteds: [
             {id:1, name: 'Veang Ly', time: '8:00 PM', img:'https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/480px-User_icon_2.svg.png'},
@@ -105,7 +108,6 @@ export default {
     methods: {
        mouseoverEvent(id){
          this.mouseID = id;
-        console.log('I am on mouse', id)
        },
        deleteByOne(id){
         for (var i = 0; i < this.listnoteds.length; i++){

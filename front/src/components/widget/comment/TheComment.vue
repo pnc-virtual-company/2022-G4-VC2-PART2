@@ -1,54 +1,70 @@
 <template>
-  <div @click="hideRightClik()" class="w-2/3 flex flex-col justify-between overflow-y-auto " style="overflow: scroll;height: 400px; overflow-x: hidden; background-color:rgba(221, 232, 240, 1);">
-        <div class="flex flex-col mt-5 " v-for="comment of allComments" :key="comment" >
-          <div class="flex justify-end mb-4 " v-if="comment.user_id == 1" >
-            <div class="flex justify-center items-end">
-              <div @click="hideShow(comment.id)" @contextmenu.capture.prevent="showAction(comment.id)"
-                class="mr-2 py-3 px-4 bg-blue-400 rounded-bl-3xl rounded-tl-3xl rounded-tr-xl text-white cursor-pointer " style=" max-width: 460px;word-break: break-all;  ">
-                <p class="w-full text-end  mb-3 " >{{capitalize(comment.user.first_name)}} {{capitalize(comment.user.last_name)}}</p>
-                {{comment.content}}
-              </div>
+  <div @click="hideRightClik()" class="flex flex-col overflow-y-auto" style="overflow: scroll;margin-top: 1px; background-color: #DDE8F0; height: 70vh; overflow-x: hidden;">
+        <div class="flex flex-col " v-for="comment of allComments" :key="comment" >
+          <div class="flex justify-start mb-4 cursor-pointer"  >
+              <div class="flex flex-col items-end" >
+                <div class="flex items-center">
+                  <img
+                    src="https://source.unsplash.com/vpOeXr5wmR4/600x600"
+                    class="object-cover border-2 border-green-300 h-12 w-12 rounded-full"
+                    alt=""
+                  />
+                  <div @click="hideShow(comment.id)" @contextmenu.capture.prevent="showAction(comment.id)"
+                    class="m-1 p-2 max-w-sm bg-green-100 border-2 border-green-200 rounded-br-3xl rounded-tr-3xl rounded-tl-xl  text-black" style="max-width: 70%;  word-break: break-all;  ">
+                    <p class="w-full text-start mb-2 text-blue-600">{{capitalize(comment.user.first_name)}} {{capitalize(comment.user.last_name)}}</p>
+                    <p class="w-24 text-center mb-0 ml-5 text-yellow-600 bg-red-100">Topic: {{comment.toptic}}</p>
+                    <p class="w-9/12 text-start mb-3 ml-10 mr-3">{{comment.content}}</p>
+                    <p class="w-full text-start flex justify-end ">9:30 AM</p>
+                  </div>
+                </div>
+                  <div class="flex items-center w-11/12">
+                    <div class="flex justify-center items-center" >
+                      <img
+                        src="https://source.unsplash.com/vpOeXr5wmR4/600x600"
+                        class="object-cover border-2 border-green-300 h- w-8 rounded-full"
+                        alt=""
+                      />
+                      <div class="flex flex-col" >
+                          <div @click="hideShow(comment.id)" @contextmenu.capture.prevent="showAction(comment.id)"
+                            class="m-1 p-2 max-w-sm bg-green-100 border-2 border-green-200 rounded-br-3xl rounded-tr-3xl rounded-tl-xl  text-black" style="max-width: 70%;  word-break: break-all;  ">
+                            <p class="w-full text-start mb-2 text-blue-600">{{capitalize(comment.user.first_name)}} {{capitalize(comment.user.last_name)}}</p>
+                            <p class="w-9/12 text-start mb-3 ml-10 mr-3">{{comment.content}}</p>
+                            <p class="w-full flex justify-end ">9:30 AM</p>
+                          </div>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="flex items-center w-11/12">
+                    <img
+                      src="https://source.unsplash.com/vpOeXr5wmR4/600x600"
+                      class="object-cover border-2 border-green-300 h-8 w-8 rounded-full flex justify-center items-center"
+                      alt=""
+                    />
+                    <input type="search" id="search-dropdown" class="m-1 p-2.5 text-sm text-gray-900 bg-gray-50 border-l-gray-100 border-l-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500" placeholder="Type your message here..." required="" style="width: 68%;">
+                  </div>
+                </div>
+          </div>
+
+
+          <div class="flex justify-start mb-4 cursor-pointer"  >
+            <div class="flex items-center" >
               <img
                 src="https://source.unsplash.com/vpOeXr5wmR4/600x600"
-                class="object-cover h-8 w-8 rounded-full mt-4"
+                class="object-cover border-2 border-gray-300 h-12 w-12 rounded-full"
                 alt=""
               />
+              <div class="flex flex-col" >
+                  <div @click="hideShow(comment.id)" @contextmenu.capture.prevent="showAction(comment.id)"
+                    class="m-1 p-2 max-w-sm bg-gray-200 border-2 border-gray-300 rounded-br-3xl rounded-tr-3xl rounded-tl-xl  text-black" style="max-width: 70%;  word-break: break-all;  ">
+                    <p class="w-full text-start mb-2 text-blue-600">{{capitalize(comment.user.first_name)}} {{capitalize(comment.user.last_name)}}</p>
+                    <p class="w-24 text-center mb-0 ml-5 text-yellow-600 bg-red-100">Topic: {{comment.toptic}}</p>
+                    <p class="w-9/12 text-start mb-3 ml-10 mr-3">{{comment.content}}</p>
+                    <p class="w-full text-start flex justify-end ">9:30 AM</p>
+                  </div>
+                </div>
             </div>
           </div>
-          <p class="text-xs -mt-4 mb-2 ml-80 " style="display:none;" 
-                :id="comment.id">
-                {{comment.updated_at}}
-            </p>
-          <div class="flex justify-start mb-4 cursor-pointer"  v-if="comment.user_id != 1" >
-            <div class="flex justify-center items-end" >
-              <img
-                src="https://source.unsplash.com/vpOeXr5wmR4/600x600"
-                class="object-cover h-8 w-8 rounded-full"
-                alt=""
-              />
-              <div @click="hideShow(comment.id)" @contextmenu.capture.prevent="showAction(comment.id)"
-                class="ml-1 p-2 max-w-sm bg-white rounded-br-3xl rounded-tr-3xl rounded-tl-xl  text-black" style="max-width: 460px;  word-break: break-all;  ">
-                <p class="w-full text-start mb-3">{{capitalize(comment.user.first_name)}} {{capitalize(comment.user.last_name)}}</p>
-                {{comment.content}}
-              </div>
-            </div>
-          </div>
-          <p class="text-xs -mt-4 mb-2 ml-80  " style="display:none;" 
-                :id="comment.id ">
-                {{comment.updated_at}}
-            </p>
-        </div>
-        <div class="py-5  fixed  flex " style="margin-top:377px; width:42%;  background-color:rgba(221, 232, 240, 1); height:11vh">
-              <div class="relative w-full">
-                      <input @keyup.enter.prevent="addComment()"  v-model="comment"  type="search" id="search-dropdown" class="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-l-lg border-l-gray-100 border-l-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500" placeholder="Search" required=""
-                      style="width:100%"
-                      >
-                      <button @click.prevent="addComment()"  type="submit" class="absolute top-0 right-0  text-sm font-medium text-white bg-blue-700 rounded-r-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" style="padding:7.7px;">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                          <path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
-                        </svg>
-                      </button>
-              </div>
+          
         </div>
         <!-- right clcik and show action delete and edit -->
         <div class="grid rounded-md shadow-sm fixed  bg-gray-400 h-28 m-48 w-40 text-white animate-pulse" role="group" v-if="rightClike">
@@ -62,24 +78,37 @@
             </svg>
             Delete
           </button>
-        </div>
-
+        </div> 
   </div>
 </template>
 
 <script>
 import axios from 'axios';
+// import Base_DropDwon_Menu from '../dropdown_menu/BaseDropDown.vue'
+// import Base_DropDwon_Menu from '../dropdown_menu/BaseDropDown.vue'
 export default {
 
+  components: {
+    //  Base_DropDwon_Menu,
+  },
   data() {
     return {
-      allComments: null,
+      allComments: [
+        {user: {
+          first_name: 'hak',
+          last_name: 'kim'
+        },
+        content:'Hello world Hello world Hello world Hello world Hello world Hello world Hello world Hello world Hello world Hello world Hello world Hello world',
+        toptic:'HTML'
+        }
+      ],
       hide: true,
       comment: '',
       bgColor: '',
       comment_id: null,
       ifEdite:false,
       rightClike: false,
+      // lists: ['HTML', 'CSS', 'Algorithm'],
     }
   },
   methods: {
@@ -159,9 +188,9 @@ export default {
       }
   },
 
-  mounted() {
-    this.getAllComments();
-  }
+  // mounted() {
+  //   this.getAllComments();
+  // }
 }
 </script>
 
