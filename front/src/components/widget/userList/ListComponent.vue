@@ -50,7 +50,7 @@
                   </svg>
                 </i>
                 <i class="text-white">
-                  Create
+                  Create now
                 </i>
               </Base_Button>
               <div class="my-2 mx-3" v-if="standingPage=='teacher'">
