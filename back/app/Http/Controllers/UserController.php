@@ -92,7 +92,7 @@ class UserController extends Controller
         $validate = $request->validate([
             'email' => 'required',
             'first_name' => 'required',
-            'last_name' => 'required',
+            'last_name' => '        n  ',
             'gender' => 'required',
         ]);
 
