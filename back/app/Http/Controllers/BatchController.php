@@ -10,7 +10,9 @@ class BatchController extends Controller
 
     public function index()
     {
-        return Batch::distinct()->get(['batch']);
+        // return Batch::distinct()->get(['batch']);
+        // return Batch::all();
+        return Batch::with(['student.user'])->get();
     }
 
 

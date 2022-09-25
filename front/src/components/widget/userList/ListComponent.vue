@@ -2,9 +2,7 @@
   <!-- TITLE OF PAGES -->
   <div class="overflow-x-auto relative z-50 p-4 ">
     <div class="py-1 pb-3">
-      <h2 class="text-gray-800 text-2xl font-bold text-center mb-2 uppercase">
-        {{ title }}
-      </h2>
+      <h2 class="text-gray-800 text-2xl font-bold text-center mb-2 uppercase">{{ title }}</h2>
     </div>
 <!-- ______________GROUPT BUTON_____________ -->
     <div class="items-center justify-start flex" :class="{'justify-between':standingPage=='student'}">

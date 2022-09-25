@@ -131,7 +131,7 @@
         </div>
       </div>
     </div>
-  </div>
+</div>
 </template>
 
 <script>
@@ -155,20 +155,6 @@ export default {
     }
   },
   methods: {
-    // getStudent(){
-    //     axios.get('http://127.0.0.1:8000/api/student/1').then((res)=>{
-    //         this.first_name = (res.data[0].first_name)
-    //         this.last_name = (res.data[0].last_name)
-    //         this.gender = (res.data[0].gender)
-    //         this.email = (res.data[0].email)
-    //         this.province = (res.data[0].student[0].province)
-    //         this.NGO = (res.data[0].student[0].NGO)
-    //         this.batch = (res.data[0].student[0].year)
-    //         this.student_class = (res.data[0].student[0].student_class)
-    //         console.log(res.data)
-    //         console.log(res.data[0].student[0].student_class)
-    //     })
-    // },
     pageUpdata(){
     },
     studentUpdata(){

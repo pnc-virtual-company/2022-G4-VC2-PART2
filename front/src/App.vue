@@ -1,8 +1,8 @@
 <template>
     <section>
-      <NavBar/> 
-      <router-view/>
-    </section>
+    <NavBar v-if="isLogin" @loginSuccess="isLogin=true"/>
+    <router-view></router-view>
+  </section>
   
 </template>
 <script>
@@ -11,7 +11,9 @@ export default {
   components: {NavBar },
   data(){
     return {
+      isLogin: false,
     }
+
   },
   methods:{
   },
@@ -25,8 +27,6 @@ export default {
     --main-color-light: #018ABD;  /* Second Color */
     --main-color-active: #b0c9d2;  /* Third Color */
     --main-color-hover: #a4bac1;  /* Third Color */
-
-  
   }
   
   * {
