@@ -237,6 +237,7 @@ export default {
     this.listUsers
     this.getAllBatch()
     this.getAllClass()
+    console.log("Ther not users", this.listUsers)
   },
   computed: {
     filter_User() {

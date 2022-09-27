@@ -30,15 +30,6 @@ const routes = [
     },
     component: () => import("../views/students/StudentCommentView.vue"),
   },
-  // {
-  //   path: "/teacherList",
-  //   name: "teacherList",
-  //   // meta: {
-  //   //   requiresAuth: true,
-  //   //   isAdmin:true,
-  //   // },
-  //   component: () => import("../views/coordinators/TeacherView.vue"),
-  // },
 
   {
     path: "/navigation",
@@ -61,7 +52,9 @@ const routes = [
         meta: {
           requiresAuth: true,
           isAdmin:true,
-          isTeacher:true
+          isTeacher:true,
+          isStudent:true,
+
         },
         component: () =>import("../views/coordinators/FollowUpView.vue"),
       },
@@ -117,7 +110,7 @@ function authenticationGuard(to, from, next) {
           localStorage.removeItem('role',)
           localStorage.removeItem('user');
           localStorage.removeItem('email');
-          next('/')
+          // next('/')
         }else{
           next()
         }
@@ -129,14 +122,14 @@ function authenticationGuard(to, from, next) {
           localStorage.removeItem('role',)
           localStorage.removeItem('user');
           localStorage.removeItem('email');
-          next('/')
+          // next('/')
         }else{
           if(to.path == "/"){
             localStorage.removeItem(ls.get('role')+'_token');
             localStorage.removeItem('role',)
             localStorage.removeItem('user');
             localStorage.removeItem('email');
-            next('/')
+            // next('/')
           }else{
             next()
           }
