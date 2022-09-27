@@ -28,7 +28,7 @@
 
                 <div class="flex mb-2 gap-2">
                     <div class=" w-full ">
-                        <span class=" after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-slate-700">Email</span>
+                        <span class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-slate-700">Email</span>
                         <input 
                             v-model="email"
                             type="email"
@@ -81,8 +81,8 @@
             <div class="flex gap-2 mb-5" v-if="object.role != 'teacher'">
                 <div class="w-full" >
                     <span class="text-gray-500">Batch*</span>
-                    <select v-if="!showAddNewBatch"   class="outline-1 block border border-grey-light w-full p-2 rounded text-gray-400 border-cyan-500 bg-transparent" v-model="batch" >
-                        <option :value="batch.batch" v-for="batch of allBatch" :key="batch">{{batch.batch}}</option>
+                    <select v-if="!showAddNewBatch" class="outline-1 block border border-grey-light w-full p-2 rounded text-gray-400 border-cyan-500 bg-transparent" v-model="batch" >
+                        <option :value="batch" v-for="batch of lists" :key="batch">{{ batch }}</option>
                     </select>
                      <input  
                         v-if="showAddNewBatch"
@@ -90,16 +90,14 @@
                         type="number"
                         class="block border border-grey-light w-full p-2 rounded border-cyan-500 bg-transparent"
                     />
+                    <span @click="getTheBatch" class="text-blue-500 cursor-pointer underline underline-offset-2 hover:text-blue-700">Create new batch !</span>
                     <alertForm v-if="batch =='' " :psw="checkPassword(batch)" />
-                    <span  @click="showAddNewBatch = true" class="text-blue-500 cursor-pointer underline underline-offset-2 hover:text-blue-700">Create new batch !</span>
                 </div>
+      
                 <div class="w-full">
                     <span class="text-gray-500">Class*</span>
-                    <select v-model="student_class"  class="outline-1 block border border-grey-light w-full p-2 rounded text-gray-400 border-cyan-500 bg-transparent">
-                        <option value="WEB-A">A</option>
-                        <option value="WEB-B">B</option>
-                    </select>
-                    <alertForm v-if="student_class =='' " :psw="checkPassword(student_class)"/>
+                    <input v-if="!showStudentForm" name="student_class" v-model="student_class" type="text" class=" bg-white placeholder:italic placeholder:text-slate-400 focus:outline-none block border border-grey-light w-full p-2 rounded border-cyan-500" placeholder="Enter class"/>
+                    <alertForm v-if="student_class ==''" :psw="checkPassword(student_class)"/>
                 </div>
             </div>
 
@@ -134,7 +132,7 @@ import alertForm from '../alertValidation/alert_form.vue';
 import axios from 'axios';
 // const Swal = require('sweetalert2')
 export default ({
-props:['object', 'updateValue'],
+props:['object', 'updateValue', 'lists'],
 emits:['close'],
     components: {
         alertForm,
@@ -327,69 +325,7 @@ emits:['close'],
             
         },
 
-        // updateStudent() {
-        //     const stdList = {
-        //         email: this.updateValue.email,
-        //         first_name:this.updateValue.first_name,
-        //         last_name: this.updateValue.last_name,
-        //         password: this.updateValue.password,
-        //         NGO:  this.updateValue.student[0].NGO,
-        //         batch: this.updateValue.student[0].year,
-        //         province: this.updateValue.student[0].province,
-        //         class: this.updateValue.student[0].class,
-        //         gender: this.updateValue.gender,
-        //         role: this.updateValue.role
-        //     };
-        //     console.log(stdList);
-        //     const std = [
-        //         this.email,
-        //         this.first_name,
-        //         this.last_name,
-        //         this.password,
-        //         this.NGO,
-        //         this.student_class,
-        //         this.sex,
-        //         this.batch,
-        //         this.province,
-        //     ]
-        //     this.ifAllfiedInput = std.every(this.checkForm);
-        //     if (this.ifAllfiedInput) {
-        //         axios.put('http://localhost:8000/api/user/', stdList).then(() => {
-        //             this.$emit("update_student",stdList)
-        //             Swal.fire({
-        //                 icon: 'success',
-        //                 text: 'User Created',
-        //             })
-        //         }).catch((err) => {
-        //             console.log(err);
-        //                 this.validateEmail()
-        //         })
-        //     } else {
-        //         if (this.email.trim() == '') {  
-        //             this.validateEmail()
-        //         }
-        //         if (this.first_name.trim() == '') {  
-        //             this.first_name = ''
-        //         }
-        //         if (this.last_name.trim() == '') {  
-        //             this.last_name = ''
-        //         }
-        //         if (this.NGO.trim() == '') {  
-        //             this.NGO = ''
-        //         }
-        //         if (this.batch.trim() == '') {  
-        //             this.batch = ''
-        //         }
-        //         if (this.province.trim() == '' || this.province == undefined) {  
-        //             this.province = ''
-        //         }
-        //         if (this.student_class.trim() == '') {  
-        //             this.student_class = ''
-        //         }
-        //     }
-            
-        // },
-
+        
         checkForm(txt) {
             return txt.trim() != '';
         },
@@ -417,43 +353,29 @@ emits:['close'],
              return this.userEmail;
              
         },
+        // BE READY TO UPDATE
         created(){
             if(this.object.to_do == 'update' && this.object.role == 'student'){
-                this.email= this.updateValue.email,
-                this.first_name= this.updateValue.first_name,
-                this.last_name= this.updateValue.last_name,
-                this.password = this.updateValue.password,   
-                this.NGO= this.updateValue.student[0].NGO,
-                this.class= this.updateValue.student[0].student_class,
+                this.email= this.updateValue.email
+                this.first_name= this.updateValue.first_name
+                this.last_name= this.updateValue.last_name
+                this.NGO= this.updateValue.student[0].NGO
+                this.student_class = this.updateValue.student[0].class
                 this.gender= this.updateValue.sex,
-                this.year= this.updateValue.batch,
-                this.province= this.updateValue.province,
-                this.role= this.updateValue.role
+                this.batch= this.updateValue.student[0].year
+                this.province= this.updateValue.province
             } if(this.object.to_do == 'update' && this.object.role == 'teacher') {
-                this.email= this.updateValue.email,
-                this.first_name= this.updateValue.first_name,
-                this.last_name= this.updateValue.last_name,
-                this.password = this.updateValue.password,   
-                this.gender= this.updateValue.sex,
-                this.year= this.updateValue.batch,
-                this.province= this.updateValue.province,
-                this.role= this.updateValue.role
+                this.email= this.updateValue.email
+                this.first_name= this.updateValue.first_name
+                this.last_name= this.updateValue.last_name
+                this.gender= this.updateValue.sex
             }
-        // console.log(this.updateValue)
+        },
+        getTheBatch(){
+            this.showAddNewBatch = true
         }
     },
     mounted() {
-        axios.get('http://localhost:8000/api/batch').then((res) => {
-            this.allBatch = res.data
-            if (this.allBatch == '') {
-                this.showAddNewBatch = true
-            }
-            console.log(res.data);
-        })
-        axios.get('http://localhost:8000/api/user/' + this.object.id).then((res) => {
-            this.dataToUpdate = res.data
-            // this.showOldData()
-        })
         this.created()
     },
     
