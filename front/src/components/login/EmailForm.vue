@@ -1,16 +1,16 @@
 <template>
-  <div>
+  <div class="">
     <PasswordForm v-if="isCorrectEmail && !isForgetPassword"/>
-  <div class="bg-grey-lighter min-h-screen flex flex-col" v-if="isFormEmail">
+  <div class="bg-grey-lighter min-h-screen flex flex-col " v-if="isFormEmail">
     <div
-      class="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2"
+      class="container  w-full mx-auto flex-1 flex flex-col items-center justify-center px-2 "
     >
-      <div class="align-start">
+      <div class="align-start ">
         <p class="font-semibold">
           Student <span class="text-blue-400">Follow Up</span>
         </p>
       </div>
-      <div class="bg-white px-6 py-8 rounded shadow-md text-black w-full">
+      <div class="bg-white px-6 py-8 rounded shadow-md text-black " >
         <form  @submit.prevent="loginEmail">
           <h1 class="mb-8 text-3xl text-center">Sign in to Account</h1>
 
@@ -22,6 +22,7 @@
             v-model="email"
             required
           />
+          <span v-if="isCorrectEmail==false" class="text-red-500">Incorrect Email!</span>
           <div class="flex justify-end">
             <button
               class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded focus:outline-primary focus:shadow-outline"
@@ -52,7 +53,7 @@ export default {
     return {
       email: "",
       password: "",
-      isCorrectEmail:false,
+      isCorrectEmail:null,
       isFormEmail:true,
       isForgetPassword:false
     };
@@ -65,14 +66,16 @@ export default {
       allUserList.forEach((user) => {
         if (user.email == this.email) {
           ls.set('user',user.email)
-          // console.log(ls.get('user'))
-          // localStorage.setItem("user", user.email);
           ls.set("id", user.id);
           ls.set("role", user.role);
           this.isCorrectEmail = true
           this.isFormEmail=false
+          
         }
       });
+      if(this.isCorrectEmail == null){
+        this.isCorrectEmail = false
+      }
     },
   },
 };

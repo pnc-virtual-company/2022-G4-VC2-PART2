@@ -20,7 +20,7 @@ export default {
     methods: {
         // GET ALL DATABASE
         getAllData(){
-            axios.get('http://127.0.0.1:8000/api/getUserBy/student').then((response)=>{
+            axios.get('http://127.0.0.1:8000/api/get_user_by/student').then((response)=>{
                 this.listStudents = response.data
                 console.log(response.data)
             })

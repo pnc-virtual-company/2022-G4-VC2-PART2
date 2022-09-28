@@ -33,7 +33,7 @@ export default {
       },
     // GET ALL DATA
     getAllData(){
-        axios.get('http://127.0.0.1:8000/api/getUserBy/teacher').then((response)=>{
+        axios.get('http://127.0.0.1:8000/api/get_user_by/teacher').then((response)=>{
             this.teacherList = response.data
             console.log(response.data)
         })

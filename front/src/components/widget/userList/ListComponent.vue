@@ -188,16 +188,6 @@ export default {
       return this.$emit("emits-page", value);
     },
 
-    //________ ADD STUDENT TO FOLLO UP LIST___________
-    // addToFollupList(id){
-    //   for(var i = 0; i < this.listUsers.length; i++){
-    //     if(this.listUsers[i].id == id){
-    //       axios.post('http://127.0.0.1:8000/api/follow_up/'+id, {if_follow_up: 'Yes'} ).then(()=>{
-    //         console.log("Set sucess successfully");
-    //       })
-    //     }
-    //   }
-    // },
     // _______Filter_____
     selectByBach(value){
       this.selectBatch = value;
@@ -210,9 +200,10 @@ export default {
    // GET ALL BATCH
     getAllBatch(){
       axios.get('http://127.0.0.1:8000/api/batch').then((response)=>{
-          for (var i = 0; i < response.data.length; i++) {
-            this.lists.push(response.data[i].batch);
-          }
+        for(var i = 0; i < response.data.length; i++){
+          this.lists.push(response.data[i].batch)
+        }
+          
       })
     },
    // GET ALL CLASS

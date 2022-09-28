@@ -34,7 +34,7 @@
             </svg>
           </div>
 
-          <BaseSearch v-if="isOpenSearches" @emit_search="filterSearch" />
+          <BaseSearch v-if="isOpenSearches" @emit_search="filterSearch"  />
           <!-- end search compt -->
           <!-- user list -->
           <!-- <div v-if="isOpenSearches" class="opacity-30 fixed inset-0 z-40 bg-black"></div> -->

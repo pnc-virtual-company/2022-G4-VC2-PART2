@@ -1,22 +1,27 @@
 <template>
     <section>
-    <NavBar v-if="isLogin" @loginSuccess="isLogin=true"/>
-    <router-view></router-view>
-  </section>
+      <NavBar v-if="!$route.meta.isHideNavigation" />
+      <router-view/>
+    </section>
+    <!-- <NavBar v-if="isLogin" @loginSuccess="isLogin=true"/> -->
   
 </template>
 <script>
 import NavBar from '@/components/navigation/NavigationComponent.vue'
+// import NavBar from '../src/views/navigationBar/NavigationView.vue'
 export default {
   components: {NavBar },
   data(){
     return {
       isLogin: false,
+  
     }
 
   },
   methods:{
+   
   },
+ 
 }
 </script>
 <style>

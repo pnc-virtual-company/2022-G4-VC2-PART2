@@ -34,14 +34,14 @@
         </div>
       </div>
       <!-- End of Navbar -->
-      <div class="container mx-auto p-5">
-        <div class="md:flex no-wrap">
+      <div class="container mx-auto p-5 ">
+        <div class="md:flex no-wrap ">
           <!-- Left Side -->
-          <div class="w-full md:w-2/12 md:mx-8">
+          <div class=" md:w-4/12 md:mx-8">
             <!-- Profile Card -->
             <div class="bg-white p-3 shadow-md">
-              <div class="w-44 flex justify-center">
-                <img class="w-40 h-40 rounded-sm" :src="user.img !=null?user.img:avataImage" alt="image description">
+              <div class="w-full flex justify-center">
+                <img class="w-44 h-44 rounded-sm" :src="users.img !=null?users.img:avataImage" alt="image description">
               </div>
               <div  class="flex justify-center  border-rounded">
                 <div  class="image">
@@ -69,7 +69,7 @@
                     my-2
                   "
                 >
-                {{user.first_name}} {{user.last_name}}
+                {{ users.first_name}} {{ users.last_name }}
                 </h1>
               </div>
             </div>
@@ -119,7 +119,7 @@
                         First Name
                       </span>
                     </div>
-                    <div class="px-4 py-2">{{user.first_name}}</div>
+                    <div class="px-4 py-2">{{users.first_name}}</div>
                   </div>
                   <div class="grid grid-cols-2">
                     <div class="px-4 py-2 font-semibold flex justify-start items-center">
@@ -130,7 +130,7 @@
                         Last Name
                       </span>
                     </div>
-                    <div class="px-4 py-2">{{user.last_name}}</div>
+                    <div class="px-4 py-2">{{users.last_name}}</div>
                   </div>
       
                   <div class="grid grid-cols-2">
@@ -142,7 +142,7 @@
                         Gender
                       </span>
                     </div>
-                    <div class="px-4 py-2">Female</div>
+                    <div class="px-4 py-2">{{ users.gender }}</div>
                   </div>
 
                   <div class=" grid grid-cols-2">
@@ -154,9 +154,9 @@
                         Email
                       </span>
                     </div>
-                    <div class="px-4 py-2">{{user.email}}</div>
+                    <div class="px-4 py-2">{{users.email}}</div>
                   </div>
-                  <div class=" grid grid-cols-2" v-if="this.user.role=='student'">
+                  <div class=" grid grid-cols-2" v-if="this.users.role=='student'">
                     <div class="px-4 py-2 font-semibold flex justify-start items-center">
                       <span class="mx-1">
                         <img src="../../assets/ngo.png" alt="" class="w-3 h-3">
@@ -167,7 +167,7 @@
                     </div>
                     <div class="px-4 py-2">{{ students.NGO }}</div>
                   </div>
-                  <div class=" grid grid-cols-2" v-if="this.user.role=='student'">
+                  <div class=" grid grid-cols-2" v-if="this.users.role=='student'">
                     <div class="px-4 py-2 font-semibold flex justify-start items-center">
                       <span class="mx-1">
                         <img src="../../assets/batch.png" alt="" class="w-3 h-3">
@@ -178,7 +178,7 @@
                     </div>
                     <div class="px-4 py-2">{{ students.year }}</div>
                   </div>
-                  <div class=" grid grid-cols-2" v-if="this.user.role=='student'">
+                  <div class=" grid grid-cols-2" v-if="this.users.role=='student'">
                     <div class="px-4 py-2 font-semibold flex justify-start items-center">
                       <span class="mx-1">
                         <img src="../../assets/class.png" alt="" class="w-3 h-3">
@@ -189,7 +189,7 @@
                     </div>
                     <div class="px-2 py-2">{{ students.class }}</div>
                   </div>
-                  <div class=" grid grid-cols-2" v-if="this.user.role=='student'">
+                  <div class=" grid grid-cols-2" v-if="this.users.role=='student'">
                     <div class="px-4 py-2 font-semibold flex justify-start items-center">
                       <span class="mx-1">
                         <img src="http://3.bp.blogspot.com/-dzKojeF__I0/VpJPQT-dMHI/AAAAAAAAE54/RkufPXD6G2E/s1600/8.png" alt="" class="w-3 h-3">
@@ -217,20 +217,20 @@
 export default {
   data() {
     return {
-      user:{},
+      users:[],
       students:{},
-      profile:"",
       avataImage:'https://cdn-icons-png.flaticon.com/512/149/149071.png',
-      id:ls.get('id'),
+      user_id:ls.get('id'),
     };
   },
   methods:{
     // GET DATA OF USER
     getUserFromAPI(){
-      axios.get("http://127.0.0.1:8000/api/user/3").then((res)=>{
-        this.user = res.data[0];
-        console.log(this.user.role)
-        this.students = this.user.student[0]
+      axios.get("http://127.0.0.1:8000/api/user/"+this.user_id).then((res)=>{
+        this.users = res.data[0];
+        if(this.users.role =='student'){
+          this.students = this.user.student[0]
+        }
         
       })
     },
@@ -243,7 +243,7 @@ export default {
         const fd = new FormData();
         fd.append('img', image)
         fd.append('_method', 'PUT')
-        axios.post('http://127.0.0.1:8000/api/upload/3', fd).then(()=>{
+        axios.post('http://127.0.0.1:8000/api/upload/'+this.user_id, fd).then(()=>{
           return this.getUserFromAPI();
         })
     },
@@ -252,8 +252,14 @@ export default {
 
     },
     mounted(){
+      // this.user_id
       this.getUserFromAPI();
-    }
+      console.log(this.user_id)
+      console.log(this.users)
+    },
+    created() {
+    console.log(this.users) // injected value
+  }
 };
 </script>
 

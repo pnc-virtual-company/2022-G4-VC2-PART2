@@ -32,7 +32,6 @@ class MailController extends Controller
         }
 
     }
-
     public function informFolowUpToStudent(Request $request)
     {
         $student = User::where('email', '=', $request->email)->first();

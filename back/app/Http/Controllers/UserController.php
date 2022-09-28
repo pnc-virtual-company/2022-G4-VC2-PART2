@@ -16,6 +16,7 @@ class UserController extends Controller
     public function index()
     {
         return User::with(['student'])->get();
+        // return User::with(['student'])->get();
         // return User::latest()->get();
         // return User::first();
     }

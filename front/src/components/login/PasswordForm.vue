@@ -1,7 +1,7 @@
 <template>
   <div>
     <ForgotPassword v-if="isForgetPassword" />
-    <div class="bg-grey-lighter min-h-screen flex flex-col">
+    <div class="bg-grey-lighter min-h-screen flex flex-col" v-if="!isForgetPassword">
       <div
         class="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2"
       >
@@ -20,6 +20,7 @@
               placeholder="Password"
               v-model="password"
             />
+            <p v-if="isCorrectPassword==false" class="text-red-500">Incorrect Password!</p>
             <a @click="forgetPassword">Forget Password</a>
             <div class="flex text-right justify-end">
               <button
@@ -44,10 +45,12 @@ export default {
   components: {
     ForgotPassword,
   },
+  props:['isPassword'],
   data() {
     return {
       password: "",
       isForgetPassword: false,
+      isCorrectPassword:null,
       email:ls.get("user")
     };
   },
@@ -64,12 +67,14 @@ export default {
             console.log("Login Success");
             if (ls.get("role") == "coordinator") {
               ls.set("coordinator_token", response.data.token);
+              router.push("/listStudent");
             }else if(ls.get("role") == "teacher"){
               ls.set("teacher_token", response.data.token);
+              router.push("/studentList");
             }else{
               ls.set("student_token", response.data.token);
+              router.push("/studetnCommentview");
             }
-            router.push("/navigation");
             this.$emit("loginSuccess");
           }
         });
@@ -79,9 +84,7 @@ export default {
         console.log(response.data)
         ls.set('code',response.data.code)
       })
-      if(this.code == ls.get('code')){
-        this.isForgetPassword = true;
-      }
+      this.isForgetPassword = true
     },
   },
 };

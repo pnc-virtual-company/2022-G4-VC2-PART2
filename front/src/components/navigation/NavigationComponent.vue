@@ -1,7 +1,7 @@
 <template >
 <div class="flex px-4 py-2 fixed h-18 top-0 z-10 items-center justify-between w-full drop-shadow-xl " style="background:var(--main-color)">
     <div class="logo w-1/6 px-5 flex justify-start">
-       <span  class="hover:bg-blue-400" @click="$router.push({ path: '/'})">
+       <span  class="hover:bg-blue-400">
         <img src="../../assets/sfu-logo.png" alt="" width="60" height="60">
        </span>
     </div>
@@ -9,7 +9,7 @@
     <!-- ___LINK PAGE STUDENT SOCIAL AFIA_____ -->
     <div class="constainer flex justify-between w-8/12 ">
       <!-- _______SEE ONLY STUDETT_______ -->
-      <div class="w-8/12 flex justify-end" v-if="false">
+      <div class="w-8/12 flex justify-end" v-if="checkRole == 'student'">
           <div class="group inline-block w-5/12  text-center px-4">
             <div @click="$router.push({ path: '/studetnCommentview'})" class="w-11/12 py-1 flex items-center justify-center mx-1 duration-300 cursor-pointer rounded-sm  hover:bg-[#173043]">
               <span class="z-0 mx-2">
@@ -38,7 +38,7 @@
                       </svg>
                     </p>
                   </span>
-                  <!-- ____CLEAR NOTIFICATION____ -->
+                 
                   <span class="rounded-sm px-1 py-4 flex bg-[#97CBDC] items-center font-extralight border text-black justify-start cursor-pointer" @click="deleteByGroup">
                     <p class="font-extralight absolute left-[250px] hover:text-red-600">Clear All</p>
                   </span>
@@ -50,17 +50,25 @@
         <!-- _____END STUDENT VIEW_____ -->
 
       <!-- _____START PAGE VIEW_____ -->
-     <div class="page w-4/6 500 flex justify-between px-3" v-if="true">
+     <div class="page w-4/6 500 flex justify-between px-3"  v-if="checkRole == 'coordinator'">
         <router-link :to="item.link" class="w-2/6 py-1 flex items-center justify-center mx-7 duration-300 cursor-pointer" v-for="item of pages" :key="item">
           <img :src="item.icon" alt="" width="20" class="mr-5">
           <span class="text-4 text-white self-center whitespace-nowrap dark:text-white">{{ item.title }}</span>
         </router-link>
       </div>
+      <!-- ____________Teacher Page___________________ -->
+     <div class="page w-4/6 500 flex justify-between px-3"  v-if="checkRole == 'teacher'">
+        <router-link :to="item.link" class="w-2/6 py-1 flex items-center justify-center mx-7 duration-300 cursor-pointer" v-for="item of teacherPages" :key="item">
+          <img :src="item.icon" alt="" width="20" class="mr-5">
+          <span class="text-4 text-white self-center whitespace-nowrap dark:text-white">{{ item.teacher }}</span>
+        </router-link>
+      </div>
+      <!-- ____________Students Page___________________ -->
 
       <!-- ________STUDENT, ADMIN, COORDINATOR_____ -->
-      <div class="group inline-block w-0.5/6 text-center">
+      <div class="group inline-block w-0.5/6 text-center" >
         <button class="outline-none focus:outline-none px-3 py-2 rounded-sm flex items-center min-w-32 hover:bg-[#0b0d4a]">
-          <span class="pr-1 flex-1 text-white">Coordinator</span>
+          <span class="pr-1 flex-1 text-white uppercase">{{ users.first_name }} {{ users.last_name }}</span>
           <span>
             <svg class="fill-current h-4 w-4 transform group-hover:-rotate-180 transition duration-150 ease-in-out text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" >
               <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
@@ -75,7 +83,7 @@
             </svg>
             Profile
           </li>
-          <li class="rounded-sm px-2 py-1 bg-[#004581] hover:bg-gray-400 flex justify-start cursor-pointer text-white" @click="$router.push({ path: '/'})">
+          <li class="rounded-sm px-2 py-1 bg-[#004581] hover:bg-gray-400 flex justify-start cursor-pointer text-white" @click="Logout">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7 text-white mx-1">
               <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
             </svg>
@@ -89,23 +97,49 @@
 </div>
 </template>
 <script>
+import axios from 'axios'
+import ls from 'localstorage-slim'
+import router from '@/router';
+ls.config.encrypt = true;
 export default {
+   props:['data'],
     data(){
       return {
           pages: [
             {title:'Follow Up', link:'/listFollowUp', icon:'https://cdn-icons-png.flaticon.com/512/8486/8486151.png'},
             {title:'Teachers', link:'/teacherList', icon:'https://cdn-icons-png.flaticon.com/512/65/65882.png'},
-            {title:'Students', link:'/studentList', icon:'https://cdn-icons-png.flaticon.com/512/57/57073.png'},
+            {title:'Students', link:'/listStudent', icon:'https://cdn-icons-png.flaticon.com/512/57/57073.png'},
+          ],
+          teacherPages: [
+            {teacher:'Follow Up', link:'/followUp', icon:'https://cdn-icons-png.flaticon.com/512/8486/8486151.png'},
+            {teacher:'Students', link:'/studentList', icon:'https://cdn-icons-png.flaticon.com/512/57/57073.png'},
+          ],
+          studentPages:[
+            {student:'Comments', link:'/studetnCommentview', icon:'https://cdn-icons-png.flaticon.com/512/8486/8486151.png'},
           ],
           listnoteds: [
             {id:1, name: 'Veang Ly', time: '8:00 PM', img:'https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/480px-User_icon_2.svg.png'},
             {id:2, name: 'Nga Ly', time: '9:00 AM', img:'https://cdn-icons-png.flaticon.com/512/149/149071.png'},
             {id:3, name: 'Hak Ly', time: '10:00 PM', img:'https://cdn-icons-png.flaticon.com/512/219/219986.png'},
           ],
-          mouseID: ''
+          mouseID: '',
+          checkRole: ls.get("role"),
+          isTeacher: false,
+          isStudent: false,
+          isFollowUp: false,
+          getPageStading: { teacher: null, student: null, follow: null },
+          user_id: ls.get('id'),
+          users:{}
       }
     },
     methods: {
+      Logout(){
+          localStorage.removeItem(ls.get('role')+'_token');
+          localStorage.removeItem('role',)
+          localStorage.removeItem('user');
+          localStorage.removeItem('email');
+          router.push('/')
+      },
        mouseoverEvent(id){
          this.mouseID = id;
        },
@@ -121,7 +155,16 @@ export default {
           // this.deleteByOne(this.listnoteds[i].id); 
           this.listnoteds.splice(i, 1);
         }
-       }
+       },
+       getUserFromAPI(){
+        axios.get("http://127.0.0.1:8000/api/user/"+this.user_id).then((res)=>{
+          this.users = res.data[0];
+      })
+    }
+    },
+    mounted(){
+      this.checkRole
+      this.getUserFromAPI()
     }
 }
 </script> 
