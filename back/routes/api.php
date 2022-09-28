@@ -33,7 +33,7 @@ Route::apiResource('/batch', BatchController::class);
 Route::apiResource('/comment', CommentController::class);
 //get all students follow up
 Route::get('/get_follow_up', [StudentController::class , 'getAllStudentFolowUp']);
-//set student to follow up
+//set student to follow upsetFollowUp
 Route::put('/get_follow_up/{id}', [StudentController::class , 'setFollowUp']);
 //send mail to student to inform that they have been added to student follow up list
 Route::post('/mailFollowUp', [MailController::class , 'informFolowUpToStudent']);
