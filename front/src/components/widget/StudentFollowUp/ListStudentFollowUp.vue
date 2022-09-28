@@ -14,7 +14,7 @@
         </div>
 
         <div class="w-1/6 flex justify-end px-1" v-if=" item.if_follow_up != 'Yes'">
-            <input type="checkbox" class="form-checkbox h-6 w-6 text-gray-600 cursor-pointer" :value="item.user.id" v-model="checked">
+            <input type="checkbox" class="form-checkbox h-6 w-6 text-gray-600 cursor-pointer" :value="item.id" v-model="checked">
         </div>
     </div>
    </div>
@@ -51,8 +51,7 @@ export default {
     getCheckBox(){
       // console.log(this.checked)
       for(let i = 0; i < this.checked.length; i++){
-          let userID = this.checked[i]
-          let id = userID -1
+          let id = this.checked[i]
           console.log(id)
           axios.put('http://127.0.0.1:8000/api/get_follow_up/'+id,{if_follow_up: 'Yes'}).then(()=>{
           })
@@ -63,7 +62,10 @@ export default {
     getChat(id){
       this.isChatID = id;
       this.$emit('emit_id', id)
-    }
+    },
+  },
+  mounted() {
+    console.log(this.listStudents)
   }
 };
 </script>

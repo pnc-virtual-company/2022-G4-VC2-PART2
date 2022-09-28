@@ -41,7 +41,7 @@ class Student extends Model
 
     protected $hidden = [
         'user_id',
-        'id',
+        // 'id',
         'batch_id',
         'created_at',
         'updated_at',
