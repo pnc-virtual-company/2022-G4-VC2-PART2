@@ -58,10 +58,11 @@
       </div>
       <!-- ____________Teacher PAGE VIEW__________ -->
      <div class="page w-4/6 500 flex justify-between px-3" v-if="false">
-        <router-link :to="item.link" class="w-2/6 py-1 flex items-center justify-center mx-7 duration-300 cursor-pointer" v-for="item of pages" :key="item">
+        <!-- <router-link :to="item.link" class="w-2/6 py-1 flex items-center justify-center mx-7 duration-300 cursor-pointer" v-for="item of pages" :key="item">
           <img :src="item.icon" alt="" width="20" class="mr-5">
           <span class="text-4 text-white self-center whitespace-nowrap dark:text-white">{{ item.teacher }}</span>
-        </router-link>
+        </router-link> -->
+        
       </div>
 
       <!-- ________STUDENT, ADMIN, COORDINATOR_____ -->
