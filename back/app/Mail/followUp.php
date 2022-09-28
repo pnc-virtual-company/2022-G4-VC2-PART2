@@ -17,7 +17,6 @@ class followUp extends Mailable
             $this->$x = $val;
         }
     }
-
     public function build()
     {
         return $this->from("slmspnc519@gmail.com")->subject("Follow Student")->view('follow-up-list.follow_up')

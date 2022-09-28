@@ -48,20 +48,39 @@ const routes = [
     meta: {
       requiresAuth: true,
       isAdmin:true,
-      // isTeacher:true,
      
     },
   },
+  {
+    path: "/followUp",
+    name: "followUp",
+    component: () =>import("@/views/coordinators/FollowUpView.vue"),
+    meta: {
+      requiresAuth: true,
+      isTeacher:true,
+     
+    },
+  },
+  {
+    path: "/listStudent",
+    name: "listStudent",
+    component: () => import("@/views/coordinators/StudentView.vue"),
+    meta: {
+      requiresAuth: true,
+      isAdmin:true,
+    },
+  },
+
   {
     path: "/studentList",
     name: "studentList",
     component: () => import("@/views/coordinators/StudentView.vue"),
     meta: {
       requiresAuth: true,
-      isAdmin:true,
-      // isTeacher:true
+      isTeacher:true
     },
   },
+
   {
     path: "/pageNotFound",
     component: () => import("../views/NotFoundView.vue"),
@@ -84,20 +103,9 @@ function authenticationGuard(to, from, next) {
   if (requiresAuth) {
     if(to.meta.isStudent){
       if(!localStorage.getItem('student_token')){
-          // localStorage.removeItem(ls.get('role')+'_token');
-          // localStorage.removeItem('role',)
-          // localStorage.removeItem('user');
-          // localStorage.removeItem('email');
-          // next('/')
           next('/pageNotFound')
-          
       }else{
         if(to.path == "/"){
-          // localStorage.removeItem(ls.get('role')+'_token');
-          // localStorage.removeItem('role',)
-          // localStorage.removeItem('user');
-          // localStorage.removeItem('email');
-          // next('/')
           next('/pageNotFound')
         }else{
           next()
@@ -105,19 +113,9 @@ function authenticationGuard(to, from, next) {
       }
     }else if(to.meta.isTeacher){
       if(!localStorage.getItem('teacher_token')){
-        //   localStorage.removeItem(ls.get('role')+'_token');
-        //   localStorage.removeItem('role',)
-        //   localStorage.removeItem('user');
-        //   localStorage.removeItem('email');
-        // next('/')
         next('/pageNotFound')
       }else{
         if(to.path == "/"){
-          // localStorage.removeItem(ls.get('role')+'_token');
-          // localStorage.removeItem('role',)
-          // localStorage.removeItem('user');
-          // localStorage.removeItem('email');
-          // next('/')
           next('/pageNotFound')
         }else{
           next()
@@ -125,20 +123,10 @@ function authenticationGuard(to, from, next) {
       }
     }else if(to.meta.isAdmin){
         if(!localStorage.getItem('coordinator_token')){
-          // localStorage.removeItem(ls.get('role')+'_token');
-          // localStorage.removeItem('role',)
-          // localStorage.removeItem('user');
-          // localStorage.removeItem('email');
-          // next('/')
           next('/pageNotFound')
 
         }else{
           if(to.path == "/"){
-            // localStorage.removeItem(ls.get('role')+'_token');
-            // localStorage.removeItem('role',)
-            // localStorage.removeItem('user');
-            // localStorage.removeItem('email');
-            // next('/')
           next('/pageNotFound')
 
           }else{
@@ -152,7 +140,10 @@ function authenticationGuard(to, from, next) {
             localStorage.removeItem('email');
             next('/')
 
-      }else{
+      }else if(to.path == "/profiles"){
+        next()
+      }
+      else{
         next('/pageNotFound')
       }
     

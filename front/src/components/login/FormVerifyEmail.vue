@@ -109,7 +109,8 @@ export default {
         }
       },
       checkPassword() {
-      axios.post(" http://localhost:8000/api/login", {
+      axios
+        .post(" http://localhost:8000/api/login", {
           email:this.email,
           password: this.password,
         })
@@ -119,15 +120,15 @@ export default {
             console.log("Login Success");
             if (ls.get("role") == "coordinator") {
               ls.set("coordinator_token", response.data.token);
+              router.push("/listStudent");
             }else if(ls.get("role") == "teacher"){
               ls.set("teacher_token", response.data.token);
+              router.push("/studentList");
             }else{
               ls.set("student_token", response.data.token);
+              router.push("/studetnCommentview");
             }
-            router.push("/navigation");
             this.$emit("loginSuccess");
-          }else{
-            this.isCorrectPassword = false;
           }
         });
     },

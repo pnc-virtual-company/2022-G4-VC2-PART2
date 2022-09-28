@@ -5,7 +5,6 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\StudentController;
 
-
 Route::post('/createUser',[UserController::class ,'createUser']);
 Route::post('/user',[UserController::class,'store']);
 Route::apiresource('/user',UserController::class);

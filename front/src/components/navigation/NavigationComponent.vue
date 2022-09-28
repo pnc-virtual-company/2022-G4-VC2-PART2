@@ -1,7 +1,7 @@
 <template >
 <div class="flex px-4 py-2 fixed h-18 top-0 z-10 items-center justify-between w-full drop-shadow-xl " style="background:var(--main-color)">
     <div class="logo w-1/6 px-5 flex justify-start">
-       <span  class="hover:bg-blue-400" @click="$router.push({ path: '/'})">
+       <span  class="hover:bg-blue-400">
         <img src="../../assets/sfu-logo.png" alt="" width="60" height="60">
        </span>
     </div>
@@ -111,10 +111,10 @@ export default {
           pages: [
             {title:'Follow Up', link:'/listFollowUp', icon:'https://cdn-icons-png.flaticon.com/512/8486/8486151.png'},
             {title:'Teachers', link:'/teacherList', icon:'https://cdn-icons-png.flaticon.com/512/65/65882.png'},
-            {title:'Students', link:'/studentList', icon:'https://cdn-icons-png.flaticon.com/512/57/57073.png'},
+            {title:'Students', link:'/listStudent', icon:'https://cdn-icons-png.flaticon.com/512/57/57073.png'},
           ],
           teacherPages: [
-            {teacher:'Follow Up', link:'/listFollowUp', icon:'https://cdn-icons-png.flaticon.com/512/8486/8486151.png'},
+            {teacher:'Follow Up', link:'/followUp', icon:'https://cdn-icons-png.flaticon.com/512/8486/8486151.png'},
             {teacher:'Students', link:'/studentList', icon:'https://cdn-icons-png.flaticon.com/512/57/57073.png'},
           ],
           studentPages:[
