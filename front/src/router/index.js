@@ -54,7 +54,6 @@ const routes = [
           isAdmin:true,
           isTeacher:true,
           isStudent:true,
-
         },
         component: () =>import("../views/coordinators/FollowUpView.vue"),
       },
