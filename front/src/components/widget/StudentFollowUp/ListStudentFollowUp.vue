@@ -1,7 +1,7 @@
 <template>
   <!-- <div > -->
    <div v-for="item of listStudents" :key="item">
-    <div class="w-full flex flex-row px-0.5 py-1 justify-start items-center hover:bg-gray-300 cursor-pointer" @click="getChat(item.user.id)" :class="{ 'bg-[#5184b0]':item.user.id == isChatID && item.if_follow_up == 'Yes' , 'text-white':item.user.id == isChatID && item.if_follow_up == 'Yes',  'hover:text-black':item.if_follow_up == 'Yes'}">
+    <div v-if="item.follow_up[0].closed =='No' " class="w-full flex flex-row px-0.5 py-1 justify-start items-center hover:bg-gray-300 cursor-pointer" @click="getChat(item.user.id)" :class="{ 'bg-[#5184b0]':item.user.id == isChatID && item.if_follow_up == 'Yes' , 'text-white':item.user.id == isChatID && item.if_follow_up == 'Yes',  'hover:text-black':item.if_follow_up == 'Yes'}">
         <div class="flex flex-row">
             <div class="w-14 h-14  flex justify-center items-center">
               <img :src="item.user.img?item.user.img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4MmBOmXsxgjBhhfDh4FSeM9wsFRgC_2uPrE362dA&s'" class="object-cover h-12 w-12 rounded-full" alt=""/>

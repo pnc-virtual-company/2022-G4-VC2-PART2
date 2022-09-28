@@ -40,6 +40,13 @@ Route::post('/mailFollowUp', [MailController::class , 'informFolowUpToStudent'])
 Route::get('/getSpecificComment/{id}', [CommentController::class , 'getSpecificComment']);
 //student reply msg to teacher
 Route::apiResource('/replyMsg', ReplyMessageController::class);
+// get number of follow students
+Route::get('/numberFollowUp/{id}', [FollowUpController::class,'getNumberFollowUp']);
+//get reply chat by comment id
+Route::get('/replyChatByFUID/{FUID}', [ReplyMessageController::class , 'getReplyByFUID']);
+//get comment by follow up id
+Route::get('/cmtChatByFuID/{followUpID}', [FollowUpController::class , 'getCmtByFUID']);
+
 
 
 // });

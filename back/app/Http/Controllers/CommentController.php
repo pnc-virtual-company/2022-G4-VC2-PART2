@@ -33,6 +33,9 @@ class CommentController extends Controller
         $comment->user_id = $request->user_id;
         $comment->topic = $request->topic;
         $comment->content = $request->content;
+        if($request->action != null){
+            $comment->action = $request->action;
+        }
         $comment->created_at = now()->toTimeString();
         $comment->updated_at = now()->toTimeString();
         $comment->save();
@@ -56,9 +59,7 @@ class CommentController extends Controller
         $comment = Comment::findOrfail($id);
         $validate = $request->validate([
             'content' => 'required',
-            'topic' => 'required',
         ]);
-        $comment->topic = $request->topic;
         $comment->content = $request->content;
         $comment->update();
         return response()->json(['msg' => 'successfully']);

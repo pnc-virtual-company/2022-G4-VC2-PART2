@@ -6,21 +6,28 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
     public function up()
     {
-        Schema::create('follow_ups', function (Blueprint $table) {
+        Schema::create('number_of_follow_ups', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("user_id")->constrained()->onDelete("CASCADE");
+            $table->foreignId("follow_up_id")->constrained()->onDelete("CASCADE");
             $table->foreignId("student_id")->constrained()->onDelete("CASCADE");
-            $table->string('closed')->default("No");
             $table->timestamps();
         });
     }
 
-
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
     public function down()
     {
-        Schema::dropIfExists('follow_ups');
+        Schema::dropIfExists('number_of_follow_ups');
     }
 };

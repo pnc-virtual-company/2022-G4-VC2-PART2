@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ReplyMessage;
+use App\Models\Follow_up;
 use Illuminate\Http\Request;
 
 class ReplyMessageController extends Controller
@@ -37,16 +38,9 @@ class ReplyMessageController extends Controller
     {
         $replyMessage = ReplyMessage::findOrfail($id);
         $validate = $request->validate([
-            'student_id' => 'required',
-            'comment_id' => 'required',
             'reply_msg' => 'required',
-            'follow_up_id' => 'required',
-
         ]);
-        $replyMessage->student_id = $request->student_id;
-        $replyMessage->comment_id = $request->comment_id;
         $replyMessage->reply_msg = $request->reply_msg;
-        $replyMessage->follow_up_id = $request->follow_up_id;
         $replyMessage->update();
         return response()->json(['msg' => 'success updated']);
     }
@@ -61,5 +55,10 @@ class ReplyMessageController extends Controller
     public function destroy( $id)
     {
         return ReplyMessage::destroy($id);
+    }
+
+    public function getReplyByFUID($id)
+    {
+        return Follow_up::with(['replyMsg'])->where(['id' => $id])->get();
     }
 }

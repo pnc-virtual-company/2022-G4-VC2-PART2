@@ -24,13 +24,28 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $user = new User();
-        $validate = $request->validate([
-            'email' => 'required',
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'gender' => 'required',
-            'password' => 'required',
-        ]);
+        if ($request->role == 'student'){
+            $validate = $request->validate([
+                'email' => 'required',
+                'first_name' => 'required',
+                'last_name' => 'required',
+                'gender' => 'required',
+                'password' => 'required',
+                'class' => 'required',
+                'year' => 'required',
+                'province' => 'required',
+                'NGO' => 'required',
+                'batch' => 'required',
+            ]);
+        }else{
+            $validate = $request->validate([
+                'email' => 'required',
+                'first_name' => 'required',
+                'last_name' => 'required',
+                'gender' => 'required',
+                'password' => 'required',
+            ]);
+        }
 
             $user->first_name = $request->first_name;
             $user->last_name = $request->last_name;
@@ -53,13 +68,6 @@ class UserController extends Controller
             $student = new Student();
             $batchs = new Batch();
             if ($request->role == 'student') {
-                $validate = $request->validate([
-                    'class' => 'required',
-                    'year' => 'required',
-                    'province' => 'required',
-                    'NGO' => 'required',
-                    'batch' => 'required',
-                ]);
                 $id = User::latest()->first();
                 $student->user_id = $id['id'];
                 $student->batch_id = $id['id'];
@@ -71,11 +79,6 @@ class UserController extends Controller
                 $batchs->batch = $request->year;
                 $batchs->save();
                 $student->save();
-                // if(!$student->save() || !$batchs->save()){
-                //     User::destroy( $id['id']);
-                //     Student::destroy( $id['id']);
-                //     Batch::destroy( $id['id']);
-                // }
             }
 
     }
@@ -176,6 +179,8 @@ class UserController extends Controller
     {
         return User::orderBy('first_name')->get();
     }
+
+ 
 
     /********************************** User Log In ************************************* */
     public function login(Request $request) {
