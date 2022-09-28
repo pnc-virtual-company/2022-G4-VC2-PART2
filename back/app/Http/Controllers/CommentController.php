@@ -76,4 +76,9 @@ class CommentController extends Controller
         return Comment::where('topic', $topic)->get();
     }
 
+    public function getAllTopic()
+    {
+        return Comment::select('topic')->distinct()->get();
+    }
+
 }

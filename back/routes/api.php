@@ -46,6 +46,9 @@ Route::get('/numberFollowUp/{id}', [FollowUpController::class,'getNumberFollowUp
 Route::get('/replyChatByFUID/{FUID}', [ReplyMessageController::class , 'getReplyByFUID']);
 //get comment by follow up id
 Route::get('/cmtChatByFuID/{followUpID}', [FollowUpController::class , 'getCmtByFUID']);
+//get all topic
+Route::get('/allTopic', [CommentController::class , 'getAllTopic']);
+
 
 
 
