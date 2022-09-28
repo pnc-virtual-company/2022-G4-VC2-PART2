@@ -18,6 +18,8 @@ class UserController extends Controller
     public function index()
     {
         return User::with(['student'])->get();
+        // return User::latest()->get();
+        // return User::first();
     }
 
 
@@ -50,7 +52,7 @@ class UserController extends Controller
             $user->email = $request->email;
             $user->password = bcrypt($request->password);
             $user->save();
-            if ($request->role == 'student') {
+            if ($request-> role == 'student') {
                 $validate = $request->validate([
                     'class' => 'required',
                     'year' => 'required',
@@ -70,6 +72,7 @@ class UserController extends Controller
                 $batchs->save();
                 $student->save();
             }
+
     }
 
 
@@ -129,7 +132,6 @@ class UserController extends Controller
             return response()->json(['message'=>'update successfully']);
 
     }
-
 
     public function destroy($id)
     {

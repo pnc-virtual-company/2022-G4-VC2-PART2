@@ -287,6 +287,7 @@ emits:['close'],
                         this.validateEmail()
                 })
                 } else {  
+                    console.log(addList)
                         axios.post('http://localhost:8000/api/user/', addList).then(() => {
                             this.$emit('close', false)
                             // Swal.fire({
@@ -295,7 +296,8 @@ emits:['close'],
                             // })
                         }).catch((err) => {
                             console.log(err);
-                                this.validateEmail()
+                            console.log('I am wrong email')
+                            this.validateEmail()
                         })
                 }
             } else {
