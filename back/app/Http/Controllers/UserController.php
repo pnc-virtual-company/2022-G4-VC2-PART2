@@ -149,22 +149,24 @@ class UserController extends Controller
         }
         return User::where('role', $role)->get();
     }
-
-    public function updateImage(Request $request, $id)
-    {
-        $student = User::find($id); {
+     // UPDATE IMAGE OF PROFILE
+     public function updateImage(Request $request, $id){
+        $student = User::find($id);
+        {
             $path = public_path('images');
-            if (!file_exists($path)) {
+            if ( ! file_exists($path) ) {
                 mkdir($path, 0777, true);
             }
-            $file = $request->file('image');
+            $file = $request->file('img');
             $fileName = uniqid() . '_' . trim($file->getClientOriginalName());
             $file->move($path, $fileName);
-            $student->image = asset('images/' . $fileName);
+            $student->img = asset('images/' . $fileName);
         }
         $student->save();
         return response()->json(["message" => "Image is saved successfully"]);
     }
+
+
 
     public function orderByFname()
     {

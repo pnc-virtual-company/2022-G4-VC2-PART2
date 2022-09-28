@@ -49,3 +49,5 @@ Route::post('/createUser', [UserController::class , 'createUser']);
 
 // getFollowUpOne
 Route::get('/get_follow_up/{id}', [StudentController::class , 'getFollowUpOne']);
+// UPLOAD IMAGE
+Route::put('/upload/{id}', [UserController::class , 'updateImage']);
