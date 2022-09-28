@@ -253,9 +253,9 @@ export default {
     newTopic() {
        document.getElementById('topic').style.display = ''
     },
-    closeBoard(id, followUPID) {
+    closeBoard(id) {
       document.getElementById(id +'board').remove();
-      axios.put('http://127.0.0.1:8000/api/follow_up/' + id, { fuId: followUPID }).then(() => {
+      axios.put('http://127.0.0.1:8000/api/follow_up/' + id).then(() => {
         this.getAllData()
       })
     },
@@ -404,7 +404,6 @@ export default {
       }
     },
     deleteRp(rpId) {
-      console.log(rpId);
       let rpTxt = document.getElementById(rpId + 'delete');
       rpTxt.remove();
       axios.delete('http://localhost:8000/api/replyMsg/' + rpId);
