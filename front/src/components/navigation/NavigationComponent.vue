@@ -9,7 +9,7 @@
     <!-- ___LINK PAGE STUDENT SOCIAL AFIA_____ -->
     <div class="constainer flex justify-between w-8/12 ">
       <!-- _______SEE ONLY STUDETT_______ -->
-      <div class="w-8/12 flex justify-end" v-if="false">
+      <div class="w-8/12 flex justify-end" v-if="true">
           <div class="group inline-block w-5/12  text-center px-4">
             <div @click="$router.push({ path: '/studetnCommentview'})" class="w-11/12 py-1 flex items-center justify-center mx-1 duration-300 cursor-pointer rounded-sm  hover:bg-[#173043]">
               <span class="z-0 mx-2">
@@ -49,7 +49,7 @@
         </div>
         <!-- _____END STUDENT VIEW_____ -->
 
-      <!-- _____START PAGE VIEW_____ -->
+      <!-- _____START PAGE VIEW Admin_____ -->
      <div class="page w-4/6 500 flex justify-between px-3" v-if="true">
         <router-link :to="item.link" class="w-2/6 py-1 flex items-center justify-center mx-7 duration-300 cursor-pointer" v-for="item of pages" :key="item">
           <img :src="item.icon" alt="" width="20" class="mr-5">
@@ -92,6 +92,7 @@
 export default {
     data(){
       return {
+        //admin Route
           pages: [
             {title:'Follow Up', link:'/listFollowUp', icon:'https://cdn-icons-png.flaticon.com/512/8486/8486151.png'},
             {title:'Teachers', link:'/teacherList', icon:'https://cdn-icons-png.flaticon.com/512/65/65882.png'},
