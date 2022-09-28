@@ -137,7 +137,7 @@
                                   placeholder="Type your replymessage here..." required="" style="width:94%">
                             </div>
                             <div lass="w-full" v-for="reply of rpEachFU" :key="reply" >
-                              <div class="flex flex-row pt-1 md-10 md:ml-16 w-full  rounded-md  mt-3" v-if="cmt.id == reply.comment_id" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;width:90%; word-break:all'">
+                              <div  :id="reply.id+'delete'"  class="flex flex-row pt-1 md-10 md:ml-16 w-full  rounded-md  mt-3" v-if="cmt.id == reply.comment_id" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;width:90%; word-break:all'">
                                 <img   class="w-12 h-12 border-2 border-gray-300 rounded-full" alt="Emily's avatar" v-if="cmt.id == reply.comment_id"
                                     src="https://images.unsplash.com/photo-1581624657276-5807462d0a3a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&fit=facearea&faces=1&faceindex=1&facepad=2.5&w=500&h=500&q=80">
                                 <div class="flex items-center flex-1 px-4  leading-tight w-full" :id='reply.id+"editRp"' style='display:none'>
@@ -391,7 +391,8 @@ export default {
       }
     },
     deleteRp(rpId) {
-      let rpTxt = document.getElementById(rpId + 'form');
+      console.log(rpId);
+      let rpTxt = document.getElementById(rpId + 'delete');
       rpTxt.remove();
       axios.delete('http://localhost:8000/api/replyMsg/' + rpId);
 
