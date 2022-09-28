@@ -1,7 +1,7 @@
-<template>
+<!-- <template>
   <div>
     <ForgotPassword v-if="isForgetPassword" />
-    <div class="bg-grey-lighter min-h-screen flex flex-col" v-if="!isForgetPassword">
+    <div class="bg-grey-lighter min-h-screen flex flex-col">
       <div
         class="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2"
       >
@@ -20,7 +20,6 @@
               placeholder="Password"
               v-model="password"
             />
-            <p v-if="isCorrectPassword==false" class="text-red-500">Incorrect Password!</p>
             <a @click="forgetPassword">Forget Password</a>
             <div class="flex text-right justify-end">
               <button
@@ -45,12 +44,10 @@ export default {
   components: {
     ForgotPassword,
   },
-  props:['isPassword'],
   data() {
     return {
       password: "",
       isForgetPassword: false,
-      isCorrectPassword:null,
       email:ls.get("user")
     };
   },
@@ -84,7 +81,9 @@ export default {
         console.log(response.data)
         ls.set('code',response.data.code)
       })
-      this.isForgetPassword = true
+      if(this.code == ls.get('code')){
+        this.isForgetPassword = true;
+      }
     },
   },
 };
@@ -98,4 +97,4 @@ export default {
     no-repeat left;
   background-size: 35px;
 }
-</style>
+</style> -->
