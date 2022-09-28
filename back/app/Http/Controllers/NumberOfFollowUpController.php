@@ -10,7 +10,7 @@ class NumberOfFollowUpController extends Controller
 
     public function index()
     {
-        return NumberOfFollowUp::where('student_id', $id)->count();
+        // return NumberOfFollowUp::where('student_id', $id)->count();
     }
 
 
@@ -31,7 +31,7 @@ class NumberOfFollowUpController extends Controller
         //
     }
 
-   
+
     public function destroy(NumberOfFollowUp $numberOfFollowUp)
     {
         //

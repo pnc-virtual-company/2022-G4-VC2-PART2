@@ -24,7 +24,6 @@ class Follow_up extends Model
         return $this->hasMany(Comment::class);
     }
 
-<<<<<<< HEAD
     public function replyMsg()
     {
         return $this->hasMany(ReplyMessage::class);
@@ -34,7 +33,5 @@ class Follow_up extends Model
     {
         return $this->belongsTo(Follow_up::class);
     }
-=======
-   
->>>>>>> 935d108ad1207aedb3ded64692c495019df14e21
+
 }

@@ -92,7 +92,7 @@
                     
                       :for="isUpload? 'profile-upload': 'not-puload'"  @click="hadleUpload"
                       class="h-auto w-1/5 mx-auto cursor-pointer mt-[-20px]"
-                      src="@/assets/cam.png"
+                      src="../../assets/cam.png"
                       alt=""
                     />
 
