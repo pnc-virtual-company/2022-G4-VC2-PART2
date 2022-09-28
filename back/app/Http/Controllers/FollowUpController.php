@@ -37,7 +37,7 @@ class FollowUpController extends Controller
 
     public function update(Request $request, $id)
     {
-        $follow_up = Follow_up::findOrfail($request->fuId);
+        $follow_up = Follow_up::findOrfail($id);
         $user = Student::findOrfail($id);
         $user->if_follow_up = 'No';
         $follow_up->closed = "Yes";
