@@ -174,7 +174,13 @@
                   </section>
                 </div>
               </div>
-              <div class="w-full  flex items-end">
+              <div class="ml-3 mb-2 w-full flex mt-3 justify-start items-end">
+                <p class="text-blue-500  underline cursor-pointer" @click="newTopic()">Add new topic</p>
+                <input v-model="topic" id="topic"
+                  class="ml-9 block p-2.5 text-sm text-gray-900 bg-gray-50 border-green-200 border-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500"
+                  placeholder="Type your topic here..." required="" style="width:63%;display:none;">
+              </div>
+              <div class="w-full  flex items-end mb-3">
                 <div class="w-full"> `
                   <div class="flex">
                     <Base_DropDwon_Menu :title="'Topic'" :lists="lists" @emtt_selecte="selectTopic" />
@@ -194,6 +200,7 @@
                   </div>
                 </div>
               </div>
+             
             </div>
           </div>
         </div>
@@ -231,7 +238,7 @@ export default {
       search_data: '',
       commets: {},
       isTrue: false,
-      lists: ['HTML', 'CSS', 'Algorithm'],
+      lists:[],
       eachStdFUCount: 0,
       cmtEachFU: [],
       rpEachFU: [],
@@ -243,6 +250,9 @@ export default {
     };
   },
   methods: {
+    newTopic() {
+       document.getElementById('topic').style.display = ''
+    },
     closeBoard(id, followUPID) {
       document.getElementById(id +'board').remove();
       axios.put('http://127.0.0.1:8000/api/follow_up/' + id, { fuId: followUPID }).then(() => {
@@ -250,6 +260,7 @@ export default {
       })
     },
     selectTopic(value) {
+      console.log(value);
       this.topic = value;
     },
     actionCmt() {
@@ -347,6 +358,7 @@ export default {
     },
 
     addComment(studentID,followUPID) {
+      document.getElementById('topic').style.display = 'none'
       const userComment = {
         content: this.comment,
         topic: this.topic,
@@ -362,6 +374,7 @@ export default {
         if (!this.ifEdite) {
           axios.post('http://localhost:8000/api/comment/', userComment).then(() => {
             this.comment = ''
+            this.getAllTopic()
             this.getCmtByFUID(followUPID);
             
           });
@@ -453,9 +466,18 @@ export default {
         this.rpEachFU = response.data[0].reply_msg;
       })
     },
+    getAllTopic() {
+      this.lists = []
+      axios.get('http://localhost:8000/api/allTopic').then((response) => {
+        for (let value of response.data) {
+          this.lists.push(value.topic)
+        }
+      })
+    }
   },
 
   mounted() {
+    this.getAllTopic()
     this.getAllData()
   },
 
