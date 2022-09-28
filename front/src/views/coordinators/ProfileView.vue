@@ -1,122 +1,286 @@
 <template>
-<div class="w-full  mt-20 m-aut px-2">
-          <!-- component -->
-        <div class="bg-gray-100">
-            <div class="w-full text-black">
-                <div class="flex flex-col max-w-screen-xl px-4 mx-auto md:items-center md:justify-between md:flex-row md:px-6 lg:px-8">
-                    <div class="p-4 flex flex-row items-center justify-between">
-                        <h2 class="text-lg font-semibold tracking-widest uppercase rounded-lg focus:outline-none focus:shadow-outline">
-                            example
-                            profile
-                        </h2>
-                    </div>
-                </div>
-            </div>
-    <!-- End of Navbar -->
-    <div class="container mx-auto my-5 p-5">
-        <div class="md:flex no-wrap md:-mx-2 ">
-            <!-- Left Side -->
-            <div class="w-full md:w-3/12 md:mx-2">
-                <!-- Profile Card -->
-                <div class="bg-white p-3 border-t-4 border-green-400">
-                    <div class="image overflow-hidden">
-                        <img class="h-auto w-full mx-auto"
-                            src="https://lavinephotography.com.au/wp-content/uploads/2017/01/PROFILE-Photography-112.jpg"
-                            alt="">
-                    </div>
-                    <h1 class="text-gray-900 font-bold text-xl leading-8 my-1">Jane Doe</h1>
-                </div>
-            </div>
-            <!-- Right Side -->
-            <div class="w-full md:w-9/12 mx-2 h-64">
-                <!-- Profile tab -->
-                <!-- About Section -->
-                <div class="bg-white p-3 shadow-sm rounded-sm">
-                    <div class="flex items-center space-x-2 font-semibold text-gray-900 leading-8">
-                        <span clas="text-green-500">
-                            <svg class="h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                            </svg>
-                        </span>
-                        <span class="tracking-wide">About</span>
-                    </div>
-                    <div class="text-gray-700">
-                        <div class="grid md:grid-cols-2 text-sm">
-                            <div class="grid grid-cols-2">
-                                <div class="px-4 py-2 font-semibold">First Name</div>
-                                <div class="px-4 py-2">Jane</div>
-                            </div>
-                            <div class="grid grid-cols-2">
-                                <div class="px-4 py-2 font-semibold">Last Name</div>
-                                <div class="px-4 py-2">Doe</div>
-                            </div>
-                            <div class="grid grid-cols-2">
-                                <div class="px-4 py-2 font-semibold">Gender</div>
-                                <div class="px-4 py-2">Female</div>
-                            </div>
-                            <div class="grid grid-cols-2">
-                                <div class="px-4 py-2 font-semibold">Contact No.</div>
-                                <div class="px-4 py-2">+11 998001001</div>
-                            </div>
-                            <div class="grid grid-cols-2">
-                                <div class="px-4 py-2 font-semibold">Current Address</div>
-                                <div class="px-4 py-2">Beech Creek, PA, Pennsylvania</div>
-                            </div>
-                            <div class="grid grid-cols-2">
-                                <div class="px-4 py-2 font-semibold">Permanant Address</div>
-                                <div class="px-4 py-2">Arlington Heights, IL, Illinois</div>
-                            </div>
-                            <div class="grid grid-cols-2">
-                                <div class="px-4 py-2 font-semibold">Email.</div>
-                                <div class="px-4 py-2">
-                                    <a class="text-blue-800" href="mailto:jane@example.com">jane@example.com</a>
-                                </div>
-                            </div>
-                            <div class="grid grid-cols-2">
-                                <div class="px-4 py-2 font-semibold">Birthday</div>
-                                <div class="px-4 py-2">Feb 06, 1998</div>
-                            </div>
-                        </div>
-                    </div>
-                    <button
-                        class="block w-full text-blue-800 text-sm font-semibold rounded-lg hover:bg-gray-100 focus:outline-none focus:shadow-outline focus:bg-gray-100 hover:shadow-xs p-3 my-4">Show
-                        Full Information</button>
-                </div>
-                <!-- End of about section -->
+  <div class="w-full mt-24 m-auto px-4">
+    <!-- component -->
+    <div  class="bg-gray-100">
+      <div class="w-full text-white border-t-4 border-blue-300">
+        <div
+          class="
+            flex flex-col
+            max-w-screen-xl
+            px-4
+            mx-auto
+            md:items-center md:justify-between md:flex-row md:px-6
+            lg:px-8
+      
+          "
 
-
-             
-                <!-- End of profile tab -->
-            </div>
+        >
+          <div class="p-4 flex flex-row items-center justify-between">
+            <h1
+          
+              class="
+                
+                text-[3rem]
+                text-blue-500
+                font-semibold
+                tracking-widest
+                uppercase
+                rounded-lgc
+              "
+            >
+              profile
+            </h1>
+          </div>
         </div>
+      </div>
+      <!-- End of Navbar -->
+      <div class="container mx-auto p-5">
+        <div class="md:flex no-wrap">
+          <!-- Left Side -->
+          <div class="w-full md:w-2/12 md:mx-8">
+            <!-- Profile Card -->
+            <div class="bg-white p-3 shadow-md">
+              <div class="w-44 flex justify-center">
+                <img class="w-40 h-40 rounded-sm" :src="user.img !=null?user.img:avataImage" alt="image description">
+              </div>
+              <div  class="flex justify-center  border-rounded">
+                <div  class="image">
+                  <label for="profile-upload">
+                    <img class="h-auto w-1/5 mx-auto cursor-pointer mt-[-20px]" src="../../assets/cam.png"  alt="" />
+                  </label>
+                  <input @change="onFileSelected" id="profile-upload" type="file" hidden="true">
+                </div>
+              </div>
+              <div
+                class="
+                  flex
+                  justify-center
+                  space-x-2
+                  font-semibold
+                  text-gray-800
+                  leading-8
+                "
+              >
+                <h1
+                  class="
+                    text-gray-900
+                    font-bold
+                    text-xl   
+                    my-2
+                  "
+                >
+                {{user.first_name}} {{user.last_name}}
+                </h1>
+              </div>
+            </div>
+            <!-- End of friends card -->
+          </div>
+          <!-- Right Side -->
+          <div  class="w-full md:w-9/12 bg-white shadow">
+            <!-- Profile tab -->
+            <!-- About Section -->
+            <div   class="p-4">
+              <div 
+                class="
+                  flex
+                  items-center
+                  space-x-2
+                  font-semibold
+                  text-gray-800
+                  leading-8
+                "
+              >
+                <span clas="text-green-500">
+                  <svg
+                    class="h-5"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                    />
+                  </svg>
+                </span>
+                <span class="tracking-wide">About</span>
+              </div>
+              <div class=" text-gray-700 border-t-2 border-gray-300">
+                <div class="grid md:grid-cols-2 text-sm">
+                  <div  class="grid grid-cols-2">
+                    <div class="px-4 py-2 font-semibold flex justify-start items-center">
+                      <span class="mx-1">
+                        <img src="../../assets/name.png" alt="" class="w-3 h-3">
+                      </span>
+                      <span>
+                        First Name
+                      </span>
+                    </div>
+                    <div class="px-4 py-2">{{user.first_name}}</div>
+                  </div>
+                  <div class="grid grid-cols-2">
+                    <div class="px-4 py-2 font-semibold flex justify-start items-center">
+                      <span class="mx-1">
+                        <img src="../../assets/name.png" alt="" class="w-3 h-3">
+                      </span>
+                      <span>
+                        Last Name
+                      </span>
+                    </div>
+                    <div class="px-4 py-2">{{user.last_name}}</div>
+                  </div>
+      
+                  <div class="grid grid-cols-2">
+                    <div class="px-4 py-2 font-semibold flex justify-start items-center">
+                      <span class="mx-1">
+                        <img src="../../assets/gender.png" alt="" class="w-3 h-3">
+                      </span>
+                      <span>
+                        Gender
+                      </span>
+                    </div>
+                    <div class="px-4 py-2">Female</div>
+                  </div>
+
+                  <div class=" grid grid-cols-2">
+                    <div class="px-4 py-2 font-semibold flex justify-start items-center">
+                      <span class="mx-1">
+                        <img src="../../assets/email.png" alt="" class="w-3 h-3">
+                      </span>
+                      <span>
+                        Email
+                      </span>
+                    </div>
+                    <div class="px-4 py-2">{{user.email}}</div>
+                  </div>
+                  <div class=" grid grid-cols-2" v-if="this.user.role=='student'">
+                    <div class="px-4 py-2 font-semibold flex justify-start items-center">
+                      <span class="mx-1">
+                        <img src="../../assets/ngo.png" alt="" class="w-3 h-3">
+                      </span>
+                      <span>
+                        NGO
+                      </span>
+                    </div>
+                    <div class="px-4 py-2">{{ students.NGO }}</div>
+                  </div>
+                  <div class=" grid grid-cols-2" v-if="this.user.role=='student'">
+                    <div class="px-4 py-2 font-semibold flex justify-start items-center">
+                      <span class="mx-1">
+                        <img src="../../assets/batch.png" alt="" class="w-3 h-3">
+                      </span>
+                      <span>
+                        Batch
+                      </span>
+                    </div>
+                    <div class="px-4 py-2">{{ students.year }}</div>
+                  </div>
+                  <div class=" grid grid-cols-2" v-if="this.user.role=='student'">
+                    <div class="px-4 py-2 font-semibold flex justify-start items-center">
+                      <span class="mx-1">
+                        <img src="../../assets/class.png" alt="" class="w-3 h-3">
+                      </span>
+                      <span>
+                        Class
+                      </span>
+                    </div>
+                    <div class="px-2 py-2">{{ students.class }}</div>
+                  </div>
+                  <div class=" grid grid-cols-2" v-if="this.user.role=='student'">
+                    <div class="px-4 py-2 font-semibold flex justify-start items-center">
+                      <span class="mx-1">
+                        <img src="http://3.bp.blogspot.com/-dzKojeF__I0/VpJPQT-dMHI/AAAAAAAAE54/RkufPXD6G2E/s1600/8.png" alt="" class="w-3 h-3">
+                      </span>
+                      <span>
+                        Province
+                      </span>
+                    </div>
+                    <div class="px-4 py-2">{{ students.province }}</div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-</div>
-</div>
+  </div>
 </template>
 <script>
+  import axios from "axios";
+  import ls from 'localstorage-slim'
+  ls.config.encrypt = true;
 export default {
-    
-}
+  data() {
+    return {
+      user:{},
+      students:{},
+      profile:"",
+      avataImage:'https://cdn-icons-png.flaticon.com/512/149/149071.png',
+      id:ls.get('id'),
+    };
+  },
+  methods:{
+    // GET DATA OF USER
+    getUserFromAPI(){
+      axios.get("http://127.0.0.1:8000/api/user/2").then((res)=>{
+        this.user = res.data[0];
+        console.log(this.user.role)
+        this.students = this.user.student[0]
+        
+      })
+    },
+    // SELECTE FILES IMAGE
+    async onFileSelected(event){
+      this.onUpload(event.target.files[0])
+    },
+    // UPLOAD IMAGES
+    onUpload(image){
+        const fd = new FormData();
+        fd.append('img', image)
+        fd.append('_method', 'PUT')
+        axios.post('http://127.0.0.1:8000/api/upload/2', fd).then(()=>{
+          return this.getUserFromAPI();
+        })
+    },
+    // Don't know
+    clearUploadImage() {
+      this.image=null;
+      this.profile='http://127.0.0.1:8000/storage/pictures/'+this.user.image
+      this.isUpload=false;
+      this.clickChangeprofile=!this.clickChangeprofile;
+    },
+
+    },
+    mounted(){
+      this.getUserFromAPI();
+    }
+};
 </script>
 
+
+
+
 <style>
-  :root {
-      --main-color: #4a76a8;
-  }
+:root {
+  --main-color: #4a76a8;
+} 
 
-  .bg-main-color {
-      background-color: var(--main-color);
-  }
+.bg-main-color {
+  background-color: var(--main-color);
+}
 
-  .text-main-color {
-      color: var(--main-color);
-  }
+.text-main-color {
+  color: var(--main-color);
+}
 
-  .border-main-color {
-      border-color: var(--main-color);
-  }
+.border-main-color {
+  border-color: var(--main-color);
+}
 </style>
 <!-- <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script> -->
