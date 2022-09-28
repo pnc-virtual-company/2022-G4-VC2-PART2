@@ -77,9 +77,19 @@ class UserController extends Controller
                 $student->class = $request->class;
                 $student->year = $request->year;
                 $batchs->batch = $request->year;
+<<<<<<< HEAD
                 $batchs->save();
                 $student->save();
             }
+=======
+                if(!$student->save() or !$batchs->save()) {
+                    User::destroy($id['id']);
+                    Student::destroy($id['id']);
+                    Batch::destroy($id['id']);
+                    return response()->json(['msg'=>'error']);
+                }
+            return response()->json(['msg' => 'success']);
+>>>>>>> 935d108ad1207aedb3ded64692c495019df14e21
 
     }
 
@@ -96,7 +106,7 @@ class UserController extends Controller
         $validate = $request->validate([
             'email' => 'required',
             'first_name' => 'required',
-            'last_name' => 'required',
+            'last_name' => '        n  ',
             'gender' => 'required',
         ]);
 

@@ -51,7 +51,7 @@ Route::get('/cmtChatByFuID/{followUpID}', [FollowUpController::class , 'getCmtBy
 
 // });
 // ----------------------userLogin-------------------------
-Route::post('/login', [UserController::class , 'login']);
+Route::get('/login', [UserController::class , 'login']);
 Route::post('/logout', [UserController::class , 'logout']);
 Route::post('/createUser', [UserController::class , 'createUser']);
 // getFollowUpOne

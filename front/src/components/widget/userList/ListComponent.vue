@@ -3,14 +3,21 @@
   <!-- TITLE OF PAGES -->
   <div
     class="
+<<<<<<< HEAD
       overflow-x-auto
       relative
+=======
+>>>>>>> 935d108ad1207aedb3ded64692c495019df14e21
       shadow-sm
       bg-gray-50
       sm:rounded-lg
       p-4
       z-50
+<<<<<<< HEAD
       border-4 border-t-[#018ABD]
+=======
+      border-2 border-t-[#018ABD]
+>>>>>>> 935d108ad1207aedb3ded64692c495019df14e21
     "
   >
     <div class="py-1 pb-3">
@@ -82,10 +89,14 @@
     <!-- CLOSE THE DIALOG -->
     <div v-if="openDialog" class="opacity-30 fixed inset-0 z-40 bg-black"></div>
     <!-- TABLES COMTAINER ALL LIST OF STUDENTS-->
+<<<<<<< HEAD
     <table
       class="w-full text-sm text-left text-gray-500 dark:text-gray-400"
       v-if="listUsers.length > 0"
     >
+=======
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+>>>>>>> 935d108ad1207aedb3ded64692c495019df14e21
       <thead
         class="
           text-xs text-gray-700
@@ -104,7 +115,10 @@
           >
             Email
           </th>
+<<<<<<< HEAD
           <!-- Teacher email title-->
+=======
+>>>>>>> 935d108ad1207aedb3ded64692c495019df14e21
           <th
             scope="col"
             class="py-2 px-4 text-center"
@@ -129,17 +143,31 @@
           v-for="(item, index) in listUsers"
           :key="index"
           class="
+<<<<<<< HEAD
             bg-white
             border-b
             dark:bg-gray-800 dark:border-gray-700
             hover:bg-gray-50
             dark:hover:bg-gray-600
+=======
+            border-b
+            dark:bg-gray-100
+            hover:bg-gray-50
+            dark:hover:bg-gray-300
+>>>>>>> 935d108ad1207aedb3ded64692c495019df14e21
           "
         >
           <td class="text-black font-semibold py-3 px-4 text-cente">
             {{ item.first_name }} {{ item.last_name }}
           </td>
+<<<<<<< HEAD
           <td class="py-3 px-4 text-center" v-if="standingPage == 'teacher'">
+=======
+          <td
+            class="py-3 px-4 text-center text-blue-500"
+            v-if="standingPage == 'teacher'"
+          >
+>>>>>>> 935d108ad1207aedb3ded64692c495019df14e21
             {{ item.email }}
           </td>
           <!-- Teacher email -->
@@ -250,6 +278,10 @@
                   d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
                 />
               </svg>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 935d108ad1207aedb3ded64692c495019df14e21
               <div
                 class="
                   group-hover:[transform:perspective(0px)_translateZ(0)_rotateX(0deg)]
@@ -265,7 +297,11 @@
                   duration-300
                   group-hover:opacity-100
                 "
+<<<<<<< HEAD
               ></div>
+=======
+              >
+>>>>>>> 935d108ad1207aedb3ded64692c495019df14e21
                 <div class="flex max-w-xs flex-col items-center">
                   <div
                     class="
@@ -281,13 +317,24 @@
                     Delete
                   </div>
                 </div>
-              </i>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <!--______IF NON LIST HERE_______-->
-    <div v-if="!showListStd" class="w-full  dark:bg-gray-800  dark:hover:bg-gray-600 flex justify-center items-center py-4">
+              </div>
+            </i>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <!--______IF NON LIST HERE_______-->
+    <div
+      v-if="!showListStd"
+      class="
+        w-full
+        dark:bg-gray-800 dark:hover:bg-gray-600
+        flex
+        justify-center
+        items-center
+        py-4
+      "
+    >
       <h1 class="text-red-600 text-[20px]">List User is empty</h1>
     </div>
   </div>
@@ -299,6 +346,7 @@ import Bass_Dialog_Form from "../dialogFrom/BaseDialogForm.vue";
 import Base_DropDwon_Menu from "../dropdown_menu/BaseDropDown.vue";
 import BaseSearch from "../search/BaseSearch.vue";
 export default {
+<<<<<<< HEAD
     props:['listUsers', 'createUsers', 'updateUser', 'title','standingPage'], 
     emits:['emits-page', 'set_to_sfu'],
     components: {
@@ -307,6 +355,16 @@ export default {
        Base_DropDwon_Menu,
        BaseSearch
     },
+=======
+  props: ["listUsers", "createUsers", "updateUser", "title", "standingPage"],
+  emits: ["emits-page", "set_to_sfu"],
+  components: {
+    Bass_Dialog_Form,
+    Base_Button,
+    Base_DropDwon_Menu,
+    BaseSearch,
+  },
+>>>>>>> 935d108ad1207aedb3ded64692c495019df14e21
   data() {
     return {
       openDialog: false,
@@ -314,13 +372,17 @@ export default {
       objectUpdating: {}, // Store list which should we update
       lists: [2022, 2023, 2024],
       showListStd: false,
+<<<<<<< HEAD
     }
+=======
+    };
+>>>>>>> 935d108ad1207aedb3ded64692c495019df14e21
   },
   watch: {
     listUsers() {
-          this.showListStd = this.listUsers.length>0
-          this.listUsers
-    } 
+      this.showListStd = this.listUsers.length > 0;
+      this.listUsers;
+    },
   },
   methods: {
     // ADD USER THE DATABASE
@@ -338,8 +400,12 @@ export default {
           this.objectUpdating = this.listUsers[i];
         }
       }
+<<<<<<< HEAD
       this.object.id = userId
 
+=======
+      this.object.id = userId;
+>>>>>>> 935d108ad1207aedb3ded64692c495019df14e21
     },
 
     // SHOWING CANCEL
@@ -362,7 +428,11 @@ export default {
           // this.objectUpdating = this.listUsers[i]
           // let data = this.this.objectUpdatings[i].student[0].if_follow_up = 'Yes';
           axios
+<<<<<<< HEAD
             .post("http://127.0.0.1:8000/api/follow_up/" + id, {
+=======
+            .post("http://127.0.0.1:8000/api/user/2" + id, {
+>>>>>>> 935d108ad1207aedb3ded64692c495019df14e21
               if_follow_up: "Yes",
             })
             .then(() => {
@@ -372,6 +442,14 @@ export default {
       }
     },
   },
+<<<<<<< HEAD
+=======
+  mounted() {
+    if (this.listUsers.length > 0) {
+      this.showListStd = true;
+    }
+  },
+>>>>>>> 935d108ad1207aedb3ded64692c495019df14e21
 };
 </script>
 
