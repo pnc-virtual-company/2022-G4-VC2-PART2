@@ -24,8 +24,14 @@ class Follow_up extends Model
         return $this->hasMany(Comment::class);
     }
 
-    public function bgColor()
+    public function replyMsg()
     {
-        return $this->hasOne(BgColor::class);
+        return $this->hasMany(ReplyMessage::class);
     }
+
+    public function numerOfFollowUpStd()
+    {
+        return $this->belongsTo(Follow_up::class);
+    }
+
 }

@@ -13,21 +13,19 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('bg_colors', function (Blueprint $table) {
+        Schema::create('reply_messages', function (Blueprint $table) {
             $table->id();
-            $table->string('bg_colors');
+            $table->foreignId("student_id")->constrained()->onDelete("CASCADE");
+            $table->foreignId("comment_id")->constrained()->onDelete("CASCADE");
             $table->foreignId("follow_up_id")->constrained()->onDelete("CASCADE");
+            $table->string('reply_msg');
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
+
     public function down()
     {
-        Schema::dropIfExists('bg_colors');
+        Schema::dropIfExists('reply_messages');
     }
 };

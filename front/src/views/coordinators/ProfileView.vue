@@ -227,7 +227,7 @@ export default {
   methods:{
     // GET DATA OF USER
     getUserFromAPI(){
-      axios.get("http://127.0.0.1:8000/api/user/2").then((res)=>{
+      axios.get("http://127.0.0.1:8000/api/user/3").then((res)=>{
         this.user = res.data[0];
         console.log(this.user.role)
         this.students = this.user.student[0]
@@ -243,17 +243,12 @@ export default {
         const fd = new FormData();
         fd.append('img', image)
         fd.append('_method', 'PUT')
-        axios.post('http://127.0.0.1:8000/api/upload/2', fd).then(()=>{
+        axios.post('http://127.0.0.1:8000/api/upload/3', fd).then(()=>{
           return this.getUserFromAPI();
         })
     },
     // Don't know
-    clearUploadImage() {
-      this.image=null;
-      this.profile='http://127.0.0.1:8000/storage/pictures/'+this.user.image
-      this.isUpload=false;
-      this.clickChangeprofile=!this.clickChangeprofile;
-    },
+
 
     },
     mounted(){
@@ -282,6 +277,4 @@ export default {
   border-color: var(--main-color);
 }
 </style>
-<!-- <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script> -->
 

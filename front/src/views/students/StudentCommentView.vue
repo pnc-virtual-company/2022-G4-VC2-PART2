@@ -26,14 +26,12 @@
             <!-- <div class="w-full">
                 <input  class="p-2 w-full text-sm text-gray-900 bg-gray-50 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write a message..." required>
             </div> -->
-            <TheComment class="bg-red-600" />
+
         </div>
     </div>
 </template>
 <script>
-import TheComment from '../../components/widget/comment/TheComment.vue'
 export default {
-    components:{ TheComment },
     data(){
         return {
             message: 'In progrees',

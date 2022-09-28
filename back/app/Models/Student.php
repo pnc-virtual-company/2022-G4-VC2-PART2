@@ -29,6 +29,16 @@ class Student extends Model
         return $this->hasMany(Follow_up::class);
     }
 
+    public function replyMsg()
+    {
+        return $this->hasMany(ReplyMessage::class);
+    }
+
+    public function numerOfFollowUpStd()
+    {
+        return $this->hasMany(NumberOfFollowUp::class);
+    }
+
     protected $hidden = [
         'user_id',
         'id',

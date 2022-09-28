@@ -13,14 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('comments', function (Blueprint $table) {
+        Schema::create('number_of_follow_ups', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("student_id")->constrained()->onDelete("CASCADE");
-            $table->foreignId("user_id")->constrained()->onDelete("CASCADE");
             $table->foreignId("follow_up_id")->constrained()->onDelete("CASCADE");
-            $table->string("topic");
-            $table->string("action")->default('normal');
-            $table->string("content");
+            $table->foreignId("student_id")->constrained()->onDelete("CASCADE");
             $table->timestamps();
         });
     }
@@ -32,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('comments');
+        Schema::dropIfExists('number_of_follow_ups');
     }
 };

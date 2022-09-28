@@ -141,6 +141,7 @@ emits:['close'],
     data()
     {
         return {
+            showAddNewClass:false,
             showAddNewBatch:false,
             dataToUpdate:[],
             showStudentForm: false,
@@ -349,9 +350,7 @@ emits:['close'],
          validateEmail() {
              if (this.email.trim() == '') {
                  this.userEmail = 'Email is required !';
-            } else {
-                 this.userEmail = 'Wrong format email !';
-             }
+            } 
              return this.userEmail;
              
         },

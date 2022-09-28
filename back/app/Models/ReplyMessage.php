@@ -5,12 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Comment extends Model
+class ReplyMessage extends Model
 {
     use HasFactory;
-    public function user()
+
+    public function comment()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Comment::class);
     }
 
     public function student()
@@ -21,10 +22,5 @@ class Comment extends Model
     public function followUp()
     {
         return $this->belongsTo(Follow_up::class);
-    }
-
-    public function replyMsg()
-    {
-        return $this->hasMany(ReplyMessage::class);
     }
 }
