@@ -13,6 +13,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId("user_id")->constrained()->onDelete("CASCADE");
             $table->foreignId("student_id")->constrained()->onDelete("CASCADE");
+            $table->string('closed')->default("No");
             $table->timestamps();
         });
     }

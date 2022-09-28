@@ -26,10 +26,9 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     //CRUD for batchs
     Route::apiResource('/batch',BatchController::class);
     //get all students follow up
-    Route::get('/getAllStudentFolowUp', [StudentController::class , 'getAllStudentFolowUp']);
+    Route::get('/get_follow_up', [StudentController::class , 'getAllStudentFolowUp']);
     //set student to follow up
-    Route::post('/setFollowUp/{id}', [StudentController::class , 'setFollowUp']);
-    //
+    Route::put('/get_follow_up/{id}', [StudentController::class , 'setFollowUp']);
 
 // });
     Route::get('/studentBaccth/{filter}', [StudentController::class, 'filterStudentByBatch']);

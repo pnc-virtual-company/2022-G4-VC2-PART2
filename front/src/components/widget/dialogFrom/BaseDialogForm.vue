@@ -141,6 +141,7 @@ emits:['close'],
     data()
     {
         return {
+            showAddNewClass:false,
             showAddNewBatch:false,
             dataToUpdate:[],
             showStudentForm: false,

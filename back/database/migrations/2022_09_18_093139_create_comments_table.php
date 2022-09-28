@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignId("user_id")->constrained()->onDelete("CASCADE");
             $table->foreignId("follow_up_id")->constrained()->onDelete("CASCADE");
             $table->string("topic");
+            $table->string("action")->default('normal');
             $table->string("content");
             $table->timestamps();
         });

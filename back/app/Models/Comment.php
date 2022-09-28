@@ -22,4 +22,9 @@ class Comment extends Model
     {
         return $this->belongsTo(Follow_up::class);
     }
+
+    public function replyMsg()
+    {
+        return $this->hasMany(ReplyMessage::class);
+    }
 }

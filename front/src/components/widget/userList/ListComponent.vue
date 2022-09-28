@@ -1,6 +1,6 @@
 <template>
   <!-- TITLE OF PAGES -->
-  <div class="overflow-y-auto relative z-50 p-4 ">
+  <div class=" relative z-50 p-4 ">
     <div class="py-1 pb-3">
       <h2 class="text-gray-800 text-2xl font-bold text-center mb-2 uppercase">{{ title }}</h2>
     </div>
@@ -189,15 +189,15 @@ export default {
     },
 
     //________ ADD STUDENT TO FOLLO UP LIST___________
-    addToFollupList(id){
-      for(var i = 0; i < this.listUsers.length; i++){
-        if(this.listUsers[i].id == id){
-          axios.post('http://127.0.0.1:8000/api/follow_up/'+id, {if_follow_up: 'Yes'} ).then(()=>{
-            console.log("Set sucess successfully");
-          })
-        }
-      }
-    },
+    // addToFollupList(id){
+    //   for(var i = 0; i < this.listUsers.length; i++){
+    //     if(this.listUsers[i].id == id){
+    //       axios.post('http://127.0.0.1:8000/api/follow_up/'+id, {if_follow_up: 'Yes'} ).then(()=>{
+    //         console.log("Set sucess successfully");
+    //       })
+    //     }
+    //   }
+    // },
     // _______Filter_____
     selectByBach(value){
       this.selectBatch = value;
