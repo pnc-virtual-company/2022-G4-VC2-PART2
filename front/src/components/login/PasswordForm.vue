@@ -64,12 +64,14 @@ export default {
             console.log("Login Success");
             if (ls.get("role") == "coordinator") {
               ls.set("coordinator_token", response.data.token);
+              router.push("/studentList");
             }else if(ls.get("role") == "teacher"){
               ls.set("teacher_token", response.data.token);
+              router.push("/studentList");
             }else{
               ls.set("student_token", response.data.token);
+              router.push("/studetnCommentview");
             }
-            router.push("/navigation");
             this.$emit("loginSuccess");
           }
         });

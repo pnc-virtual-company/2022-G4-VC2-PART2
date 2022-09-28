@@ -9,7 +9,7 @@
     <!-- ___LINK PAGE STUDENT SOCIAL AFIA_____ -->
     <div class="constainer flex justify-between w-8/12 ">
       <!-- _______SEE ONLY STUDETT_______ -->
-      <div class="w-8/12 flex justify-end" v-if="true">
+      <div class="w-8/12 flex justify-end" v-if="false">
           <div class="group inline-block w-5/12  text-center px-4">
             <div @click="$router.push({ path: '/studetnCommentview'})" class="w-11/12 py-1 flex items-center justify-center mx-1 duration-300 cursor-pointer rounded-sm  hover:bg-[#173043]">
               <span class="z-0 mx-2">
@@ -26,7 +26,7 @@
             <div class="w-3/12 scale-0 group-hover:scale-100  absolute duration-150 ease-in-out origin-top">
                 <div class="rounded-sm z-40 py-2" v-if='listnoteds.length>0'>
                   <span v-for="item of listnoteds" :key="item" class=" rounded-sm px-1 py-1 flex bg-white items-center font-extralight border text-black justify-start cursor-pointer hover:bg-gray-100" 
-                    @click="$router.push({ path:'/'})" @mouseover="mouseoverEvent(item.id)">
+                    @click="$router.push({ path: '/'})" @mouseover="mouseoverEvent(item.id)">
                     <i class="bg-green-600 rounded-full">
                       <img :src="item.img" alt="" width="40" height="40" class="rounded-full">
                     </i>
@@ -38,7 +38,7 @@
                       </svg>
                     </p>
                   </span>
-                  <!-- ____CLEAR NOTIFICATION____ -->
+                 
                   <span class="rounded-sm px-1 py-4 flex bg-[#97CBDC] items-center font-extralight border text-black justify-start cursor-pointer" @click="deleteByGroup">
                     <p class="font-extralight absolute left-[250px] hover:text-red-600">Clear All</p>
                   </span>
@@ -49,24 +49,30 @@
         </div>
         <!-- _____END STUDENT VIEW_____ -->
 
-      <!-- _____START PAGE VIEW Admin_____ -->
-     <div class="page w-4/6 500 flex justify-between px-3" v-if="true">
+      <!-- _____START PAGE VIEW_____ -->
+     <div class="page w-4/6 500 flex justify-between px-3"  v-if="checkRole == 'coordinator'">
         <router-link :to="item.link" class="w-2/6 py-1 flex items-center justify-center mx-7 duration-300 cursor-pointer" v-for="item of pages" :key="item">
           <img :src="item.icon" alt="" width="20" class="mr-5">
           <span class="text-4 text-white self-center whitespace-nowrap dark:text-white">{{ item.title }}</span>
         </router-link>
       </div>
-      <!-- ____________Teacher PAGE VIEW__________ -->
-     <div class="page w-4/6 500 flex justify-between px-3" v-if="false">
-        <!-- <router-link :to="item.link" class="w-2/6 py-1 flex items-center justify-center mx-7 duration-300 cursor-pointer" v-for="item of pages" :key="item">
+      <!-- ____________Teacher Page___________________ -->
+     <div class="page w-4/6 500 flex justify-between px-3"  v-if="checkRole == 'teacher'">
+        <router-link :to="item.link" class="w-2/6 py-1 flex items-center justify-center mx-7 duration-300 cursor-pointer" v-for="item of teacherPages" :key="item">
           <img :src="item.icon" alt="" width="20" class="mr-5">
           <span class="text-4 text-white self-center whitespace-nowrap dark:text-white">{{ item.teacher }}</span>
-        </router-link> -->
-        
+        </router-link>
+      </div>
+      <!-- ____________Students Page___________________ -->
+     <div class="page w-4/6 500 flex justify-between px-3"  v-if="checkRole == 'student'">
+        <router-link :to="item.link" class="w-2/6 py-1 flex items-center justify-center mx-7 duration-300 cursor-pointer" v-for="item of studentPages" :key="item">
+          <img :src="item.icon" alt="" width="20" class="mr-5">
+          <span class="text-4 text-white self-center whitespace-nowrap dark:text-white">{{ item.student }}</span>
+        </router-link>
       </div>
 
       <!-- ________STUDENT, ADMIN, COORDINATOR_____ -->
-      <div class="group inline-block w-0.5/6 text-center">
+      <div class="group inline-block w-0.5/6 text-center" >
         <button class="outline-none focus:outline-none px-3 py-2 rounded-sm flex items-center min-w-32 hover:bg-[#0b0d4a]">
           <span class="pr-1 flex-1 text-white">Coordinator</span>
           <span>
@@ -75,7 +81,7 @@
             </svg>
           </span>
         </button>
-      <!-- ________BUTTON GET TO DO PROFILE ________-->
+      <!-- ________BUTTON GET TO DO ________-->
         <ul class="bg-gra-500 rounded-sm scale-0 group-hover:scale-100 absolute duration-150 ease-in-out origin-top min-w-32 z-40" style="background:var(--main-color)">
           <li class="rounded-sm px-2 py-1 bg-[#004581] hover:bg-gray-400 flex justify-start cursor-pointer text-white" @click="$router.push({ path: '/profiles'})">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7 text-white mx-1">
@@ -83,7 +89,7 @@
             </svg>
             Profile
           </li>
-          <li class="rounded-sm px-2 py-1 bg-[#004581] hover:bg-gray-400 flex justify-start cursor-pointer text-white" @click="$router.push({ path: '/'})">
+          <li class="rounded-sm px-2 py-1 bg-[#004581] hover:bg-gray-400 flex justify-start cursor-pointer text-white" @click="Logout">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7 text-white mx-1">
               <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
             </svg>
@@ -95,36 +101,46 @@
       <!-- _________END PROFILE__________ -->
   </div>
 </div>
-
 </template>
 <script>
+import ls from 'localstorage-slim'
+import router from '@/router';
 export default {
     data(){
       return {
-        //admin Route
           pages: [
             {title:'Follow Up', link:'/listFollowUp', icon:'https://cdn-icons-png.flaticon.com/512/8486/8486151.png'},
             {title:'Teachers', link:'/teacherList', icon:'https://cdn-icons-png.flaticon.com/512/65/65882.png'},
             {title:'Students', link:'/studentList', icon:'https://cdn-icons-png.flaticon.com/512/57/57073.png'},
           ],
-          // Teacher Route
-          teacherPage:[
+          teacherPages: [
             {teacher:'Follow Up', link:'/listFollowUp', icon:'https://cdn-icons-png.flaticon.com/512/8486/8486151.png'},
             {teacher:'Students', link:'/studentList', icon:'https://cdn-icons-png.flaticon.com/512/57/57073.png'},
           ],
-          // Student Route
-          // studentPage:[
-          //   {student:''}
-          // ],
-          // listnoteds: [
-          //   {id:1, name: 'Veang Ly', time: '8:00 PM', img:'https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/480px-User_icon_2.svg.png'},
-          //   {id:2, name: 'Nga Ly', time: '9:00 AM', img:'https://cdn-icons-png.flaticon.com/512/149/149071.png'},
-          //   {id:3, name: 'Hak Ly', time: '10:00 PM', img:'https://cdn-icons-png.flaticon.com/512/219/219986.png'},
-          // ],
-          mouseID: ''
+          studentPages:[
+            {student:'Comments', link:'/studetnCommentview', icon:'https://cdn-icons-png.flaticon.com/512/8486/8486151.png'},
+          ],
+          listnoteds: [
+            {id:1, name: 'Veang Ly', time: '8:00 PM', img:'https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/480px-User_icon_2.svg.png'},
+            {id:2, name: 'Nga Ly', time: '9:00 AM', img:'https://cdn-icons-png.flaticon.com/512/149/149071.png'},
+            {id:3, name: 'Hak Ly', time: '10:00 PM', img:'https://cdn-icons-png.flaticon.com/512/219/219986.png'},
+          ],
+          mouseID: '',
+          checkRole: ls.get("role"),
+          isTeacher: false,
+          isStudent: false,
+          isFollowUp: false,
+          getPageStading: { teacher: null, student: null, follow: null },
       }
     },
     methods: {
+      Logout(){
+          localStorage.removeItem(ls.get('role')+'_token');
+          localStorage.removeItem('role',)
+          localStorage.removeItem('user');
+          localStorage.removeItem('email');
+          router.push('/')
+      },
        mouseoverEvent(id){
          this.mouseID = id;
        },
