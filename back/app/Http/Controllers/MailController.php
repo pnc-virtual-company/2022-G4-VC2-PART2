@@ -34,7 +34,7 @@ class MailController extends Controller
     }
     public function informFolowUpToStudent(Request $request)
     {
-        $student = User::where('email', '=', $request->email)->first();
+        $student = User::where('id', '=', $request->id)->first();
         $username = $student['first_name'] . ' ' . $student['last_name'];
         $email = $student['email'];
         $body = [

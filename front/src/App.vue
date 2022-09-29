@@ -3,7 +3,6 @@
       <NavBar v-if="!$route.meta.isHideNavigation" />
       <router-view/>
     </section>
-    <!-- <NavBar v-if="isLogin" @loginSuccess="isLogin=true"/> -->
   
 </template>
 <script>

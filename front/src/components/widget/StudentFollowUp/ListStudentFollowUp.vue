@@ -40,22 +40,24 @@ export default {
   props:['listStudents'],
   emits:['emit_add', 'emit_id'],
   // emits:['emit_id', 'emit_id'],
+ 
   data(){
     return{
       checked:[],
       isChatID:'',
-      avataImage:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4MmBOmXsxgjBhhfDh4FSeM9wsFRgC_2uPrE362dA&s'
+      avataImage: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4MmBOmXsxgjBhhfDh4FSeM9wsFRgC_2uPrE362dA&s',
+      idOfStudent: "",
     }
   },
   methods: {
     getCheckBox(){
       // console.log(this.checked)
-      for(let i = 0; i < this.checked.length; i++){
-          let id = this.checked[i]
-          console.log(id)
-          axios.put('http://127.0.0.1:8000/api/get_follow_up/'+id,{if_follow_up: 'Yes'}).then(()=>{
-          })
+        for(let i = 0; i < this.checked.length; i++){
+            let id = this.checked[i]
+            console.log(id)
+          axios.put('http://127.0.0.1:8000/api/get_follow_up/' + id, { if_follow_up: 'Yes' }).then(() => {})
         }
+        // axios.post('http://127.0.0.1:8000/api/mailFollowUp/' + id, { id: id }).then(() => {})
         this.$emit('emit_add', false)
     },
     // GET CLASS ACTIVE

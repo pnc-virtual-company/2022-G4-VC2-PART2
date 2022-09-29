@@ -38,7 +38,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 // ----------------------userLogin-------------------------
 Route::post('/resetPassword/{id}', [UserController::class, 'createNewPassword']);
 Route::post('/login', [UserController::class, 'login']);
-Route::post('/mailFollowUp', [MailController::class , 'informFolowUpToStudent']);
+Route::post('/mailFollowUp/{id}', [MailController::class , 'informFolowUpToStudent']);
 Route::post('/sendVeifyCode', [MailController::class , 'sendCodeResetPSW']);
 Route::put('/upload/{id}', [UserController::class, 'updateImage']);
 Route::apiResource('/batch',BatchController::class);
